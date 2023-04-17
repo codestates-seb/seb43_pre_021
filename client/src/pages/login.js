@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import logo from '../assets/logo-stackoverflow.png';
+import { useState, useRef } from 'react';
 
 const Container = styled.div`
-  border: 1px solid red;
   height: calc(100vh - 90px);
   display: flex;
   flex-direction: column;
@@ -15,7 +15,6 @@ const Header = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid blue;
   height: 90px;
 `;
 
@@ -89,7 +88,46 @@ const CreateAccount = styled.div`
   }
 `;
 
+const Alert = styled.div`
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+  display: flex;
+
+  > p {
+    color: orange;
+    font-size: 15px;
+    margin-right: 5px;
+  }
+`;
+
 function Login() {
+  const [email, setEmail] = useState('');
+  const [pwd, setPwd] = useState('');
+  const [clickLogin, setClickLogin] = useState(false);
+
+  const emailInput = useRef(null);
+  const pwdInput = useRef(null);
+
+  const handleEmail = e => {
+    setEmail(e.target.value);
+    console.log(email);
+  };
+
+  const handlePwd = e => {
+    setPwd(e.target.value);
+    console.log(pwd);
+  };
+
+  const handleLoginBtn = () => {
+    setClickLogin(!clickLogin);
+
+    // 이메일과 비번이 작성되지 않은 상태에서 로그인 버튼을 여러번 눌러도 경고창이 뜨기 위함
+    // 아래 if 로직이 없다면 로그인 버튼을 클릭함에 따라 clickLogin 값이 달라져서 email, pwd가 빈 값임에도 경고창이 없어지는 경우 발생
+    if (!email || !pwd) {
+      setClickLogin(true);
+    }
+  };
   return (
     <>
       <Header> 헤 더 자 리 </Header>
@@ -98,14 +136,24 @@ function Login() {
         <LoginBox>
           <EmailBox>
             <div>Email</div>
-            <input></input>
+            <input onChange={handleEmail} ref={emailInput}></input>
+            {clickLogin && !email ? (
+              <Alert>
+                <p>⚠️</p>Please enter your email
+              </Alert>
+            ) : null}
           </EmailBox>
           <PwdBox>
             <div>Password</div>
-            <input></input>
+            <input onChange={handlePwd} ref={pwdInput}></input>
+            {clickLogin && !pwd ? (
+              <Alert>
+                <p>⚠️</p> Please enter your password
+              </Alert>
+            ) : null}
           </PwdBox>
 
-          <LoginBtn>Log in</LoginBtn>
+          <LoginBtn onClick={handleLoginBtn}>Log in</LoginBtn>
         </LoginBox>
         <CreateAccount>Don&quot;t have an account ? Sign Up</CreateAccount>
       </Container>
