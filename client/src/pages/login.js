@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import logo from '../assets/logo-stackoverflow.png';
 import { useState, useRef } from 'react';
+import axios from 'axios';
 
 const Container = styled.div`
   height: calc(100vh - 90px);
@@ -126,6 +127,14 @@ function Login() {
     // 아래 if 로직이 없다면 로그인 버튼을 클릭함에 따라 clickLogin 값이 달라져서 email, pwd가 빈 값임에도 경고창이 없어지는 경우 발생
     if (!email || !pwd) {
       setClickLogin(true);
+    }
+
+    if (email && pwd) {
+      axios.get('http://localhost:3001/USER_DATA', { email, pwd }).then(res => {
+        res.data.filter(el => el.userID === email) && res.data.filter(el => el.pwd === pwd)
+          ? console.log('Access')
+          : console.log('Fail');
+      });
     }
   };
   return (
