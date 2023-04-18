@@ -164,7 +164,7 @@ function Login() {
           </EmailBox>
           <PwdBox>
             <div>Password</div>
-            <input onChange={handlePwd} ref={pwdInput}></input>
+            <input type="password" onChange={handlePwd} ref={pwdInput}></input>
             {clickLogin && !pwd ? (
               <Alert>
                 <p>⚠️</p> Please enter your password
