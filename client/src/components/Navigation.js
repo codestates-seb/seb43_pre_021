@@ -24,19 +24,23 @@ const NavigationBlock = styled.nav`
     }
   }
   span {
-    display: inline-block;
-    padding: 15px 10px;
+    &:not(.marL) {
+      display: inline-block;
+      padding: 15px 10px;
+    }
   }
   .questionsIcon {
-    font-size: 20px;
+    font-size: 18px;
     margin-right: 2px;
-    margin-bottom: 2px;
   }
   .active {
     background: #f2f2f2;
     border-right: 3px solid #f48225;
     color: #000;
     font-weight: bold;
+  }
+  .marL {
+    margin-left: 20px;
   }
   @media screen and (max-width: 640px) {
     display: none;
@@ -80,7 +84,7 @@ function Navigation() {
                   isPending ? 'pending' : isActive ? 'active' : ''
                 }
               >
-                Users
+                <span className="marL">Users</span>
               </NavLink>
             </li>
             <li>
@@ -90,7 +94,7 @@ function Navigation() {
                   isPending ? 'pending' : isActive ? 'active' : ''
                 }
               >
-                About
+                <span className="marL">About</span>
               </NavLink>
             </li>
           </ol>
