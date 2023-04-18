@@ -11,13 +11,6 @@ const Container = styled.div`
   background-color: #ededed;
 `;
 
-const Header = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 90px;
-`;
-
 const LogoBox = styled.div`
   display: flex;
   flex-direction: column;
@@ -176,7 +169,6 @@ function SignUp() {
 
   return (
     <>
-      <Header>헤 더 자 리</Header>
       <Container>
         <LogoBox>
           <LogoImg src={logo} />

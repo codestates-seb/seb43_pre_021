@@ -1,11 +1,65 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import styled from 'styled-components';
+import { GiEarthAmerica } from 'react-icons/gi';
+
+const NavigationBlock = styled.nav`
+  width: 164px;
+  padding-top: 24px;
+  li {
+    width: 100%;
+  }
+  a {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    padding: 15px 10px;
+    border-right: none;
+    transition: 0.1s;
+    &:hover {
+      background: #f2f2f2;
+      border-right: 3px solid #f48225;
+      color: #000;
+      font-weight: bold;
+    }
+  }
+  span {
+    &:not(.marL) {
+      display: inline-block;
+      padding: 15px 10px;
+    }
+  }
+  .questionsIcon {
+    font-size: 18px;
+    margin-right: 2px;
+  }
+  .active {
+    background: #f2f2f2;
+    border-right: 3px solid #f48225;
+    color: #000;
+    font-weight: bold;
+  }
+  .marL {
+    margin-left: 20px;
+  }
+  @media screen and (max-width: 640px) {
+    display: none;
+  }
+`;
 
 function Navigation() {
   return (
-    <nav>
+    <NavigationBlock>
       <ol>
         <li>
-          <Link to="/">Home</Link>
+          <NavLink
+            to="/"
+            className={({ isActive, isPending }) =>
+              isPending ? 'pending' : isActive ? 'active' : ''
+            }
+          >
+            Home
+          </NavLink>
         </li>
         <li>
           <ol>
@@ -13,24 +67,40 @@ function Navigation() {
               <span>Public</span>
             </li>
             <li>
-              <Link to="/questions">
-                <span>Questions</span>
-              </Link>
+              <NavLink
+                to="/questions"
+                className={({ isActive, isPending }) =>
+                  isPending ? 'pending' : isActive ? 'active' : ''
+                }
+              >
+                <GiEarthAmerica className="questionsIcon" />
+                Questions
+              </NavLink>
             </li>
             <li>
-              <Link to="/users">
-                <span>Users</span>
-              </Link>
+              <NavLink
+                to="/users"
+                className={({ isActive, isPending }) =>
+                  isPending ? 'pending' : isActive ? 'active' : ''
+                }
+              >
+                <span className="marL">Users</span>
+              </NavLink>
             </li>
             <li>
-              <Link to="/about">
-                <span>About</span>
-              </Link>
+              <NavLink
+                to="/about"
+                className={({ isActive, isPending }) =>
+                  isPending ? 'pending' : isActive ? 'active' : ''
+                }
+              >
+                <span className="marL">About</span>
+              </NavLink>
             </li>
           </ol>
         </li>
       </ol>
-    </nav>
+    </NavigationBlock>
   );
 }
 export default Navigation;
