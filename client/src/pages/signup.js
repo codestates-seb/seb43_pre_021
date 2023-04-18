@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 import logo from '../assets/logo-stackoverflow.png';
+import { useState } from 'react';
+import axios from 'axios';
 
 const Container = styled.div`
   height: calc(100vh - 90px);
@@ -115,7 +117,63 @@ const LoginBtn = styled.div`
   font-weight: 450;
 `;
 
+const Alert = styled.div`
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+  display: flex;
+
+  > p {
+    color: orange;
+    font-size: 15px;
+    margin-right: 5px;
+  }
+`;
+
 function SignUp() {
+  const [displayName, setDisplayName] = useState('');
+  const [email, setEmail] = useState('');
+  const [pwd, setPwd] = useState('');
+  const [clikedSignup, setClickedSignup] = useState(false);
+
+  const handleDisplayName = e => {
+    setDisplayName(e.target.value);
+    console.log(displayName);
+  };
+
+  const handleEmail = e => {
+    setEmail(e.target.value);
+    console.log(email);
+  };
+
+  const handlePwd = e => {
+    setPwd(e.target.value);
+    console.log(pwd);
+  };
+
+  const handleSignUpBtn = () => {
+    setClickedSignup(!clikedSignup);
+
+    if (!displayName || !email || !pwd) {
+      setClickedSignup(true);
+    }
+
+    if (displayName && email && pwd) {
+      axios
+        .post('http://localhost:3001/USER_DATA', {
+          displayName: displayName,
+          id: email,
+          pwd: pwd,
+        })
+        .then(response => {
+          console.log(response.data);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    }
+  };
+
   return (
     <>
       <Header>헤 더 자 리</Header>
@@ -127,17 +185,32 @@ function SignUp() {
         <SignUpBox>
           <DisplayNameBox>
             <div>Display Name</div>
-            <input></input>
+            <input onChange={handleDisplayName}></input>
+            {clikedSignup && !displayName ? (
+              <Alert>
+                <p>⚠️</p>Please enter your display name
+              </Alert>
+            ) : null}
           </DisplayNameBox>
           <EmailBox>
             <div>Email</div>
-            <input></input>
+            <input onChange={handleEmail}></input>
+            {clikedSignup && !email ? (
+              <Alert>
+                <p>⚠️</p>Please enter your email
+              </Alert>
+            ) : null}
           </EmailBox>
           <PwdBox>
             <div>Password</div>
-            <input></input>
+            <input onChange={handlePwd}></input>
+            {clikedSignup && !pwd ? (
+              <Alert>
+                <p>⚠️</p>Please enter your display password
+              </Alert>
+            ) : null}
           </PwdBox>
-          <LoginBtn>Sign Up</LoginBtn>
+          <LoginBtn onClick={handleSignUpBtn}>Sign Up</LoginBtn>
         </SignUpBox>
       </Container>
     </>
