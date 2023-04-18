@@ -1,8 +1,13 @@
 {
-    "USER_DATA": [
-      {
-        "userID": "fe",
-        "pwd": 1234
-      }
-    ]
-  }
+  "USER_DATA": [
+    {
+      "userID": "fe",
+      "pwd": 1234
+    },
+    {
+      "displayName": "choalstn",
+      "id": "choalstn@gmail.com",
+      "pwd": "11234"
+    }
+  ]
+}
