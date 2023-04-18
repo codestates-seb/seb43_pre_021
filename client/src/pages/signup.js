@@ -117,6 +117,19 @@ const LoginBtn = styled.div`
   font-weight: 450;
 `;
 
+const Alert = styled.div`
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+  display: flex;
+
+  > p {
+    color: orange;
+    font-size: 15px;
+    margin-right: 5px;
+  }
+`;
+
 function SignUp() {
   const [displayName, setDisplayName] = useState('');
   const [email, setEmail] = useState('');
@@ -173,14 +186,29 @@ function SignUp() {
           <DisplayNameBox>
             <div>Display Name</div>
             <input onChange={handleDisplayName}></input>
+            {clikedSignup && !displayName ? (
+              <Alert>
+                <p>⚠️</p>Please enter your display name
+              </Alert>
+            ) : null}
           </DisplayNameBox>
           <EmailBox>
             <div>Email</div>
             <input onChange={handleEmail}></input>
+            {clikedSignup && !email ? (
+              <Alert>
+                <p>⚠️</p>Please enter your email
+              </Alert>
+            ) : null}
           </EmailBox>
           <PwdBox>
             <div>Password</div>
             <input onChange={handlePwd}></input>
+            {clikedSignup && !pwd ? (
+              <Alert>
+                <p>⚠️</p>Please enter your display password
+              </Alert>
+            ) : null}
           </PwdBox>
           <LoginBtn onClick={handleSignUpBtn}>Sign Up</LoginBtn>
         </SignUpBox>
