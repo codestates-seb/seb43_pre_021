@@ -4,7 +4,7 @@ import { useState } from 'react';
 import axios from 'axios';
 
 const Container = styled.div`
-  height: calc(100vh - 90px);
+  height: calc(100vh - 75px);
   display: flex;
   justify-content: center;
   align-items: center;

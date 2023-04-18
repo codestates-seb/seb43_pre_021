@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../actions/index';
 
 const Container = styled.div`
-  height: calc(100vh - 90px);
+  height: calc(100vh - 75px);
   display: flex;
   flex-direction: column;
   justify-content: center;
