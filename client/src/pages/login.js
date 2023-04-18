@@ -4,6 +4,7 @@ import { useState, useRef } from 'react';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { login, loginSuccess } from '../actions/index';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   height: calc(100vh - 75px);
@@ -188,7 +189,9 @@ function Login() {
           {isLoggedIn ? <div>로그인 상태 리덕스로 관리 성공 ~!</div> : null}
           {userinfo ? <div>{userinfo}</div> : null}
         </LoginBox>
-        <CreateAccount>Don&lsquo;t have an account ? Sign Up</CreateAccount>
+        <CreateAccount>
+          Don&lsquo;t have an account ?<Link to="/signup">Sign Up</Link>
+        </CreateAccount>
       </Container>
     </>
   );
