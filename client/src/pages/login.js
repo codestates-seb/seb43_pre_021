@@ -138,6 +138,7 @@ function Login() {
           dispatch(login());
           dispatch(loginSuccess({ displayName: user[0].displayName }));
           console.log('Access');
+          document.location.href = '/';
         } else {
           console.log('Fail');
         }
