@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../Button';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from '../../actions';
 
 const TopBarBlock = styled.div`
   display: flex;
@@ -13,11 +14,22 @@ const TopBarBlock = styled.div`
   }
 `;
 
+const UserImg = styled.img`
+  width: 33px;
+  margin-right: 20px;
+  border-radius: 5px;
+`;
+
 function TopBar() {
   const isLoggedIn = useSelector(state => state.login.isLoggedIn);
   const userinfo = useSelector(state => state.userinfo.user);
 
-  console.log(isLoggedIn);
+  const dispatch = useDispatch();
+
+  const handleLogOutBtn = () => {
+    console.log('logout');
+    dispatch(logout());
+  };
 
   return (
     <TopBarBlock>
@@ -40,11 +52,11 @@ function TopBar() {
         <ol>
           <li>
             <Link to="/mypage">
-              <img src={userinfo.img} alt="userimg" />
+              <UserImg src={userinfo.img} alt="userimg" />
             </Link>
           </li>
           <li>
-            <Button>Log out</Button>
+            <Button onClick={handleLogOutBtn}>Log out</Button>
           </li>
         </ol>
       )}
