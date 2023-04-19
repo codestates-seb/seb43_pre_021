@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import Button from '../Button';
+import Button from '../Btn/button.js';
 
 const TopBarBlock = styled.div`
   display: flex;
