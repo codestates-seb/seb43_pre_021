@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import logo from '../assets/logo-stackoverflow.png';
 import { useState, useRef } from 'react';
 import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { login, loginSuccess } from '../actions/index';
 import { Link } from 'react-router-dom';
 
@@ -109,11 +109,6 @@ function Login() {
 
   const dispatch = useDispatch();
 
-  // 리덕스로 로그인 상태 관리가 정상 작동 되는지 테스트 - 삭제 예정
-  // 나중에 로그인 상태에 따라 화면이 다르게 보여질 때 이렇게 사용하면 됨
-  const isLoggedIn = useSelector(state => state.login.isLoggedIn);
-  const userinfo = useSelector(state => state.userinfo.user);
-
   const handleEmail = e => {
     setEmail(e.target.value);
   };
@@ -138,10 +133,8 @@ function Login() {
         if (user) {
           dispatch(login());
           dispatch(loginSuccess({ displayName: user[0].displayName, img: user[0].img }));
-          console.log('Access');
+
           document.location.href = '/';
-        } else {
-          console.log('Fail');
         }
       });
     }
@@ -171,8 +164,6 @@ function Login() {
           </PwdBox>
 
           <LoginBtn onClick={handleLoginBtn}>Log in</LoginBtn>
-          {isLoggedIn ? <div>{isLoggedIn}</div> : null}
-          {userinfo ? <div>{userinfo.displayName}</div> : null}
         </LoginBox>
         <CreateAccount>
           Don&lsquo;t have an account ?<Link to="/signup">Sign Up</Link>

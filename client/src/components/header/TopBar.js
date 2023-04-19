@@ -28,7 +28,6 @@ function TopBar() {
   const dispatch = useDispatch();
 
   const handleLogOutBtn = () => {
-    console.log('logout');
     dispatch(logout());
   };
 

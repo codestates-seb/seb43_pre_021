@@ -131,17 +131,14 @@ function SignUp() {
 
   const handleDisplayName = e => {
     setDisplayName(e.target.value);
-    console.log(displayName);
   };
 
   const handleEmail = e => {
     setEmail(e.target.value);
-    console.log(email);
   };
 
   const handlePwd = e => {
     setPwd(e.target.value);
-    console.log(pwd);
   };
 
   const handleSignUpBtn = () => {
@@ -159,8 +156,7 @@ function SignUp() {
           id: email,
           pwd: pwd,
         })
-        .then(response => {
-          console.log(response.data);
+        .then(() => {
           document.location.href = '/login';
         })
         .catch(error => {
