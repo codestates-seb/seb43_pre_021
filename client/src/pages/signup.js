@@ -161,6 +161,7 @@ function SignUp() {
         })
         .then(response => {
           console.log(response.data);
+          document.location.href = '/login';
         })
         .catch(error => {
           console.error(error);

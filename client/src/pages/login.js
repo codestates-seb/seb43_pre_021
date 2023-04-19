@@ -141,7 +141,7 @@ function Login() {
           dispatch(login());
           dispatch(loginSuccess({ displayName: user[0].displayName, img: user[0].img }));
           console.log('Access');
-          // document.location.href = '/';
+          document.location.href = '/';
         } else {
           console.log('Fail');
         }
