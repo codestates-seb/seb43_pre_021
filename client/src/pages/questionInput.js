@@ -1,4 +1,6 @@
-import { useEffect, useState, useRef } from 'react';
+import { useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setTitle, setContent } from '../store/questionSlice.js';
 import { Editor } from '@toast-ui/react-editor';
 import Navigation from '../components/Navigation';
 import '@toast-ui/editor/dist/toastui-editor.css';
@@ -6,22 +8,18 @@ import styled from 'styled-components';
 
 const QuestionInput = () => {
   const editorRef = useRef(null);
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+
+  const title = useSelector(state => state.question.title);
+  const content = useSelector(state => state.question.content);
+
+  const dispatch = useDispatch();
 
   const handleTitleChange = e => {
-    setTitle(e.target.value);
+    dispatch(setTitle(e.target.value));
   };
-
-  useEffect(() => {
-    if (editorRef.current) {
-      const editorInstance = editorRef.current.getInstance();
-      editorInstance.on('change', () => {
-        const updatedValue = editorInstance.getMarkdown();
-        setContent(updatedValue);
-      });
-    }
-  }, [editorRef]);
+  const handleContentChange = value => {
+    dispatch(setContent(value));
+  };
 
   const handlePostBtn = () => {
     console.log(title);
@@ -48,6 +46,7 @@ const QuestionInput = () => {
               ref={editorRef}
               placeholder="내용을 입력해주세요."
               initialValue={content}
+              onChange={handleContentChange}
               previewStyle="vertical" // 미리보기 스타일 지정
               height="300px" // 에디터 창 높이
               initialEditType="wysiwyg" // 초기 입력모드 설정(디폴트 markdown)
