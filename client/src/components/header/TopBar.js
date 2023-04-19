@@ -16,6 +16,7 @@ const TopBarBlock = styled.div`
 
 const UserImg = styled.img`
   width: 33px;
+  height: 32px;
   margin-right: 20px;
   border-radius: 5px;
 `;
