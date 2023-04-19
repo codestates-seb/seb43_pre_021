@@ -1,6 +1,6 @@
-import { useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { setTitle, setContent } from '../store/questionSlice.js';
+import { useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addQuestion } from '../store/questionSlice.js';
 import { Editor } from '@toast-ui/react-editor';
 import Navigation from '../components/Navigation';
 import '@toast-ui/editor/dist/toastui-editor.css';
@@ -9,21 +9,27 @@ import styled from 'styled-components';
 const QuestionInput = () => {
   const editorRef = useRef(null);
 
-  const title = useSelector(state => state.question.title);
-  const content = useSelector(state => state.question.content);
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
 
   const dispatch = useDispatch();
 
   const handleTitleChange = e => {
-    dispatch(setTitle(e.target.value));
+    setTitle(e.target.value);
   };
   const handleContentChange = value => {
-    dispatch(setContent(value));
+    setContent(value);
   };
 
-  const handlePostBtn = () => {
-    console.log(title);
-    console.log(content);
+  const handlePostBtn = e => {
+    const instance = editorRef.current.getInstance();
+    const content = instance.getMarkdown();
+    e.preventDefault();
+    dispatch(addQuestion({ title, content }));
+    console.log({ title, content });
+    setTitle('');
+    setContent('');
+    editorRef.current.getInstance().setMarkdown('');
   };
   return (
     <>
@@ -37,7 +43,7 @@ const QuestionInput = () => {
 
           <Form>
             <Label>제목</Label>
-            <Input value={title} onChange={handleTitleChange}></Input>
+            <Input type="text" value={title} onChange={handleTitleChange}></Input>
           </Form>
           <Form>
             <Label>질문 내용</Label>
@@ -45,7 +51,7 @@ const QuestionInput = () => {
             <StyledEditor
               ref={editorRef}
               placeholder="내용을 입력해주세요."
-              initialValue={content}
+              value={content}
               onChange={handleContentChange}
               previewStyle="vertical" // 미리보기 스타일 지정
               height="300px" // 에디터 창 높이
