@@ -154,6 +154,7 @@ function SignUp() {
     if (displayName && email && pwd) {
       axios
         .post('http://localhost:3001/USER_DATA', {
+          img: 'https://picsum.photos/250/250',
           displayName: displayName,
           id: email,
           pwd: pwd,

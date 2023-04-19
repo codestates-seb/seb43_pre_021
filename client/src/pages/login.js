@@ -112,7 +112,9 @@ function Login() {
   // 리덕스로 로그인 상태 관리가 정상 작동 되는지 테스트 - 삭제 예정
   // 나중에 로그인 상태에 따라 화면이 다르게 보여질 때 이렇게 사용하면 됨
   const isLoggedIn = useSelector(state => state.login.isLoggedIn);
-  const userinfo = useSelector(state => state.userinfo.user.displayName);
+  const userinfo = useSelector(state => state.userinfo.user);
+
+  console.log('userinfo', userinfo);
 
   const handleEmail = e => {
     setEmail(e.target.value);
@@ -137,28 +139,14 @@ function Login() {
           res.data.filter(el => el.userID === email) && res.data.filter(el => el.pwd === pwd);
         if (user) {
           dispatch(login());
-          dispatch(loginSuccess({ displayName: user[0].displayName }));
+          dispatch(loginSuccess({ displayName: user[0].displayName, img: user[0].img }));
           console.log('Access');
-          document.location.href = '/';
+          // document.location.href = '/';
         } else {
           console.log('Fail');
         }
       });
     }
-    // if (email && pwd) {
-    //   axios.get('http://localhost:3001/USER_DATA', { email, pwd }).then(res => {
-    //     console.log(res.data.find(el => el.user === email));
-    //     const user = res.data.find(el => el.userID === email && el.pwd === pwd);
-    //     console.log('a', user);
-    //     if (user) {
-    //       dispatch(login());
-    //       dispatch(loginSuccess(user));
-    //       console.log('Access');
-    //     } else {
-    //       console.log('Fail');
-    //     }
-    //   });
-    // }
   };
   return (
     <>
@@ -187,7 +175,7 @@ function Login() {
           <LoginBtn onClick={handleLoginBtn}>Log in</LoginBtn>
           {/* 리덕스로 로그인 상태 관리가 정상 작동 되는지 테스트 - 삭제 예정 */}
           {isLoggedIn ? <div>로그인 상태 리덕스로 관리 성공 ~!</div> : null}
-          {userinfo ? <div>{userinfo}</div> : null}
+          {userinfo ? <img src={userinfo.img} alt="img" /> : null}
         </LoginBox>
         <CreateAccount>
           Don&lsquo;t have an account ?<Link to="/signup">Sign Up</Link>
