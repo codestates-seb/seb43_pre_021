@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../Button';
+import { useSelector } from 'react-redux';
 
 const TopBarBlock = styled.div`
   display: flex;
@@ -13,10 +14,14 @@ const TopBarBlock = styled.div`
 `;
 
 function TopBar() {
-  const login = false;
+  const isLoggedIn = useSelector(state => state.login.isLoggedIn);
+  const userinfo = useSelector(state => state.userinfo.user);
+
+  console.log(isLoggedIn);
+
   return (
     <TopBarBlock>
-      {login === false ? (
+      {isLoggedIn === false ? (
         <ol>
           <li>
             <Link to="/login">
@@ -34,7 +39,9 @@ function TopBar() {
       ) : (
         <ol>
           <li>
-            <Link to="/mypage">마이페이지</Link>
+            <Link to="/mypage">
+              <img src={userinfo.img} alt="userimg" />
+            </Link>
           </li>
           <li>
             <Button>Log out</Button>

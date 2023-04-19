@@ -114,8 +114,6 @@ function Login() {
   const isLoggedIn = useSelector(state => state.login.isLoggedIn);
   const userinfo = useSelector(state => state.userinfo.user);
 
-  console.log('userinfo', userinfo);
-
   const handleEmail = e => {
     setEmail(e.target.value);
   };
@@ -173,9 +171,8 @@ function Login() {
           </PwdBox>
 
           <LoginBtn onClick={handleLoginBtn}>Log in</LoginBtn>
-          {/* 리덕스로 로그인 상태 관리가 정상 작동 되는지 테스트 - 삭제 예정 */}
-          {isLoggedIn ? <div>로그인 상태 리덕스로 관리 성공 ~!</div> : null}
-          {userinfo ? <img src={userinfo.img} alt="img" /> : null}
+          {isLoggedIn ? <div>{isLoggedIn}</div> : null}
+          {userinfo ? <div>{userinfo.displayName}</div> : null}
         </LoginBox>
         <CreateAccount>
           Don&lsquo;t have an account ?<Link to="/signup">Sign Up</Link>
