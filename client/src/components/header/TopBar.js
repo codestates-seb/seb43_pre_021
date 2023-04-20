@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { useSelector, useDispatch } from 'react-redux';
+import { logout } from '../../actions';
 import Button from '../Btn/button.js';
 
 const TopBarBlock = styled.div`
@@ -12,11 +14,26 @@ const TopBarBlock = styled.div`
   }
 `;
 
+const UserImg = styled.img`
+  width: 33px;
+  height: 32px;
+  margin-right: 20px;
+  border-radius: 5px;
+`;
+
 function TopBar() {
-  const login = false;
+  const isLoggedIn = useSelector(state => state.login.isLoggedIn);
+  const userinfo = useSelector(state => state.userinfo.user);
+
+  const dispatch = useDispatch();
+
+  const handleLogOutBtn = () => {
+    dispatch(logout());
+  };
+
   return (
     <TopBarBlock>
-      {login === false ? (
+      {isLoggedIn === false ? (
         <ol>
           <li>
             <Link to="/login">
@@ -34,10 +51,12 @@ function TopBar() {
       ) : (
         <ol>
           <li>
-            <Link to="/mypage">마이페이지</Link>
+            <Link to="/mypage">
+              <UserImg src={userinfo.img} alt="userimg" />
+            </Link>
           </li>
           <li>
-            <Button>Log out</Button>
+            <Button onClick={handleLogOutBtn}>Log out</Button>
           </li>
         </ol>
       )}

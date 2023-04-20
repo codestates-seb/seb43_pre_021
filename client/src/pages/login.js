@@ -2,11 +2,12 @@ import styled from 'styled-components';
 import logo from '../assets/logo-stackoverflow.png';
 import { useState, useRef } from 'react';
 import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../actions/index';
+import { useDispatch } from 'react-redux';
+import { login, loginSuccess } from '../actions/index';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
-  height: calc(100vh - 90px);
+  height: calc(100vh - 75px);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -108,10 +109,6 @@ function Login() {
 
   const dispatch = useDispatch();
 
-  // 리덕스로 로그인 상태 관리가 정상 작동 되는지 테스트 - 삭제 예정
-  // 나중에 로그인 상태에 따라 화면이 다르게 보여질 때 이렇게 사용하면 됨
-  const isLoggedIn = useSelector(state => state.login.isLoggedIn);
-
   const handleEmail = e => {
     setEmail(e.target.value);
   };
@@ -131,11 +128,13 @@ function Login() {
 
     if (email && pwd) {
       axios.get('http://localhost:3001/USER_DATA', { email, pwd }).then(res => {
-        if (res.data.filter(el => el.userID === email) && res.data.filter(el => el.pwd === pwd)) {
+        const user =
+          res.data.filter(el => el.userID === email) && res.data.filter(el => el.pwd === pwd);
+        if (user) {
           dispatch(login());
-          console.log('Access');
-        } else {
-          console.log('Fail');
+          dispatch(loginSuccess({ displayName: user[0].displayName, img: user[0].img }));
+
+          document.location.href = '/';
         }
       });
     }
@@ -165,10 +164,10 @@ function Login() {
           </PwdBox>
 
           <LoginBtn onClick={handleLoginBtn}>Log in</LoginBtn>
-          {/* 리덕스로 로그인 상태 관리가 정상 작동 되는지 테스트 - 삭제 예정 */}
-          {isLoggedIn ? <div>로그인 상태 리덕스로 관리 성공 ~!</div> : null}
         </LoginBox>
-        <CreateAccount>Don&quot;t have an account ? Sign Up</CreateAccount>
+        <CreateAccount>
+          Don&lsquo;t have an account ?<Link to="/signup">Sign Up</Link>
+        </CreateAccount>
       </Container>
     </>
   );

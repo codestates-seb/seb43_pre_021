@@ -4,7 +4,7 @@ import { useState } from 'react';
 import axios from 'axios';
 
 const Container = styled.div`
-  height: calc(100vh - 90px);
+  height: calc(100vh - 75px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -131,17 +131,14 @@ function SignUp() {
 
   const handleDisplayName = e => {
     setDisplayName(e.target.value);
-    console.log(displayName);
   };
 
   const handleEmail = e => {
     setEmail(e.target.value);
-    console.log(email);
   };
 
   const handlePwd = e => {
     setPwd(e.target.value);
-    console.log(pwd);
   };
 
   const handleSignUpBtn = () => {
@@ -154,12 +151,13 @@ function SignUp() {
     if (displayName && email && pwd) {
       axios
         .post('http://localhost:3001/USER_DATA', {
+          img: 'https://picsum.photos/250/250',
           displayName: displayName,
           id: email,
           pwd: pwd,
         })
-        .then(response => {
-          console.log(response.data);
+        .then(() => {
+          document.location.href = '/login';
         })
         .catch(error => {
           console.error(error);
