@@ -1,6 +1,9 @@
 import '@toast-ui/editor/dist/toastui-editor.css';
 import styled from 'styled-components';
 import Button from '../Btn/button';
+import { useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { postAnswer } from '../../actions/index';
 
 import { Editor } from '@toast-ui/react-editor';
 
@@ -31,12 +34,25 @@ const StyledEditor = styled(Editor)`
 `;
 
 const Answer = () => {
+  const editorRef = useRef(null);
+  const dispatch = useDispatch();
+
+  const handlePostBtn = () => {
+    const instance = editorRef.current.getInstance();
+    const content = instance.getMarkdown();
+    dispatch(postAnswer(content));
+  };
+
+  const answers = useSelector(state => state.answer.answer);
+  console.log('ans', answers);
+
   return (
     <>
       <Form>
         <Title>Your Answer</Title>
         <StyledEditor
           placeholder="내용을 입력해주세요."
+          ref={editorRef}
           previewStyle="vertical" // 미리보기 스타일 지정
           height="300px" // 에디터 창 높이
           initialEditType="wysiwyg" // 초기 입력모드 설정(디폴트 markdown)
@@ -51,7 +67,7 @@ const Answer = () => {
         ></StyledEditor>
       </Form>
 
-      <Button>Post your Answer</Button>
+      <Button onClick={handlePostBtn}>Post your Answer</Button>
     </>
   );
 };
