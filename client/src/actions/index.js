@@ -2,6 +2,7 @@ export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const ANSWER = 'ANSWER';
+export const ANSWER_UPDATE = 'ANSWER_UPDATE';
 
 export const login = () => ({
   type: 'LOGIN',
@@ -25,6 +26,16 @@ export const postAnswer = answer => {
     type: ANSWER,
     payload: {
       answer,
+    },
+  };
+};
+
+export const updateAnswer = (idx, newAnswer) => {
+  return {
+    type: ANSWER_UPDATE,
+    payload: {
+      idx,
+      newAnswer,
     },
   };
 };
