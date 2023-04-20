@@ -3,7 +3,7 @@ import Header from './components/header/Header';
 import Home from './pages/Home';
 import Questions from './pages/questions';
 import Question from './pages/question';
-import QuestionEdit from './pages/questionEdit';
+import QuestionInput from './pages/questionInput';
 import { createGlobalStyle } from 'styled-components';
 import { reset } from 'styled-reset';
 import Login from './pages/login';
@@ -32,7 +32,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/questions" element={<Questions />} />
           <Route path="/questions/:id" element={<Question />} />
-          <Route path="/questions/ask" element={<QuestionEdit />} />
+          <Route path="/questions/ask" element={<QuestionInput />} />
         </Routes>
       </BrowserRouter>
     </>
