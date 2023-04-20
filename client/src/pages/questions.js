@@ -6,14 +6,16 @@ const Questions = () => {
   return (
     <QuestionsDiv>
       <PageTitle>
-        <span>All Questions</span>
-        <p>total question</p>
+        <div>
+          <span>All Questions</span>
+          <p>total question</p>
+        </div>
+        <Link to="/questions/ask">
+          <Button background="#4393f7" color="#ffffff">
+            Ask Question
+          </Button>
+        </Link>
       </PageTitle>
-      <Link to="/questions/ask">
-        <Button background="#4393f7" color="#ffffff">
-          Ask Question
-        </Button>
-      </Link>
       <QuestionsContainer>
         <QuestionItem />
       </QuestionsContainer>
@@ -22,7 +24,18 @@ const Questions = () => {
 };
 
 const QuestionsDiv = styled.div``;
-const PageTitle = styled.div``;
+const PageTitle = styled.div`
+  padding: 2rem;
+  display: flex;
+  justify-content: space-between;
+  span {
+    font-size: 2rem;
+  }
+  p {
+    margin: 17px 0;
+    font-size: 1.5rem;
+  }
+`;
 const QuestionsContainer = styled.div``;
 
 export default Questions;
