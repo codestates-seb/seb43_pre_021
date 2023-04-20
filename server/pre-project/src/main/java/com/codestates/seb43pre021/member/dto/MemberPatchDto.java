@@ -3,10 +3,12 @@ package com.codestates.seb43pre021.member.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
 
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class MemberPatchDto {
