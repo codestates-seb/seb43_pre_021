@@ -14,6 +14,7 @@ const HeaderWrap = styled.header`
   border-top: 3px solid #f48225;
   height: 4.5rem;
   background-color: #f8f9f9;
+  box-shadow: 0px 3px 10px 0 rgba(0, 0, 0, 0.1);
 `;
 const HeaderBlock = styled.div`
   max-width: 1264px;

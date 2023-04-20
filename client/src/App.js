@@ -8,6 +8,7 @@ import { createGlobalStyle } from 'styled-components';
 import { reset } from 'styled-reset';
 import Login from './pages/login';
 import SignUp from './pages/signup';
+import MyPage from './pages/mypage';
 
 const GlobalStyle = createGlobalStyle`
 ${reset}
@@ -33,6 +34,7 @@ function App() {
           <Route path="/questions" element={<Questions />} />
           <Route path="/questions/:id" element={<Question />} />
           <Route path="/questions/ask" element={<QuestionInput />} />
+          <Route path="/mypage" element={<MyPage />} />
         </Routes>
       </BrowserRouter>
     </>

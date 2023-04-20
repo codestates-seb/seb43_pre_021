@@ -5,6 +5,7 @@ const StyledButton = styled.button`
   cursor: pointer;
   border-radius: 5px;
   font-size: 1rem;
+  white-space: nowrap;
 
   background: ${props => props.background || '#4393f7'};
   color: ${props => props.color || 'white'};

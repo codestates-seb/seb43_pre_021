@@ -9,6 +9,11 @@ const StyledContainer = styled.div`
     max-width: 1264px;
     width: 100%;
   }
+  @media screen and (max-width: 640px) {
+    nav {
+      display: none;
+    }
+  }
 `;
 
 function Container({ children }) {
