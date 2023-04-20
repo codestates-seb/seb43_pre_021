@@ -43,7 +43,7 @@ const Answer = () => {
     dispatch(postAnswer(content));
   };
 
-  const answers = useSelector(state => state.answer.answer);
+  const answers = useSelector(state => state.answer);
   console.log('ans', answers);
 
   return (

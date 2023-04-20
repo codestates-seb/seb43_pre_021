@@ -1,11 +1,15 @@
 import { ANSWER } from '../actions';
 
-export const answerReducer = (state = { answer: {} }, action) => {
+const initialState = {
+  answers: [],
+};
+
+export const answerReducer = (state = initialState, action) => {
   switch (action.type) {
     case ANSWER:
       return {
         ...state,
-        answer: action.payload.answer,
+        answers: [...state.answers, action.payload.answer],
       };
     default:
       return state;
