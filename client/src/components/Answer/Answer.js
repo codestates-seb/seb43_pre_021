@@ -43,6 +43,7 @@ const Answer = (...props) => {
   const handlePostBtn = () => {
     const instance = editorRef.current.getInstance();
     const content = instance.getMarkdown();
+    console.log(content);
     dispatch(postAnswer(content));
   };
 

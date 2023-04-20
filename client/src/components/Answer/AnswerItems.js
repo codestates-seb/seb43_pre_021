@@ -4,6 +4,8 @@ import { BsPencilSquare, BsTrash } from 'react-icons/bs';
 import { useState } from 'react';
 import Answer from './Answer';
 import { deleteAnswer } from '../../actions';
+import { Viewer } from '@toast-ui/react-editor';
+
 const Container = styled.div`
   border-bottom: 1px solid rgb(214, 217, 219);
   padding: 10px;
@@ -69,7 +71,7 @@ const AnswerList = () => {
                 <BsTrash onClick={e => handleDelete(idx, e)} />
               </IconContainer>
             </div>
-            <p>{el}</p>
+            <Viewer key={idx} initialValue={el} />
             {update ? <Answer from={update} text={el} idx={idx} /> : null}
           </Container>
         </div>
