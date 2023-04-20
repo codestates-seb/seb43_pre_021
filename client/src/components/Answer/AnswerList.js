@@ -1,8 +1,9 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { BsPencilSquare, BsTrash } from 'react-icons/bs';
 import { useState } from 'react';
 import Answer from './Answer';
+import { deleteAnswer } from '../../actions';
 const Container = styled.div`
   border-bottom: 1px solid rgb(214, 217, 219);
   padding: 10px;
@@ -42,11 +43,15 @@ const AnswerList = () => {
   const userinfo = useSelector(state => state.userinfo.user);
   const [update, setUpdate] = useState(false);
 
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-  const handleUpdate = (idx, e) => {
-    e.preventDefault();
+  const handleUpdate = () => {
     setUpdate(!update);
+  };
+
+  const handleDelete = (idx, e) => {
+    e.preventDefault();
+    dispatch(deleteAnswer(idx));
   };
   return (
     <>
@@ -60,8 +65,8 @@ const AnswerList = () => {
               </UserInfo>
 
               <IconContainer>
-                <BsPencilSquare onClick={e => handleUpdate(idx, e)} />
-                <BsTrash />
+                <BsPencilSquare onClick={handleUpdate} />
+                <BsTrash onClick={e => handleDelete(idx, e)} />
               </IconContainer>
             </div>
             <p>{el}</p>

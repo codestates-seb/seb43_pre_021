@@ -3,6 +3,7 @@ export const LOGOUT = 'LOGOUT';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const ANSWER = 'ANSWER';
 export const ANSWER_UPDATE = 'ANSWER_UPDATE';
+export const ANSWER_DELETE = 'ANSWER_DELETE';
 
 export const login = () => ({
   type: 'LOGIN',
@@ -36,6 +37,15 @@ export const updateAnswer = (idx, newAnswer) => {
     payload: {
       idx,
       newAnswer,
+    },
+  };
+};
+
+export const deleteAnswer = idx => {
+  return {
+    type: ANSWER_DELETE,
+    payload: {
+      idx,
     },
   };
 };

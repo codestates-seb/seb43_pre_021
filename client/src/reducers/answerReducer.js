@@ -1,4 +1,4 @@
-import { ANSWER, ANSWER_UPDATE } from '../actions';
+import { ANSWER, ANSWER_UPDATE, ANSWER_DELETE } from '../actions';
 
 const initialState = {
   answers: [],
@@ -16,6 +16,13 @@ export const answerReducer = (state = initialState, action) => {
       const { idx, newAnswer } = action.payload;
       const updatedAnswers = [...state.answers];
       updatedAnswers[idx] = newAnswer;
+      return { ...state, answers: updatedAnswers };
+    }
+
+    case ANSWER_DELETE: {
+      const { idx } = action.payload;
+      const updatedAnswers = [...state.answers];
+      updatedAnswers.splice(idx, 1);
       return { ...state, answers: updatedAnswers };
     }
     default:
