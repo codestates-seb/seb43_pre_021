@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { questionSlice } from '../store/questionSlice.js';
 import { loginReducer } from './loginReducer';
 import { userInfoReducer } from './userInfoReducer';
 import { persistReducer } from 'redux-persist';
@@ -16,6 +17,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   login: loginReducer,
   userinfo: userInfoReducer,
+  question: questionSlice.reducer,
 });
 
 export default persistReducer(persistConfig, rootReducer);

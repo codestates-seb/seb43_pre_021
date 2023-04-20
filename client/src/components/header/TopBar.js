@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import Button from '../Button';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../actions';
+import Button from '../Btn/button.js';
 
 const TopBarBlock = styled.div`
   display: flex;
