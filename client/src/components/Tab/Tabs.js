@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import Button from '../Btn/button';
 import { useState } from 'react';
+import ProfileTab from './ProfileTab';
+import SettingTab from './SettingTab';
 
 const UserHeader = styled.ol`
   display: flex;
@@ -19,6 +21,8 @@ const TabBtn = styled(Button)`
   font-size: 1rem;
 `;
 
+const UserSection = styled.section``;
+
 function Tabs() {
   const [isActive, setIsActive] = useState('profile');
 
@@ -29,30 +33,33 @@ function Tabs() {
     setIsActive('setting');
   }
   return (
-    <UserHeader>
-      <li>
-        <TabBtn
-          background="#fff"
-          border="#fff"
-          color="#999999"
-          className={isActive === 'profile' ? 'active' : ''}
-          onClick={profileBtn}
-        >
-          Profile
-        </TabBtn>
-      </li>
-      <li>
-        <TabBtn
-          background="#fff"
-          border="#fff"
-          color="#999999"
-          className={isActive === 'setting' ? 'active' : ''}
-          onClick={settingBtn}
-        >
-          Setting
-        </TabBtn>
-      </li>
-    </UserHeader>
+    <>
+      <UserHeader>
+        <li>
+          <TabBtn
+            background="#fff"
+            border="#fff"
+            color="#999999"
+            className={isActive === 'profile' ? 'active' : ''}
+            onClick={profileBtn}
+          >
+            Profile
+          </TabBtn>
+        </li>
+        <li>
+          <TabBtn
+            background="#fff"
+            border="#fff"
+            color="#999999"
+            className={isActive === 'setting' ? 'active' : ''}
+            onClick={settingBtn}
+          >
+            Setting
+          </TabBtn>
+        </li>
+      </UserHeader>
+      <UserSection>{isActive === 'profile' ? <ProfileTab /> : <SettingTab />}</UserSection>
+    </>
   );
 }
 

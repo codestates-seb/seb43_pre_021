@@ -9,6 +9,11 @@ import Tabs from '../components/Tab/Tabs';
 const MyPageBlock = styled.main`
   width: calc(100% - 164px);
   margin: 50px;
+  .flex_row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
 `;
 
 const UserInfoBlock = styled.div`
@@ -57,7 +62,7 @@ function MyPage() {
     <Container>
       <Navigation />
       <MyPageBlock>
-        <div>
+        <div className="flex_row">
           <UserInfoBlock>
             <UserImg src={userinfo.img} alt={`${userinfo.displayName} 이미지`} />
             <UserInfo>
