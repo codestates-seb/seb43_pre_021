@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import AskBtn from '../components/Btn/askBtn';
 import QuestionItem from '../components/Question/questionItem.js';
+import Button from '../components/button.js';
 const Questions = () => {
   return (
     <QuestionsDiv>
@@ -10,7 +10,9 @@ const Questions = () => {
         <p>total question</p>
       </PageTitle>
       <Link to="/questions/ask">
-        <AskBtn />
+        <Button background="#4393f7" color="#ffffff">
+          Ask Question
+        </Button>
       </Link>
       <QuestionsContainer>
         <QuestionItem />
