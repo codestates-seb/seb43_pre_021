@@ -34,6 +34,7 @@ function App() {
           <Route path="/questions" element={<Questions />} />
           <Route path="/questions/:id" element={<Question />} />
           <Route path="/questions/ask" element={<QuestionInput />} />
+          <Route path="/questions/ask/:id" element={<QuestionInput />} />
           <Route path="/mypage" element={<MyPage />} />
         </Routes>
       </BrowserRouter>

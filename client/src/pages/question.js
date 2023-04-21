@@ -11,6 +11,27 @@ const Question = () => {
 
   const [question, setQuestion] = useState('');
 
+  const onDelete = () => {
+    const confirmDelete = window.confirm('정말로 삭제하시겠습니까?');
+    if (confirmDelete) {
+      axios
+        .delete(`http://localhost:3001/QUESTION_DATA/${id}`)
+        .then(res => {
+          console.log(res.data);
+        })
+        .then(() => {
+          document.location.href = '/questions';
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    }
+  };
+
+  const onUpdate = () => {
+    document.location.href = `/questions/ask/${id}`;
+  };
+
   useEffect(() => {
     axios.get(`http://localhost:3001/QUESTION_DATA/${id}`).then(res => setQuestion(res.data));
   });
@@ -25,9 +46,9 @@ const Question = () => {
               <div>
                 <span>{question.title}</span>
                 <Response>
-                  <p>0 votes</p>
-                  <p>0 answer</p>
-                  <p>0 views</p>
+                  <p> 0 votes </p>
+                  <p> 0 answer </p>
+                  <p> 0 views </p>
                 </Response>
               </div>
               <Link to="/questions/ask">
@@ -39,10 +60,10 @@ const Question = () => {
             <ContentContainer>
               <div>{question.content}</div>
               <BtnContainer>
-                <Button background="none" border="#ffffff" color="#888888">
+                <Button onClick={onUpdate} background="none" border="#ffffff" color="#888888">
                   수정
                 </Button>
-                <Button background="none" border="#ffffff" color="#888888">
+                <Button onClick={onDelete} background="none" border="#ffffff" color="#888888">
                   삭제
                 </Button>
               </BtnContainer>
@@ -67,7 +88,7 @@ const PageTitle = styled.div`
     font-size: 2rem;
   }
   p {
-    margin-top: 17px;
+    margin: 17px 10px 0 10px;
     font-size: 1.5rem;
   }
 `;
