@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Navigation from '../components/Navigation';
 import Container from '../components/Container';
-import Button from '../components/Btn/button';
+import Button from '../components/button';
 import styled from 'styled-components';
 import Tabs from '../components/Tab/Tabs';
 

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../actions';
-import Button from '../Btn/button.js';
+import Button from '../button.js';
 
 const TopBarBlock = styled.div`
   display: flex;

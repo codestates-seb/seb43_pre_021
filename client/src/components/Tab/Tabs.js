@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Button from '../Btn/button';
+import Button from '../button';
 import { useState } from 'react';
 import ProfileTab from './ProfileTab';
 import SettingTab from './SettingTab';

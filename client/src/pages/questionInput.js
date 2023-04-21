@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { addQuestion } from '../store/questionSlice.js';
 import { Editor } from '@toast-ui/react-editor';
 import Navigation from '../components/Navigation';
+import { useNavigate } from 'react-router-dom';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import styled from 'styled-components';
 
@@ -20,16 +21,22 @@ const QuestionInput = () => {
   const handleContentChange = value => {
     setContent(value);
   };
+  const navigate = useNavigate();
 
   const handlePostBtn = e => {
     const instance = editorRef.current.getInstance();
     const content = instance.getMarkdown();
     e.preventDefault();
-    dispatch(addQuestion({ title, content }));
-    console.log({ title, content });
-    setTitle('');
-    setContent('');
-    editorRef.current.getInstance().setMarkdown('');
+
+    if (title === '' || content === '') {
+      alert('내용을 입력해주세요!');
+    } else {
+      dispatch(addQuestion({ title, content }));
+      setTitle('');
+      setContent('');
+      editorRef.current.getInstance().setMarkdown('');
+      navigate('/questions');
+    }
   };
   return (
     <>
