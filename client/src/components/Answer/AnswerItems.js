@@ -1,11 +1,12 @@
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 import { BsPencilSquare, BsTrash } from 'react-icons/bs';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Answer from './Answer';
 import { deleteAnswer } from '../../actions';
 import { Viewer } from '@toast-ui/react-editor';
-
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 const Container = styled.div`
   border-bottom: 1px solid rgb(214, 217, 219);
   padding: 10px;
@@ -40,10 +41,13 @@ const UserImg = styled.img`
   border-radius: 5px;
 `;
 
-const AnswerList = () => {
-  const answers = useSelector(state => state.answer.answers);
+const AnswerItems = () => {
+  // const answers = useSelector(state => state.answer.answers);
   const userinfo = useSelector(state => state.userinfo.user);
   const [update, setUpdate] = useState(false);
+  const [a, setA] = useState([]);
+
+  let { id } = useParams();
 
   const dispatch = useDispatch();
 
@@ -55,9 +59,13 @@ const AnswerList = () => {
     e.preventDefault();
     dispatch(deleteAnswer(idx));
   };
+
+  useEffect(() => {
+    axios.get(`http://localhost:3001/QUESTION_DATA/${id}`).then(res => setA(res.data.answer));
+  }, []);
   return (
     <>
-      {answers.map((el, idx) => (
+      {a.map((el, idx) => (
         <div key={idx}>
           <Container>
             <div>
@@ -71,7 +79,7 @@ const AnswerList = () => {
                 <BsTrash onClick={e => handleDelete(idx, e)} />
               </IconContainer>
             </div>
-            <Viewer key={idx} initialValue={el} />
+            <Viewer key={idx} initialValue={el.content} />
             {update ? <Answer from={update} text={el} idx={idx} /> : null}
           </Container>
         </div>
@@ -80,4 +88,4 @@ const AnswerList = () => {
   );
 };
 
-export default AnswerList;
+export default AnswerItems;
