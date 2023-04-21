@@ -1,9 +1,8 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { BsPencilSquare, BsTrash } from 'react-icons/bs';
 import { useEffect, useState } from 'react';
 import Answer from './Answer';
-import { deleteAnswer } from '../../actions';
 import { Viewer } from '@toast-ui/react-editor';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -49,15 +48,22 @@ const AnswerItems = () => {
 
   let { id } = useParams();
 
-  const dispatch = useDispatch();
-
   const handleUpdate = () => {
     setUpdate(!update);
   };
 
   const handleDelete = (idx, e) => {
     e.preventDefault();
-    dispatch(deleteAnswer(idx));
+    axios.get(`http://localhost:3001/QUESTION_DATA/${id}`).then(res => {
+      const deleteEl = res.data.answer.filter(el => el.id == idx + 1);
+      const result = res.data.answer.filter(el => el.id !== deleteEl[0].id);
+      console.log(result);
+
+      axios.patch(`http://localhost:3001/QUESTION_DATA/${id}`, { answer: result }).then(() => {
+        const updatedAnswers = a.filter((el, i) => i !== idx);
+        setA(updatedAnswers);
+      });
+    });
   };
 
   useEffect(() => {

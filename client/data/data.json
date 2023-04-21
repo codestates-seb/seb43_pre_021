@@ -27,13 +27,7 @@
       "id": 1,
       "title": "질문입니다.",
       "content": "질문의 내용입니다.",
-      "answer": [
-        {
-          "author": "choalstn",
-          "id": "1",
-          "content": "mmmmm"
-        }
-      ]
+      "answer": []
     },
     {
       "id": 2,
