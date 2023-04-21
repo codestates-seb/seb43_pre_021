@@ -1,19 +1,17 @@
-import { useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { addQuestion } from '../store/questionSlice.js';
+import { useRef, useState, useEffect } from 'react';
 import { Editor } from '@toast-ui/react-editor';
 import Navigation from '../components/Navigation';
-import { useNavigate } from 'react-router-dom';
+import Container from '../components/Container.js';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import styled from 'styled-components';
+import axios from 'axios';
 
 const QuestionInput = () => {
   const editorRef = useRef(null);
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-
-  const dispatch = useDispatch();
+  const [data, setData] = useState([]);
 
   const handleTitleChange = e => {
     setTitle(e.target.value);
@@ -21,7 +19,6 @@ const QuestionInput = () => {
   const handleContentChange = value => {
     setContent(value);
   };
-  const navigate = useNavigate();
 
   const handlePostBtn = e => {
     const instance = editorRef.current.getInstance();
@@ -31,63 +28,83 @@ const QuestionInput = () => {
     if (title === '' || content === '') {
       alert('내용을 입력해주세요!');
     } else {
-      dispatch(addQuestion({ title, content }));
+      axios
+        .post('http://localhost:3001/QUESTION_DATA', {
+          id: data.length + 1,
+          title: title,
+          content: content,
+          answer: [],
+        })
+        .then(res => {
+          const id = res.data.id;
+          document.location.href = `/questions/${id}`;
+        })
+        .catch(error => {
+          console.error(error);
+        });
       setTitle('');
       setContent('');
       editorRef.current.getInstance().setMarkdown('');
-      navigate('/questions');
     }
   };
-  return (
-    <>
-      <Container>
-        <Navigation />
-        <InputDiv>
-          <PageTitle>
-            질문하기
-            <hr color="#d9d9d9" />
-          </PageTitle>
+  useEffect(() => {
+    axios.get('http://localhost:3001/QUESTION_DATA').then(res => setData(res.data));
+  }, []);
 
-          <Form>
-            <Label>제목</Label>
-            <Input type="text" value={title} onChange={handleTitleChange}></Input>
-          </Form>
-          <Form>
-            <Label>질문 내용</Label>
-            <p>답변이 필요한 궁금하신 내용을 작성해주세요.</p>
-            <StyledEditor
-              ref={editorRef}
-              placeholder="내용을 입력해주세요."
-              value={content}
-              onChange={handleContentChange}
-              previewStyle="vertical" // 미리보기 스타일 지정
-              height="300px" // 에디터 창 높이
-              initialEditType="wysiwyg" // 초기 입력모드 설정(디폴트 markdown)
-              toolbarItems={[
-                // 툴바 옵션 설정
-                ['heading', 'bold', 'italic', 'strike'],
-                ['hr', 'quote'],
-                ['ul', 'ol', 'task', 'indent', 'outdent'],
-                ['table', 'image', 'link'],
-                ['code', 'codeblock'],
-              ]}
-            ></StyledEditor>
-          </Form>
-          <Button onClick={handlePostBtn}>Post</Button>
-        </InputDiv>
-      </Container>
-    </>
+  return (
+    <Container>
+      <Navigation />
+      <InputDiv>
+        <PageTitle>
+          질문하기
+          <hr color="#d9d9d9" />
+        </PageTitle>
+
+        <Form>
+          <Label>제목</Label>
+          <Input type="text" value={title} onChange={handleTitleChange}></Input>
+        </Form>
+        <Form>
+          <Label>질문 내용</Label>
+          <p>답변이 필요한 궁금하신 내용을 작성해주세요.</p>
+          <Editor
+            ref={editorRef}
+            placeholder="내용을 입력해주세요."
+            value={content}
+            onChange={handleContentChange}
+            previewStyle="vertical" // 미리보기 스타일 지정
+            height="300px" // 에디터 창 높이
+            toolbarItems={[
+              [
+                'heading',
+                'bold',
+                'italic',
+                'hr',
+                'quote',
+                'ul',
+                'ol',
+                'task',
+                'table',
+                'image',
+                'link',
+                'code',
+                'codeblock',
+              ],
+            ]}
+          ></Editor>
+        </Form>
+        <Button onClick={handlePostBtn}>Post</Button>
+      </InputDiv>
+    </Container>
   );
 };
+
 const InputDiv = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 5rem;
-`;
-const Container = styled.div`
-  display: flex;
 `;
 
 const PageTitle = styled.span`
@@ -96,7 +113,6 @@ const PageTitle = styled.span`
 `;
 const Form = styled.div`
   width: 100%;
-
   border: 1px solid #d9d9d9;
   border-radius: 2px;
   display: flex;
@@ -133,13 +149,6 @@ const Button = styled.button`
   }
   &:active {
     background-color: #e5883e;
-  }
-`;
-const StyledEditor = styled(Editor)`
-  font-size: 16px;
-
-  @media (max-width: 800px) {
-    font-size: 11px;
   }
 `;
 

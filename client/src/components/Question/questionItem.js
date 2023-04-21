@@ -1,8 +1,21 @@
-import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import axios from 'axios';
 
 const QuestionItem = () => {
-  const questions = useSelector(state => state.question.questions);
+  const [questions, setQuestions] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get('http://localhost:3001/QUESTION_DATA')
+      .then(res => {
+        setQuestions(res.data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }, []);
 
   return (
     <div>
@@ -15,7 +28,9 @@ const QuestionItem = () => {
               <p>0 views</p>
             </Response>
             <Question>
-              <h3>{question.title}</h3>
+              <Link to={`/questions/${question.id}`}>
+                <h3>{question.title}</h3>
+              </Link>
               <content>{question.content}</content>
             </Question>
           </Item>
