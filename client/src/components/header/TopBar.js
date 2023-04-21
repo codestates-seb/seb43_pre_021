@@ -32,7 +32,7 @@ function TopBar() {
     dispatch(logout());
     navigate('/');
   };
-  console.log(userinfo.id);
+
   return (
     <TopBarBlock>
       {isLoggedIn === false ? (

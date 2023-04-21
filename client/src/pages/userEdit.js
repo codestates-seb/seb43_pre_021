@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import Tabs from '../components/Users/Tab/Tabs';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import ProfileTab from '../components/Users/Tab/ProfileTab';
+import SettingTab from '../components/Users/Tab/SettingTab';
 import UserHeader from '../components/Users/UserHeader';
 
 const MyPageBlock = styled.main`
@@ -19,7 +19,7 @@ const MyPageBlock = styled.main`
   }
 `;
 
-function User() {
+function UserEdit() {
   let { id } = useParams();
   const isLoggedIn = useSelector(state => state.login.isLoggedIn);
   const [user, setUser] = useState([]);
@@ -35,10 +35,10 @@ function User() {
         <UserHeader isLoggedIn={isLoggedIn} user={user} />
         <div>
           <Tabs />
-          <ProfileTab />
+          <SettingTab />
         </div>
       </MyPageBlock>
     </Container>
   );
 }
-export default User;
+export default UserEdit;

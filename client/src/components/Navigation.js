@@ -54,14 +54,7 @@ function Navigation() {
     <NavigationBlock>
       <ol>
         <li>
-          <NavLink
-            to="/"
-            className={({ isActive, isPending }) =>
-              isPending ? 'pending' : isActive ? 'active' : ''
-            }
-          >
-            Home
-          </NavLink>
+          <NavLink to="/">Home</NavLink>
         </li>
         <li>
           <ol>
@@ -69,33 +62,18 @@ function Navigation() {
               <span>Public</span>
             </li>
             <li>
-              <NavLink
-                to="/questions"
-                className={({ isActive, isPending }) =>
-                  isPending ? 'pending' : isActive ? 'active' : ''
-                }
-              >
+              <NavLink to="/questions">
                 <GiEarthAmerica className="questionsIcon" />
                 Questions
               </NavLink>
             </li>
             <li>
-              <NavLink
-                to="/users"
-                className={({ isActive, isPending }) =>
-                  isPending ? 'pending' : isActive ? 'active' : ''
-                }
-              >
+              <NavLink to="/users">
                 <span className="marL">Users</span>
               </NavLink>
             </li>
             <li>
-              <NavLink
-                to="/about"
-                className={({ isActive, isPending }) =>
-                  isPending ? 'pending' : isActive ? 'active' : ''
-                }
-              >
+              <NavLink to="/about">
                 <span className="marL">About</span>
               </NavLink>
             </li>
