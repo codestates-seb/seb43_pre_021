@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import logo from '../assets/logo-stackoverflow.png';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const Container = styled.div`
@@ -128,6 +128,7 @@ function SignUp() {
   const [email, setEmail] = useState('');
   const [pwd, setPwd] = useState('');
   const [clikedSignup, setClickedSignup] = useState(false);
+  const [userData, setUserData] = useState([]);
 
   const handleDisplayName = e => {
     setDisplayName(e.target.value);
@@ -151,9 +152,10 @@ function SignUp() {
     if (displayName && email && pwd) {
       axios
         .post('http://localhost:3001/USER_DATA', {
-          img: 'https://picsum.photos/250/250',
+          id: userData.length + 1,
+          img: 'https://images.unsplash.com/photo-1680903413454-ff0f93efbcc3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2864&q=80',
           displayName: displayName,
-          id: email,
+          email: email,
           pwd: pwd,
         })
         .then(() => {
@@ -164,6 +166,10 @@ function SignUp() {
         });
     }
   };
+
+  useEffect(() => {
+    axios.get('http://localhost:3001/USER_DATA').then(res => setUserData(res.data));
+  }, []);
 
   return (
     <>
@@ -193,7 +199,7 @@ function SignUp() {
           </EmailBox>
           <PwdBox>
             <div>Password</div>
-            <input onChange={handlePwd}></input>
+            <input type="password" onChange={handlePwd}></input>
             {clikedSignup && !pwd ? (
               <Alert>
                 <p>⚠️</p>Please enter your display password
