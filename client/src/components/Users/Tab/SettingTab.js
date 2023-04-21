@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Tabs from './SettingTab/Tabs';
 
 const SettingSection = styled.div`
   margin-top: 30px;
@@ -10,7 +11,7 @@ const SettingSection = styled.div`
 function SettingTab() {
   return (
     <SettingSection>
-      <div>세팅페이지입니다</div>
+      <Tabs />
     </SettingSection>
   );
 }

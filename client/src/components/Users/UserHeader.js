@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Button from '../button';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const UserInfoBlock = styled.div`
   display: flex;
@@ -8,11 +8,12 @@ const UserInfoBlock = styled.div`
   align-items: center;
 `;
 
-const UserImg = styled.img`
-  max-width: 128px;
-  max-height: 128px;
+const UserImg = styled.div`
+  width: 128px;
+  height: 128px;
   border-radius: 50%;
-  margin: 8px;
+  background: ${props => `url(${props.background}) no-repeat center`};
+  background-size: 128px;
 `;
 
 const UserInfo = styled.div`
@@ -37,34 +38,44 @@ const MyPageBtnBlock = styled.ol`
 
 const MyPageBtn = styled(Button)`
   padding: 10px 20px;
+  cursor: pointer;
   border-radius: 20px;
+  font-size: 1rem;
+  color: #fff;
+  background: #e5883e;
 `;
 
-function UserHeader({ user, isLoggedIn }) {
+function UserHeader({ user, isLoggedIn, userinfo }) {
   return (
     <div className="flex_row">
       <UserInfoBlock>
-        <UserImg src={user.img} alt={`${user.displayName} 이미지`} />
+        <UserImg background={user.img} />
         <UserInfo>
           <UserName>{user.displayName}</UserName>
           <p>가입한 날짜표시</p>
         </UserInfo>
       </UserInfoBlock>
-      {isLoggedIn ? (
+      {isLoggedIn && userinfo === user.id ? (
         <MyPageBtnBlock>
           <li>
-            <Link to="">
-              <MyPageBtn background="#E5883E" border="#E5883E">
-                edit profile
-              </MyPageBtn>
-            </Link>
+            <MyPageBtn
+              as={NavLink}
+              to={`/users/edit/${user.id}`}
+              background="#E5883E"
+              border="#E5883E"
+            >
+              edit profile
+            </MyPageBtn>
           </li>
           <li>
-            <Link to="">
-              <MyPageBtn background="#E5883E" border="#E5883E">
-                delete profile
-              </MyPageBtn>
-            </Link>
+            <MyPageBtn
+              as={NavLink}
+              to={`/users/delete/${user.id}`}
+              background="#E5883E"
+              border="#E5883E"
+            >
+              delete profile
+            </MyPageBtn>
           </li>
         </MyPageBtnBlock>
       ) : null}

@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import SettingTab from '../components/Users/Tab/SettingTab';
 import UserHeader from '../components/Users/UserHeader';
+import DeleteSection from '../components/Users/Tab/SettingTab/DeleteSection';
 
 const MyPageBlock = styled.main`
   width: calc(100% - 164px);
@@ -19,7 +20,7 @@ const MyPageBlock = styled.main`
   }
 `;
 
-function UserEdit() {
+function UserDelete() {
   let { id } = useParams();
   const isLoggedIn = useSelector(state => state.login.isLoggedIn);
   const userinfo = useSelector(state => state.userinfo.user);
@@ -35,11 +36,13 @@ function UserEdit() {
       <MyPageBlock>
         <UserHeader isLoggedIn={isLoggedIn} user={user} userinfo={userinfo.id} />
         <div>
-          <Tabs isLoggedIn={isLoggedIn} user={user.id} />
-          <SettingTab />
+          <Tabs isLoggedIn={isLoggedIn} user={user.id} active="active" />
+          <SettingTab>
+            <DeleteSection />
+          </SettingTab>
         </div>
       </MyPageBlock>
     </Container>
   );
 }
-export default UserEdit;
+export default UserDelete;

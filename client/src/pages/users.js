@@ -41,12 +41,12 @@ const UserInfo = styled.div`
 `;
 
 const UserImg = styled.div`
-  img {
-    max-width: 128px;
-    max-height: 128px;
-    border-radius: 50%;
-    margin: 8px;
-  }
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+  background: ${props => `url(${props.background}) no-repeat center`};
+  background-size: 128px;
+  margin-right: 15px;
 `;
 
 function Users() {
@@ -65,9 +65,7 @@ function Users() {
             return (
               <li key={idx}>
                 <Link to={`/users/${user.id}`}>
-                  <UserImg>
-                    <img src={user.img} alt={user.displayName} />
-                  </UserImg>
+                  <UserImg background={user.img} />
                   <UserInfo>
                     <p>{user.displayName}</p>
                     <span>{user.email}</span>

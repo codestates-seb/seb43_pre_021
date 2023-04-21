@@ -22,6 +22,7 @@ const MyPageBlock = styled.main`
 function User() {
   let { id } = useParams();
   const isLoggedIn = useSelector(state => state.login.isLoggedIn);
+  const userinfo = useSelector(state => state.userinfo.user);
   const [user, setUser] = useState([]);
 
   useEffect(() => {
@@ -32,9 +33,9 @@ function User() {
     <Container>
       <Navigation />
       <MyPageBlock>
-        <UserHeader isLoggedIn={isLoggedIn} user={user} />
+        <UserHeader isLoggedIn={isLoggedIn} user={user} userinfo={userinfo.id} />
         <div>
-          <Tabs />
+          <Tabs isLoggedIn={isLoggedIn} user={user.id} activeU={'active'} />
           <ProfileTab />
         </div>
       </MyPageBlock>
