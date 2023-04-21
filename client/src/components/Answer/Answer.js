@@ -2,8 +2,7 @@ import '@toast-ui/editor/dist/toastui-editor.css';
 import styled from 'styled-components';
 import Button from '../button';
 import { useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { updateAnswer } from '../../actions/index';
+import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
@@ -36,9 +35,9 @@ const StyledEditor = styled(Editor)`
 `;
 
 const Answer = (...props) => {
+  console.log('props', props);
   let { id } = useParams();
   const editorRef = useRef(null);
-  const dispatch = useDispatch();
 
   const [edit, setEdit] = useState(true);
 
@@ -64,11 +63,22 @@ const Answer = (...props) => {
     // dispatch(postAnswer(content));
   };
 
-  const handleEditBtn = (idx, e) => {
-    e.preventDefault();
+  const handleEditBtn = () => {
     const instance = editorRef.current.getInstance();
     const content = instance.getMarkdown();
-    dispatch(updateAnswer(idx, content));
+    axios
+      .patch(`http://localhost:3001/QUESTION_DATA/${id}`, {
+        answer: [
+          {
+            author: userinfo.displayName,
+            id: id,
+            content: content,
+          },
+        ],
+      })
+      .then(res => console.log(res.data))
+      .catch(err => console.error(err));
+
     setEdit(false);
   };
 
@@ -79,7 +89,7 @@ const Answer = (...props) => {
           <Form>
             <Title>Edit Your Answer</Title>
             <StyledEditor
-              initialValue={'hi'}
+              initialValue={props[0].text}
               ref={editorRef}
               previewStyle="vertical" // 미리보기 스타일 지정
               height="300px" // 에디터 창 높이
@@ -94,7 +104,7 @@ const Answer = (...props) => {
               ]}
             ></StyledEditor>
           </Form>
-          <Button onClick={e => handleEditBtn(props[0].idx, e)}>Edit</Button>
+          <Button onClick={handleEditBtn}>Edit</Button>
         </>
       ) : edit === false ? null : (
         <>

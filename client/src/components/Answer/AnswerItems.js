@@ -80,7 +80,7 @@ const AnswerItems = () => {
               </IconContainer>
             </div>
             <Viewer key={idx} initialValue={el.content} />
-            {update ? <Answer from={update} text={el} idx={idx} /> : null}
+            {update ? <Answer from={update} text={el.content} idx={idx} /> : null}
           </Container>
         </div>
       ))}
