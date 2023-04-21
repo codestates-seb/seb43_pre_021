@@ -5,6 +5,8 @@ import { GiEarthAmerica } from 'react-icons/gi';
 const NavigationBlock = styled.nav`
   width: 164px;
   padding-top: 24px;
+  height: calc(100vh - 72px);
+  border-right: 1px solid #d9d9d9;
   li {
     width: 100%;
   }
@@ -43,7 +45,7 @@ const NavigationBlock = styled.nav`
     margin-left: 20px;
   }
   @media screen and (max-width: 640px) {
-    display: none;
+    height: 100%;
   }
 `;
 
