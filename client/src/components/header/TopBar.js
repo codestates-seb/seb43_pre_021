@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../actions';
@@ -24,13 +24,15 @@ const UserImg = styled.img`
 function TopBar() {
   const isLoggedIn = useSelector(state => state.login.isLoggedIn);
   const userinfo = useSelector(state => state.userinfo.user);
-
+  const id = useSelector(state => state.userinfo.user.id);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleLogOutBtn = () => {
     dispatch(logout());
+    navigate('/');
   };
-
+  console.log(userinfo.id);
   return (
     <TopBarBlock>
       {isLoggedIn === false ? (
@@ -51,7 +53,7 @@ function TopBar() {
       ) : (
         <ol>
           <li>
-            <Link to="/mypage">
+            <Link to={`/users/${id}`}>
               <UserImg src={userinfo.img} alt="userimg" />
             </Link>
           </li>

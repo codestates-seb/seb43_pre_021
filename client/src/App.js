@@ -8,7 +8,8 @@ import { createGlobalStyle } from 'styled-components';
 import { reset } from 'styled-reset';
 import Login from './pages/login';
 import SignUp from './pages/signup';
-import MyPage from './pages/mypage';
+import Users from './pages/users';
+import User from './pages/user';
 
 const GlobalStyle = createGlobalStyle`
 ${reset}
@@ -34,7 +35,8 @@ function App() {
           <Route path="/questions" element={<Questions />} />
           <Route path="/questions/:id" element={<Question />} />
           <Route path="/questions/ask" element={<QuestionInput />} />
-          <Route path="/mypage" element={<MyPage />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/users/:id" element={<User />} />
         </Routes>
       </BrowserRouter>
     </>

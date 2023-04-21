@@ -132,7 +132,9 @@ function Login() {
           res.data.filter(el => el.userID === email) && res.data.filter(el => el.pwd === pwd);
         if (user) {
           dispatch(login());
-          dispatch(loginSuccess({ displayName: user[0].displayName, img: user[0].img }));
+          dispatch(
+            loginSuccess({ displayName: user[0].displayName, img: user[0].img, id: user[0].id })
+          );
 
           document.location.href = '/';
         }

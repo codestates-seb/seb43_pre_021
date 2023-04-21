@@ -1,10 +1,12 @@
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Navigation from '../components/Navigation';
 import Container from '../components/Container';
 import Button from '../components/button';
 import styled from 'styled-components';
 import Tabs from '../components/Tab/Tabs';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 const MyPageBlock = styled.main`
   width: calc(100% - 164px);
@@ -54,9 +56,14 @@ const MyPageBtn = styled(Button)`
   border-radius: 20px;
 `;
 
-function MyPage() {
+function User() {
+  let { id } = useParams();
   const isLoggedIn = useSelector(state => state.login.isLoggedIn);
-  const userinfo = useSelector(state => state.userinfo.user);
+  const [user, setUser] = useState([]);
+
+  useEffect(() => {
+    axios.get(`http://localhost:3001/USER_DATA/${id}`).then(res => setUser(res.data));
+  }, []);
 
   return (
     <Container>
@@ -64,9 +71,9 @@ function MyPage() {
       <MyPageBlock>
         <div className="flex_row">
           <UserInfoBlock>
-            <UserImg src={userinfo.img} alt={`${userinfo.displayName} 이미지`} />
+            <UserImg src={user.img} alt={`${user.displayName} 이미지`} />
             <UserInfo>
-              <UserName>{userinfo.displayName}</UserName>
+              <UserName>{user.displayName}</UserName>
               <p>가입한 날짜표시</p>
             </UserInfo>
           </UserInfoBlock>
@@ -96,4 +103,4 @@ function MyPage() {
     </Container>
   );
 }
-export default MyPage;
+export default User;
