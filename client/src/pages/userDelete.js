@@ -12,7 +12,7 @@ import DeleteSection from '../components/Users/Tab/SettingTab/DeleteSection';
 
 const MyPageBlock = styled.main`
   width: calc(100% - 164px);
-  margin: 50px;
+  padding: 50px;
   .flex_row {
     display: flex;
     flex-direction: row;

@@ -7,7 +7,7 @@ import styled from 'styled-components';
 
 const UsersBlock = styled.main`
   width: calc(100% - 164px);
-  margin: 50px;
+  padding: 50px;
   h1 {
     font-size: 2rem;
   }

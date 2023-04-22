@@ -11,7 +11,7 @@ import UserHeader from '../components/Users/UserHeader';
 
 const MyPageBlock = styled.main`
   width: calc(100% - 164px);
-  margin: 50px;
+  padding: 50px;
   .flex_row {
     display: flex;
     flex-direction: row;
