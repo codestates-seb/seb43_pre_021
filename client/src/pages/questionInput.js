@@ -1,5 +1,4 @@
 import { useRef, useState, useEffect } from 'react';
-import Navigation from '../components/Navigation';
 import Container from '../components/Container.js';
 import QuestionEditor from '../components/Question/questionEditor';
 import '@toast-ui/editor/dist/toastui-editor.css';
@@ -91,7 +90,6 @@ const QuestionInput = () => {
 
   return (
     <Container>
-      <Navigation />
       <InputDiv>
         <PageTitle>
           질문하기

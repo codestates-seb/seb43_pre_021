@@ -1,6 +1,5 @@
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import Navigation from '../components/Navigation';
 import Container from '../components/Container';
 import styled from 'styled-components';
 import Tabs from '../components/Users/Tab/Tabs';
@@ -31,7 +30,6 @@ function User() {
 
   return (
     <Container>
-      <Navigation />
       <MyPageBlock>
         <UserHeader isLoggedIn={isLoggedIn} user={user} userinfo={userinfo.id} />
         <div>
