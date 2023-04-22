@@ -1,6 +1,6 @@
 import '@toast-ui/editor/dist/toastui-editor.css';
 import styled from 'styled-components';
-import Button from '../Btn/button';
+import Button from '../button';
 import { useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { postAnswer, updateAnswer } from '../../actions/index';
