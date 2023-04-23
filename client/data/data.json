@@ -22,12 +22,5 @@
       "pwd": "cc"
     }
   ],
-  "QUESTION_DATA": [
-    {
-      "id": 1,
-      "title": "제목",
-      "content": "질문 내용입니다.",
-      "answer": []
-    }
-  ]
+  "QUESTION_DATA": []
 }
