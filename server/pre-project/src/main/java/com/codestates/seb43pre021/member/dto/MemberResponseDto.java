@@ -5,13 +5,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class MemberResponseDto {
     private long memberId;
-    private String displayname;
+    private String displayName;
     private String email;
     private String password;
+    private LocalDateTime createdAt;
+    private LocalDateTime modifiedAt;
 }
