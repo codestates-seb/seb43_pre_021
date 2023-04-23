@@ -5,6 +5,7 @@ import Button from '../components/button';
 import Navigation from '../components/Navigation';
 import axios from 'axios';
 import styled from 'styled-components';
+import { Viewer } from '@toast-ui/react-editor';
 
 const Question = () => {
   let { id } = useParams();
@@ -16,9 +17,6 @@ const Question = () => {
     if (confirmDelete) {
       axios
         .delete(`http://localhost:3001/QUESTION_DATA/${id}`)
-        .then(res => {
-          console.log(res.data);
-        })
         .then(() => {
           document.location.href = '/questions';
         })
@@ -34,7 +32,7 @@ const Question = () => {
 
   useEffect(() => {
     axios.get(`http://localhost:3001/QUESTION_DATA/${id}`).then(res => setQuestion(res.data));
-  });
+  }, []);
 
   return (
     <Container>
@@ -58,7 +56,7 @@ const Question = () => {
               </Link>
             </PageTitle>
             <ContentContainer>
-              <div>{question.content}</div>
+              <Viewer initialValue={question.content} />
               <BtnContainer>
                 <Button onClick={onUpdate} background="none" border="#ffffff" color="#888888">
                   수정
