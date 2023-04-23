@@ -25,7 +25,7 @@ public class MemberController {
         this.mapper = mapper;
     }
     //회원 정보 등록
-    @PostMapping
+    @PostMapping("/signup")
     public ResponseEntity postMember(@Valid @RequestBody MemberPostDto memberDto) {
         Member member = mapper.memberPostDtoToMember(memberDto);
 

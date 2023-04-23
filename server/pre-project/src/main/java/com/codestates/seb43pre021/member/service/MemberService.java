@@ -25,8 +25,8 @@ public class MemberService {
         Member findMember = findVerifiedMember(member.getMemberId());
 
         Optional.ofNullable(member.getDisplayName())
-                .ifPresent(displayname -> findMember.setDisplayName(displayname));
-        Optional.ofNullable(member.getEmail())
+                .ifPresent(displayName -> findMember.setDisplayName(displayName));
+        Optional.ofNullable(member.getPassword())
                 .ifPresent(password -> findMember.setPassword(password));
         findMember.setModifiedAt(LocalDateTime.now());
 
