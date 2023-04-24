@@ -16,6 +16,7 @@ import javax.validation.constraints.Positive;
 @RestController
 @RequestMapping("/members")
 @Validated
+@CrossOrigin
 public class MemberController {
 
     private final MemberService memberService;
