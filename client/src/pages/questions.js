@@ -1,10 +1,24 @@
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 import QuestionItem from '../components/Question/questionItem.js';
 import Button from '../components/button.js';
 import Container from '../components/Container.js';
 import Navigation from '../components/Navigation.js';
 const Questions = () => {
+  const [questions, setQuestions] = useState([]);
+  useEffect(() => {
+    axios
+      .get('http://localhost:3001/QUESTION_DATA')
+      .then(res => {
+        setQuestions(res.data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }, []);
+
   return (
     <Container>
       <Navigation />
@@ -12,7 +26,7 @@ const Questions = () => {
         <PageTitle>
           <div>
             <span>All Questions</span>
-            <p>total question</p>
+            <p>{questions.length} questions</p>
           </div>
           <Link to="/questions/ask">
             <Button background="#4393f7" color="#ffffff">
@@ -21,7 +35,7 @@ const Questions = () => {
           </Link>
         </PageTitle>
         <QuestionsContainer>
-          <QuestionItem />
+          <QuestionItem questions={questions} />
         </QuestionsContainer>
       </QuestionsDiv>
     </Container>

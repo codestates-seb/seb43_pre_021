@@ -6,7 +6,7 @@ const QuestionEditor = ({ title, content, handleTitleChange, handleContentChange
     <EditorDiv>
       <Form>
         <Label>제목</Label>
-        <Input type="text" initialValue={title} value={title} onChange={handleTitleChange}></Input>
+        <Input type="text" value={title} onChange={handleTitleChange}></Input>
       </Form>
       <Form>
         <Label>질문 내용</Label>

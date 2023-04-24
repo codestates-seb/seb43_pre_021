@@ -1,36 +1,7 @@
-import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import axios from 'axios';
 
-const QuestionItem = () => {
-  const [questions, setQuestions] = useState([]);
-
-  const questionData = 'http://localhost:3001/QUESTION_DATA';
-
-  // 실제 서버 연결용
-  // useEffect(() => {
-  //   axios
-  //     .get('/question')
-  //     .then(res => {
-  //       setQuestions(res.data.content);
-  //     })
-  //     .catch(error => {
-  //       console.error(error);
-  //     });
-  // }, []);
-
-  useEffect(() => {
-    axios
-      .get(`${questionData}`)
-      .then(res => {
-        setQuestions(res.data);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }, []);
-
+const QuestionItem = ({ questions }) => {
   return (
     <div>
       {questions.map((question, index) => (

@@ -7,6 +7,7 @@ import axios from 'axios';
 import Answer from '../components/Answer/Answer';
 import AnswerItems from '../components/Answer/AnswerItems';
 import styled from 'styled-components';
+import { Viewer } from '@toast-ui/react-editor';
 
 const Question = () => {
   let { id } = useParams();
@@ -87,7 +88,7 @@ const Question = () => {
               </Link>
             </PageTitle>
             <ContentContainer>
-              <div>{question.content}</div>
+              <Viewer initialValue={question.content} />
               <BtnContainer>
                 <Button onClick={onUpdate} background="none" border="#ffffff" color="#888888">
                   수정
