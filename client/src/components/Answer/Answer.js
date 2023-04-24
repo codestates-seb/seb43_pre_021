@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Button from '../button';
 import { useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import { Editor } from '@toast-ui/react-editor';
@@ -35,7 +35,7 @@ const StyledEditor = styled(Editor)`
 `;
 
 const Answer = (...props) => {
-  console.log('props', props);
+  const navigate = useNavigate();
   let { id } = useParams();
   const editorRef = useRef(null);
 
@@ -57,8 +57,12 @@ const Answer = (...props) => {
           },
         ],
       })
-      .then(res => console.log(res.data))
+      .then(res => {
+        console.log(res.data);
+        navigate(`/questions/${id}`);
+      })
       .catch(err => console.error(err));
+    document.location.href = `/questions/${id}`;
 
     // dispatch(postAnswer(content));
   };
@@ -80,6 +84,7 @@ const Answer = (...props) => {
       .catch(err => console.error(err));
 
     setEdit(false);
+    document.location.href = `/questions/${id}`;
   };
 
   return (
