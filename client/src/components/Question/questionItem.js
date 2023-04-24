@@ -1,22 +1,7 @@
-import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import axios from 'axios';
 
-const QuestionItem = () => {
-  const [questions, setQuestions] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get('http://localhost:3001/QUESTION_DATA')
-      .then(res => {
-        setQuestions(res.data);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }, []);
-
+const QuestionItem = ({ questions }) => {
   return (
     <div>
       {questions.map((question, index) => (
