@@ -13,6 +13,8 @@ const QuestionItem = ({ questions }) => {
               <p>0 views</p>
             </Response>
             <Question>
+              {/* 실제 서버 연결용 */}
+              {/* <Link to={`/questions/${question.questionId}`}> */}
               <Link to={`/questions/${question.id}`}>
                 <h3>{question.title}</h3>
               </Link>

@@ -1,11 +1,11 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { BsPencilSquare, BsTrash } from 'react-icons/bs';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Answer from './Answer';
-import { deleteAnswer } from '../../actions';
 import { Viewer } from '@toast-ui/react-editor';
-
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 const Container = styled.div`
   border-bottom: 1px solid rgb(214, 217, 219);
   padding: 10px;
@@ -40,44 +40,87 @@ const UserImg = styled.img`
   border-radius: 5px;
 `;
 
-const AnswerList = () => {
-  const answers = useSelector(state => state.answer.answers);
+const AnswerItems = () => {
+  // const answers = useSelector(state => state.answer.answers);
   const userinfo = useSelector(state => state.userinfo.user);
   const [update, setUpdate] = useState(false);
+  const [a, setA] = useState([]);
 
-  const dispatch = useDispatch();
+  const questionData = 'http://localhost:3001/QUESTION_DATA';
+
+  let { id } = useParams();
 
   const handleUpdate = () => {
     setUpdate(!update);
   };
 
+  // 실제 서버 연결용
+  // const handleDelete = (idx, e) => {
+  //   e.preventDefault();
+  //   axios.get(`${questionData}/${id}`).then(res => {
+  //     const deleteEl = res.data.answer.filter(el => el.id == idx + 1);
+  //     const result = res.data.answer.filter(el => el.id !== deleteEl[0].id);
+  //     console.log(result);
+
+  //     axios.patch(`${questionData}/${id}`, { answer: result }).then(() => {
+  //       const updatedAnswers = a.filter((el, i) => i !== idx);
+  //       setA(updatedAnswers);
+  //     });
+  //   });
+  // };
+
   const handleDelete = (idx, e) => {
     e.preventDefault();
-    dispatch(deleteAnswer(idx));
+    axios.get(`${questionData}/${id}`).then(res => {
+      const deleteEl = res.data.answer.filter(el => el.id == idx + 1);
+      const result = res.data.answer.filter(el => el.id !== deleteEl[0].id);
+      console.log(result);
+
+      axios.patch(`${questionData}/${id}`, { answer: result }).then(() => {
+        const updatedAnswers = a.filter((el, i) => i !== idx);
+        setA(updatedAnswers);
+      });
+    });
   };
+
+  // 실제 서버  연결용
+  // useEffect(() => {
+  //   axios.get(`/answer`).then(res => {
+  //     console.log(res.data);
+  //     setA(res.data.answer);
+  //   });
+  // }, []);
+
+  useEffect(() => {
+    axios.get(`${questionData}/${id}`).then(res => {
+      setA(res.data.answer);
+    });
+  }, []);
   return (
     <>
-      {answers.map((el, idx) => (
-        <div key={idx}>
-          <Container>
-            <div>
-              <UserInfo>
-                <UserImg src={userinfo.img} alt="userimg" />
-                <p>{userinfo.displayName}</p>
-              </UserInfo>
+      {a
+        ? a.map((el, idx) => (
+            <div key={idx}>
+              <Container>
+                <div>
+                  <UserInfo>
+                    <UserImg src={userinfo.img} alt="userimg" />
+                    <p>{userinfo.displayName}</p>
+                  </UserInfo>
 
-              <IconContainer>
-                <BsPencilSquare onClick={handleUpdate} />
-                <BsTrash onClick={e => handleDelete(idx, e)} />
-              </IconContainer>
+                  <IconContainer>
+                    <BsPencilSquare onClick={handleUpdate} />
+                    <BsTrash onClick={e => handleDelete(idx, e)} />
+                  </IconContainer>
+                </div>
+                <Viewer key={idx} initialValue={el.content} />
+                {update ? <Answer from={update} text={el.content} idx={idx} /> : null}
+              </Container>
             </div>
-            <Viewer key={idx} initialValue={el} />
-            {update ? <Answer from={update} text={el} idx={idx} /> : null}
-          </Container>
-        </div>
-      ))}
+          ))
+        : null}
     </>
   );
 };
 
-export default AnswerList;
+export default AnswerItems;
