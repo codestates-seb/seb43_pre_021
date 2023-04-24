@@ -2,8 +2,9 @@ import '@toast-ui/editor/dist/toastui-editor.css';
 import styled from 'styled-components';
 import Button from '../button';
 import { useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { postAnswer, updateAnswer } from '../../actions/index';
+import { useSelector } from 'react-redux';
+import { useParams, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 import { Editor } from '@toast-ui/react-editor';
 
@@ -34,24 +35,98 @@ const StyledEditor = styled(Editor)`
 `;
 
 const Answer = (...props) => {
+  const navigate = useNavigate();
+  let { id } = useParams();
   const editorRef = useRef(null);
-  const dispatch = useDispatch();
 
   const [edit, setEdit] = useState(true);
+
+  const userinfo = useSelector(state => state.userinfo.user);
+
+  const questionData = 'http://localhost:3001/QUESTION_DATA';
+
+  // 실제 서버 연결용
+  // const handlePostBtn = () => {
+  //   const instance = editorRef.current.getInstance();
+  //   const content = instance.getMarkdown();
+  //   axios
+  //     .post(`/answer`, {
+  //       // author: userinfo.displayName,
+  //       content: content,
+  //     })
+  //     .then(res => {
+  //       console.log('cc', content);
+  //       console.log('aa', res.data);
+  //       navigate(`/questions/${id}`);
+  //     })
+  //     .catch(err => console.error(err));
+  //   // document.location.href = `/questions/${id}`;
+
+  //   // dispatch(postAnswer(content));
+  // };
 
   const handlePostBtn = () => {
     const instance = editorRef.current.getInstance();
     const content = instance.getMarkdown();
-    console.log(content);
-    dispatch(postAnswer(content));
+    axios
+      .patch(`${questionData}/${id}`, {
+        answer: [
+          {
+            author: userinfo.displayName,
+            id: id,
+            content: content,
+          },
+        ],
+      })
+      .then(res => {
+        console.log(res.data);
+        navigate(`/questions/${id}`);
+      })
+      .catch(err => console.error(err));
+    // document.location.href = `/questions/${id}`;
+
+    // dispatch(postAnswer(content));
   };
 
-  const handleEditBtn = (idx, e) => {
-    e.preventDefault();
+  //실제 서버 연결용
+  // const handleEditBtn = () => {
+  //   const instance = editorRef.current.getInstance();
+  //   const content = instance.getMarkdown();
+  //   axios
+  //     .patch(`${questionData}/${id}`, {
+  //       answer: [
+  //         {
+  //           author: userinfo.displayName,
+  //           id: id,
+  //           content: content,
+  //         },
+  //       ],
+  //     })
+  //     .then(res => console.log(res.data))
+  //     .catch(err => console.error(err));
+
+  //   setEdit(false);
+  //   document.location.href = `/questions/${id}`;
+  // };
+
+  const handleEditBtn = () => {
     const instance = editorRef.current.getInstance();
     const content = instance.getMarkdown();
-    dispatch(updateAnswer(idx, content));
+    axios
+      .patch(`${questionData}/${id}`, {
+        answer: [
+          {
+            author: userinfo.displayName,
+            id: id,
+            content: content,
+          },
+        ],
+      })
+      .then(res => console.log(res.data))
+      .catch(err => console.error(err));
+
     setEdit(false);
+    document.location.href = `/questions/${id}`;
   };
 
   return (
@@ -76,7 +151,7 @@ const Answer = (...props) => {
               ]}
             ></StyledEditor>
           </Form>
-          <Button onClick={e => handleEditBtn(props[0].idx, e)}>Edit</Button>
+          <Button onClick={handleEditBtn}>Edit</Button>
         </>
       ) : edit === false ? null : (
         <>

@@ -3,18 +3,39 @@ import { Link, useParams } from 'react-router-dom';
 import Container from '../components/Container';
 import Button from '../components/button';
 import axios from 'axios';
+import Answer from '../components/Answer/Answer';
+import AnswerItems from '../components/Answer/AnswerItems';
 import styled from 'styled-components';
+import { Viewer } from '@toast-ui/react-editor';
 
 const Question = () => {
   let { id } = useParams();
+
+  const questionData = 'http://localhost:3001/QUESTION_DATA';
 
   const [question, setQuestion] = useState('');
 
   const onDelete = () => {
     const confirmDelete = window.confirm('정말로 삭제하시겠습니까?');
+
+    // 실제 서버 연결용
+    // if (confirmDelete) {
+    //   axios
+    //     .delete(`/question/${id}`)
+    //     .then(res => {
+    //       console.log(res.data);
+    //     })
+    //     .then(() => {
+    //       document.location.href = '/questions';
+    //     })
+    //     .catch(error => {
+    //       console.error(error);
+    //     });
+    // }
+
     if (confirmDelete) {
       axios
-        .delete(`http://localhost:3001/QUESTION_DATA/${id}`)
+        .delete(`${questionData}/${id}`)
         .then(res => {
           console.log(res.data);
         })
@@ -31,9 +52,18 @@ const Question = () => {
     document.location.href = `/questions/ask/${id}`;
   };
 
+  // 실제 서버 연결용
+  // useEffect(() => {
+  //   axios.get(`/question/${id}`).then(res => {
+  //     setQuestion(res.data);
+  //   });
+  // }, [id]);
+
   useEffect(() => {
-    axios.get(`http://localhost:3001/QUESTION_DATA/${id}`).then(res => setQuestion(res.data));
-  });
+    axios.get(`${questionData}/${id}`).then(res => {
+      setQuestion(res.data);
+    });
+  }, [id]);
 
   return (
     <Container>
@@ -56,7 +86,7 @@ const Question = () => {
               </Link>
             </PageTitle>
             <ContentContainer>
-              <div>{question.content}</div>
+              <Viewer initialValue={question.content} />
               <BtnContainer>
                 <Button onClick={onUpdate} background="none" border="#ffffff" color="#888888">
                   수정
@@ -70,6 +100,10 @@ const Question = () => {
         )}
         <AnswerContainer>
           <span>답변</span>
+
+          <AnswerItems />
+
+          <Answer id={id} />
         </AnswerContainer>
       </QuestionDiv>
     </Container>
@@ -103,7 +137,8 @@ const BtnContainer = styled.div`
 `;
 
 const AnswerContainer = styled.div`
-  padding 2rem; span {
+  padding: 2rem;
+  span {
     font-size: 1.6rem;
   }
 `;

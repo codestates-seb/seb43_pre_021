@@ -107,6 +107,8 @@ function Login() {
   const emailInput = useRef(null);
   const pwdInput = useRef(null);
 
+  const userData = 'http://localhost:3001/USER_DATA';
+
   const dispatch = useDispatch();
 
   const handleEmail = e => {
@@ -126,8 +128,24 @@ function Login() {
       setClickLogin(true);
     }
 
+    // 실제 서버 연결용
+    // if (email && pwd) {
+    //   axios.get('http://localhost:3001/USER_DATA', { email, pwd }).then(res => {
+    //     const user =
+    //       res.data.filter(el => el.userID === email) && res.data.filter(el => el.pwd === pwd);
+    //     if (user) {
+    //       dispatch(login());
+    //       dispatch(
+    //         loginSuccess({ displayName: user[0].displayName, img: user[0].img, id: user[0].id })
+    //       );
+
+    //       document.location.href = '/';
+    //     }
+    //   });
+    // }
+
     if (email && pwd) {
-      axios.get('http://localhost:3001/USER_DATA', { email, pwd }).then(res => {
+      axios.get(`${userData}`, { email, pwd }).then(res => {
         const user =
           res.data.filter(el => el.userID === email) && res.data.filter(el => el.pwd === pwd);
         if (user) {

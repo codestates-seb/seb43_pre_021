@@ -27,7 +27,13 @@
       "id": 1,
       "title": "1",
       "content": "1",
-      "answer": []
+      "answer": [
+        {
+          "author": "cc",
+          "id": "1",
+          "content": "ddddd"
+        }
+      ]
     },
     {
       "id": 2,

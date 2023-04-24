@@ -50,8 +50,15 @@ const UserImg = styled.div`
 
 function Users() {
   const [users, setUsers] = useState([]);
+
+  const userData = 'http://localhost:3001/USER_DATA';
+
+  // useEffect(() => {
+  //   axios.get('http://localhost:3001/USER_DATA').then(res => setUsers(res.data));
+  // }, []);
+
   useEffect(() => {
-    axios.get('http://localhost:3001/USER_DATA').then(res => setUsers(res.data));
+    axios.get(`${userData}`).then(res => setUsers(res.data));
   }, []);
 
   return (
