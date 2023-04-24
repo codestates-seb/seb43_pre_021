@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 import Button from '../../../button';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { logout } from '../../../../actions';
 
 const EditSectionBlock = styled.div`
   display: flex;
@@ -54,13 +58,22 @@ const CheckDelete = styled.div`
     justify-content: flex-end;
   }
 `;
-function DeleteSection() {
+function DeleteSection({ isLoggedIn, user }) {
+  const userData = 'http://localhost:3001/USER_DATA';
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  function handleDelete(event) {
+    event.preventDefault();
+    axios.delete(`${userData}/${user.id}`).then(!isLoggedIn);
+    dispatch(logout());
+    navigate('/');
+  }
   return (
     <EditSectionBlock>
       <SectionHeader>
         <h3>Delete profile</h3>
       </SectionHeader>
-      <SectionBlock>
+      <SectionBlock onSubmit={handleDelete}>
         <div className="section_display">
           <ul className="listStyle">
             <li>
@@ -81,14 +94,14 @@ function DeleteSection() {
         </div>
         <CheckDelete className="btns">
           <div className="check">
-            <input type="checkbox" />
+            <input type="checkbox" required />
             <p>
               위에 언급된 정보를 읽었으며, 해당 프로필을 삭제하는 것이 의미를 이해했습니다. 제
               프로필 삭제를 진행하겠습니다.
             </p>
           </div>
           <div className="deleteBtn">
-            <Button border="#E39A9A" background="#E39A9A">
+            <Button border="#E39A9A" background="#E39A9A" type="submit">
               Delete profile
             </Button>
           </div>

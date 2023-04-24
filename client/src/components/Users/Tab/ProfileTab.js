@@ -46,7 +46,7 @@ const StatsBlock = styled.div`
   background: #ece9e9;
 `;
 
-function ProfileTab() {
+function ProfileTab({ user, isLoggedIn, userinfo }) {
   const question = false;
   return (
     <ProfileSection>
@@ -64,7 +64,13 @@ function ProfileTab() {
         <div className="stat">
           <h2>About</h2>
           <StatsBlock>
-            <Link to="/mypageedit">edit profile</Link>
+            {user.about !== null ? (
+              user.about
+            ) : isLoggedIn && userinfo === user.id ? (
+              <Link to={`/users/edit/${user.id}`}>edit profile</Link>
+            ) : (
+              <p>본인 소개란이 비었습니다.</p>
+            )}
           </StatsBlock>
         </div>
         <div className="stat">

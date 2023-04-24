@@ -49,7 +49,7 @@ function UserDelete() {
           <Tabs isLoggedIn={isLoggedIn} user={user.id} active="active" />
           <SettingBlock>
             <SubTabs />
-            <DeleteSection />
+            <DeleteSection isLoggedIn={isLoggedIn} user={user} userinfo={userinfo.id} />
           </SettingBlock>
         </div>
       </MyPageBlock>

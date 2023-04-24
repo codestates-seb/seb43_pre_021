@@ -49,7 +49,7 @@ function UserEdit() {
           <Tabs isLoggedIn={isLoggedIn} user={user.id} />
           <SettingBlock>
             <SubTabs />
-            <EditSection />
+            <EditSection user={user} />
           </SettingBlock>
         </div>
       </MyPageBlock>

@@ -41,7 +41,7 @@ function User() {
         <UserHeader isLoggedIn={isLoggedIn} user={user} userinfo={userinfo.id} />
         <div>
           <Tabs isLoggedIn={isLoggedIn} user={user.id} activeU={'active'} />
-          <ProfileTab />
+          <ProfileTab isLoggedIn={isLoggedIn} user={user} userinfo={userinfo.id} />
         </div>
       </MyPageBlock>
     </Container>
