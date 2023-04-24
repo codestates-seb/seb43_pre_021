@@ -44,7 +44,12 @@ public class MemberService {
                 .ifPresent(displayName -> findMember.setDisplayName(displayName));
         Optional.ofNullable(member.getPassword())
                 .ifPresent(password -> findMember.setPassword(passwordEncoder.encode(password)));
+        Optional.ofNullable(member.getImg())
+                .ifPresent(img -> findMember.setImg(img));
+        Optional.ofNullable(member.getAbout())
+                .ifPresent(about -> findMember.setAbout(about));
         findMember.setModifiedAt(LocalDateTime.now());
+
 
         return memberRepository.save(findMember);
     }

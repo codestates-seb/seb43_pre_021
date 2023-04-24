@@ -17,4 +17,6 @@ public class MemberPatchDto {
     private String displayName;
     @NotBlank(message = "비밀번호는 공백이 아니어야 합니다.")
     private String password;
+    private String img;
+    private String about;
 }

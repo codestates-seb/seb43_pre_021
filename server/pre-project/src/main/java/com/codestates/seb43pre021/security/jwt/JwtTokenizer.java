@@ -78,7 +78,6 @@ public class JwtTokenizer {
                 .parseClaimsJws(jws);
     }
 
-    // (5)
     public Date getTokenExpiration(int expirationMinutes) {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MINUTE, expirationMinutes);
