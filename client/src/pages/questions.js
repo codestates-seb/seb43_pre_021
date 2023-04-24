@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
+
 import axios from 'axios';
 import styled from 'styled-components';
 import QuestionItem from '../components/Question/questionItem.js';
@@ -8,6 +10,8 @@ import Container from '../components/Container.js';
 import Navigation from '../components/Navigation.js';
 const Questions = () => {
   const [questions, setQuestions] = useState([]);
+  const isLoggedIn = useSelector(state => state.login.isLoggedIn);
+
   useEffect(() => {
     axios
       .get('http://localhost:3001/QUESTION_DATA')
@@ -28,11 +32,19 @@ const Questions = () => {
             <span>All Questions</span>
             <p>{questions.length} questions</p>
           </div>
-          <Link to="/questions/ask">
-            <Button background="#4393f7" color="#ffffff">
-              Ask Question
-            </Button>
-          </Link>
+          {isLoggedIn ? (
+            <Link to="/questions/ask">
+              <Button background="#4393f7" color="#ffffff">
+                Ask Question
+              </Button>
+            </Link>
+          ) : (
+            <Link to="/login">
+              <Button background="#4393f7" color="#ffffff">
+                Ask Question
+              </Button>
+            </Link>
+          )}
         </PageTitle>
         <QuestionsContainer>
           <QuestionItem questions={questions} />

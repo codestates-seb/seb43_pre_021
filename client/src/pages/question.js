@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
 import Container from '../components/Container';
 import Button from '../components/button';
 import Navigation from '../components/Navigation';
@@ -13,6 +15,8 @@ const Question = () => {
   let { id } = useParams();
 
   const questionData = 'http://localhost:3001/QUESTION_DATA';
+  const isLoggedIn = useSelector(state => state.login.isLoggedIn);
+  const userId = useSelector(state => state.userinfo.user.id);
 
   const [question, setQuestion] = useState('');
 
@@ -81,22 +85,39 @@ const Question = () => {
                   <p> 0 views </p>
                 </Response>
               </div>
-              <Link to="/questions/ask">
-                <Button background="#4393f7" color="#ffffff">
-                  Ask Question
-                </Button>
-              </Link>
+              <Info>
+                {isLoggedIn ? (
+                  <Link to="/questions/ask">
+                    <Button background="#4393f7" color="#ffffff">
+                      Ask Question
+                    </Button>
+                  </Link>
+                ) : (
+                  <Link to="/login">
+                    <Button background="#4393f7" color="#ffffff">
+                      Ask Question
+                    </Button>
+                  </Link>
+                )}
+                <Link to={`/users/${question.userinfo.id}`}>
+                  <DisplayName>{question.userinfo.displayName}</DisplayName>
+                </Link>
+              </Info>
             </PageTitle>
             <ContentContainer>
               <Viewer initialValue={question.content} />
-              <BtnContainer>
-                <Button onClick={onUpdate} background="none" border="#ffffff" color="#888888">
-                  수정
-                </Button>
-                <Button onClick={onDelete} background="none" border="#ffffff" color="#888888">
-                  삭제
-                </Button>
-              </BtnContainer>
+              {isLoggedIn && userId === question.userinfo.id ? (
+                <BtnContainer>
+                  <Button onClick={onUpdate} background="none" border="#ffffff" color="#888888">
+                    수정
+                  </Button>
+                  <Button onClick={onDelete} background="none" border="#ffffff" color="#888888">
+                    삭제
+                  </Button>
+                </BtnContainer>
+              ) : (
+                <></>
+              )}
             </ContentContainer>
           </>
         )}
@@ -143,6 +164,17 @@ const AnswerContainer = styled.div`
   span {
     font-size: 1.6rem;
   }
+`;
+
+const Info = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+`;
+const DisplayName = styled.div`
+  font-size: 1.5rem;
+  color: #e5883e;
+  margin-top: 20px;
 `;
 
 const Response = styled.div`
