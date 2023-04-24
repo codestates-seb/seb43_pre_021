@@ -1,5 +1,6 @@
-package com.codestates.seb43pre021.entity;
+package com.codestates.seb43pre021.answer.entity;
 
+import com.codestates.seb43pre021.question.entity.Question;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +24,6 @@ public class Answer {
     private long memberId;
 
     @Enumerated(value = EnumType.STRING)
-    @Column(nullable = false)
     private AnswerStatus answerStatus = AnswerStatus.ANSWER_RESISTRATION;
 
     @Column(nullable = false)
@@ -32,7 +32,18 @@ public class Answer {
     @Column(nullable = false)
     private LocalDateTime modifiedAt = LocalDateTime.now();
 
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @JoinColumn(name = "question_id")
+    private Question question;
 
+
+    /*@ManyToOne
+    @JoinColumn(name = "MEMBER_ID")
+    private Member member;
+
+    public void addMember(Member member) {
+        this.member = member;
+    }*/
 
 
     public enum AnswerStatus {

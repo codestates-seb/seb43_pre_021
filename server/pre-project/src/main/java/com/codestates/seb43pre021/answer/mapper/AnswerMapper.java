@@ -1,10 +1,9 @@
-package com.codestates.seb43pre021.mapper;
+package com.codestates.seb43pre021.answer.mapper;
 
-import com.codestates.seb43pre021.dto.AnswerPatchDto;
-import com.codestates.seb43pre021.dto.AnswerPostDto;
-import com.codestates.seb43pre021.dto.AnswerResponseDto;
-import com.codestates.seb43pre021.entity.Answer;
-import org.mapstruct.Mapper;
+import com.codestates.seb43pre021.answer.dto.AnswerPatchDto;
+import com.codestates.seb43pre021.answer.dto.AnswerPostDto;
+import com.codestates.seb43pre021.answer.dto.AnswerResponseDto;
+import com.codestates.seb43pre021.answer.entity.Answer;
 import org.springframework.stereotype.Component;
 
 @Component

@@ -1,4 +1,4 @@
-package com.codestates.seb43pre021.dto;
+package com.codestates.seb43pre021.question.dto;
 
 import lombok.*;
 

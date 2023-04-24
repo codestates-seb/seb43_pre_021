@@ -1,29 +1,32 @@
-package com.codestates.seb43pre021.service;
+package com.codestates.seb43pre021.question.service;
 
-import com.codestates.seb43pre021.dto.PagingDto;
-import com.codestates.seb43pre021.entity.Question;
+import com.codestates.seb43pre021.answer.entity.Answer;
+import com.codestates.seb43pre021.question.entity.Question;
 import com.codestates.seb43pre021.exception.BusinessLogicException;
 import com.codestates.seb43pre021.exception.ExceptionCode;
-import com.codestates.seb43pre021.repository.QuestionRepository;
+import com.codestates.seb43pre021.answer.repository.AnswerRepository;
+import com.codestates.seb43pre021.question.repository.QuestionRepository;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import static java.util.Arrays.stream;
 
 
 @Service
 public class QuestionService {
     private final QuestionRepository questionRepository;
+    private final AnswerRepository answerRepository;
 
-    public QuestionService(QuestionRepository questionRepository) {
+    public QuestionService(QuestionRepository questionRepository, AnswerRepository answerRepository) {
         this.questionRepository = questionRepository;
+        this.answerRepository = answerRepository;
     }
-
 
     public Question createQuestion(Question question) {
 
@@ -65,6 +68,17 @@ public class QuestionService {
     public Question findQuestion(long questionId) {
 
         return findVerifiedQuestion(questionId);
+    }
+
+    public List<Question> getQuestions() {
+        List<Question> questions = questionRepository.findAll();
+        for(Question question : questions) {
+            List<Answer> answers = answerRepository.findById(question.getQuestionId())
+                     .stream()
+                    .collect(Collectors.toList());
+                question.setAnswers(answers);
+        }
+        return questions;
     }
 
     public Page<Question> getQuestions(Pageable pageable) {

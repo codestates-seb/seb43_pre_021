@@ -1,18 +1,13 @@
-package com.codestates.seb43pre021.mapper;
+package com.codestates.seb43pre021.question.mapper;
 
-import com.codestates.seb43pre021.dto.PagingDto;
-import com.codestates.seb43pre021.dto.QuestionPatchDto;
-import com.codestates.seb43pre021.dto.QuestionPostDto;
-import com.codestates.seb43pre021.dto.QuestionResponseDto;
-import com.codestates.seb43pre021.entity.Question;
-import com.codestates.seb43pre021.repository.QuestionRepository;
-import org.mapstruct.Mapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.codestates.seb43pre021.question.dto.QuestionPatchDto;
+import com.codestates.seb43pre021.question.dto.QuestionPostDto;
+import com.codestates.seb43pre021.question.dto.QuestionResponseDto;
+import com.codestates.seb43pre021.question.entity.Question;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Component;
 
-import java.awt.print.Pageable;
 import java.util.List;
 import java.util.stream.Collectors;
 

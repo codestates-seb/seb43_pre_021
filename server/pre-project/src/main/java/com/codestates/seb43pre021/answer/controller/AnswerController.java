@@ -1,12 +1,12 @@
-package com.codestates.seb43pre021.controller;
+package com.codestates.seb43pre021.answer.controller;
 
-import com.codestates.seb43pre021.dto.AnswerPatchDto;
-import com.codestates.seb43pre021.dto.AnswerPostDto;
-import com.codestates.seb43pre021.dto.AnswerResponseDto;
-import com.codestates.seb43pre021.entity.Answer;
-import com.codestates.seb43pre021.mapper.AnswerMapper;
-import com.codestates.seb43pre021.service.AnswerService;
-import com.codestates.seb43pre021.service.QuestionService;
+import com.codestates.seb43pre021.answer.dto.AnswerPatchDto;
+import com.codestates.seb43pre021.answer.dto.AnswerPostDto;
+import com.codestates.seb43pre021.answer.dto.AnswerResponseDto;
+import com.codestates.seb43pre021.answer.entity.Answer;
+import com.codestates.seb43pre021.answer.mapper.AnswerMapper;
+import com.codestates.seb43pre021.answer.service.AnswerService;
+import com.codestates.seb43pre021.question.service.QuestionService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;

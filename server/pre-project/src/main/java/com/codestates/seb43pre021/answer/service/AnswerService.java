@@ -1,9 +1,9 @@
-package com.codestates.seb43pre021.service;
+package com.codestates.seb43pre021.answer.service;
 
-import com.codestates.seb43pre021.entity.Answer;
+import com.codestates.seb43pre021.answer.entity.Answer;
 import com.codestates.seb43pre021.exception.BusinessLogicException;
 import com.codestates.seb43pre021.exception.ExceptionCode;
-import com.codestates.seb43pre021.repository.AnswerRepository;
+import com.codestates.seb43pre021.answer.repository.AnswerRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;

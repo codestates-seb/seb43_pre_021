@@ -1,4 +1,4 @@
-package com.codestates.seb43pre021.dto;
+package com.codestates.seb43pre021.answer.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

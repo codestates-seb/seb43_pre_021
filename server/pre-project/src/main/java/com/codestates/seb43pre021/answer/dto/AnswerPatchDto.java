@@ -1,13 +1,10 @@
-package com.codestates.seb43pre021.dto;
+package com.codestates.seb43pre021.answer.dto;
 
-import com.codestates.seb43pre021.entity.Answer;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.constraints.NotBlank;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 

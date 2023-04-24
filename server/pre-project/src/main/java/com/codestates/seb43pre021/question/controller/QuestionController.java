@@ -1,13 +1,13 @@
-package com.codestates.seb43pre021.controller;
+package com.codestates.seb43pre021.question.controller;
 
-import com.codestates.seb43pre021.dto.*;
-import com.codestates.seb43pre021.entity.Question;
-import com.codestates.seb43pre021.mapper.QuestionMapper;
-import com.codestates.seb43pre021.repository.QuestionRepository;
+import com.codestates.seb43pre021.question.entity.Question;
+import com.codestates.seb43pre021.question.mapper.QuestionMapper;
+import com.codestates.seb43pre021.question.dto.QuestionPatchDto;
+import com.codestates.seb43pre021.question.dto.QuestionPostDto;
+import com.codestates.seb43pre021.question.dto.QuestionResponseDto;
 import com.codestates.seb43pre021.response.SingleResponseDto;
-import com.codestates.seb43pre021.service.AnswerService;
-import com.codestates.seb43pre021.service.QuestionService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.codestates.seb43pre021.answer.service.AnswerService;
+import com.codestates.seb43pre021.question.service.QuestionService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -18,7 +18,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.Positive;
 
 
@@ -60,7 +59,6 @@ import javax.validation.constraints.Positive;
 
         @GetMapping("/{question-id}")
         public ResponseEntity getQuestion(@PathVariable("question-id") @Positive long questionId) {
-            Question question = questionService.findQuestion(questionId);
             Question response = questionService.questionViewCounts(questionId);
 
             return new ResponseEntity<>(mapper.questionToQuestionResponseDto(response), HttpStatus.OK);
