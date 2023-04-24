@@ -46,50 +46,79 @@ const AnswerItems = () => {
   const [update, setUpdate] = useState(false);
   const [a, setA] = useState([]);
 
+  const questionData = 'http://localhost:3001/QUESTION_DATA';
+
   let { id } = useParams();
 
   const handleUpdate = () => {
     setUpdate(!update);
   };
 
+  // 실제 서버 연결용
+  // const handleDelete = (idx, e) => {
+  //   e.preventDefault();
+  //   axios.get(`${questionData}/${id}`).then(res => {
+  //     const deleteEl = res.data.answer.filter(el => el.id == idx + 1);
+  //     const result = res.data.answer.filter(el => el.id !== deleteEl[0].id);
+  //     console.log(result);
+
+  //     axios.patch(`${questionData}/${id}`, { answer: result }).then(() => {
+  //       const updatedAnswers = a.filter((el, i) => i !== idx);
+  //       setA(updatedAnswers);
+  //     });
+  //   });
+  // };
+
   const handleDelete = (idx, e) => {
     e.preventDefault();
-    axios.get(`http://localhost:3001/QUESTION_DATA/${id}`).then(res => {
+    axios.get(`${questionData}/${id}`).then(res => {
       const deleteEl = res.data.answer.filter(el => el.id == idx + 1);
       const result = res.data.answer.filter(el => el.id !== deleteEl[0].id);
       console.log(result);
 
-      axios.patch(`http://localhost:3001/QUESTION_DATA/${id}`, { answer: result }).then(() => {
+      axios.patch(`${questionData}/${id}`, { answer: result }).then(() => {
         const updatedAnswers = a.filter((el, i) => i !== idx);
         setA(updatedAnswers);
       });
     });
   };
 
+  // 실제 서버  연결용
+  // useEffect(() => {
+  //   axios.get(`/answer`).then(res => {
+  //     console.log(res.data);
+  //     setA(res.data.answer);
+  //   });
+  // }, []);
+
   useEffect(() => {
-    axios.get(`http://localhost:3001/QUESTION_DATA/${id}`).then(res => setA(res.data.answer));
+    axios.get(`${questionData}/${id}`).then(res => {
+      setA(res.data.answer);
+    });
   }, []);
   return (
     <>
-      {a.map((el, idx) => (
-        <div key={idx}>
-          <Container>
-            <div>
-              <UserInfo>
-                <UserImg src={userinfo.img} alt="userimg" />
-                <p>{userinfo.displayName}</p>
-              </UserInfo>
+      {a
+        ? a.map((el, idx) => (
+            <div key={idx}>
+              <Container>
+                <div>
+                  <UserInfo>
+                    <UserImg src={userinfo.img} alt="userimg" />
+                    <p>{userinfo.displayName}</p>
+                  </UserInfo>
 
-              <IconContainer>
-                <BsPencilSquare onClick={handleUpdate} />
-                <BsTrash onClick={e => handleDelete(idx, e)} />
-              </IconContainer>
+                  <IconContainer>
+                    <BsPencilSquare onClick={handleUpdate} />
+                    <BsTrash onClick={e => handleDelete(idx, e)} />
+                  </IconContainer>
+                </div>
+                <Viewer key={idx} initialValue={el.content} />
+                {update ? <Answer from={update} text={el.content} idx={idx} /> : null}
+              </Container>
             </div>
-            <Viewer key={idx} initialValue={el.content} />
-            {update ? <Answer from={update} text={el.content} idx={idx} /> : null}
-          </Container>
-        </div>
-      ))}
+          ))
+        : null}
     </>
   );
 };

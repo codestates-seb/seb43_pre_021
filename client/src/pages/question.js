@@ -11,13 +11,31 @@ import styled from 'styled-components';
 const Question = () => {
   let { id } = useParams();
 
+  const questionData = 'http://localhost:3001/QUESTION_DATA';
+
   const [question, setQuestion] = useState('');
 
   const onDelete = () => {
     const confirmDelete = window.confirm('정말로 삭제하시겠습니까?');
+
+    // 실제 서버 연결용
+    // if (confirmDelete) {
+    //   axios
+    //     .delete(`/question/${id}`)
+    //     .then(res => {
+    //       console.log(res.data);
+    //     })
+    //     .then(() => {
+    //       document.location.href = '/questions';
+    //     })
+    //     .catch(error => {
+    //       console.error(error);
+    //     });
+    // }
+
     if (confirmDelete) {
       axios
-        .delete(`http://localhost:3001/QUESTION_DATA/${id}`)
+        .delete(`${questionData}/${id}`)
         .then(res => {
           console.log(res.data);
         })
@@ -34,9 +52,18 @@ const Question = () => {
     document.location.href = `/questions/ask/${id}`;
   };
 
+  // 실제 서버 연결용
+  // useEffect(() => {
+  //   axios.get(`/question/${id}`).then(res => {
+  //     setQuestion(res.data);
+  //   });
+  // }, [id]);
+
   useEffect(() => {
-    axios.get(`http://localhost:3001/QUESTION_DATA/${id}`).then(res => setQuestion(res.data));
-  }, []);
+    axios.get(`${questionData}/${id}`).then(res => {
+      setQuestion(res.data);
+    });
+  }, [id]);
 
   return (
     <Container>

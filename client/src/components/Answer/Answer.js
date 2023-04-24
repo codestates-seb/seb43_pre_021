@@ -43,12 +43,33 @@ const Answer = (...props) => {
 
   const userinfo = useSelector(state => state.userinfo.user);
 
+  const questionData = 'http://localhost:3001/QUESTION_DATA';
+
+  // 실제 서버 연결용
+  // const handlePostBtn = () => {
+  //   const instance = editorRef.current.getInstance();
+  //   const content = instance.getMarkdown();
+  //   axios
+  //     .post(`/answer`, {
+  //       // author: userinfo.displayName,
+  //       content: content,
+  //     })
+  //     .then(res => {
+  //       console.log('cc', content);
+  //       console.log('aa', res.data);
+  //       navigate(`/questions/${id}`);
+  //     })
+  //     .catch(err => console.error(err));
+  //   // document.location.href = `/questions/${id}`;
+
+  //   // dispatch(postAnswer(content));
+  // };
+
   const handlePostBtn = () => {
     const instance = editorRef.current.getInstance();
     const content = instance.getMarkdown();
-
     axios
-      .patch(`http://localhost:3001/QUESTION_DATA/${id}`, {
+      .patch(`${questionData}/${id}`, {
         answer: [
           {
             author: userinfo.displayName,
@@ -62,16 +83,37 @@ const Answer = (...props) => {
         navigate(`/questions/${id}`);
       })
       .catch(err => console.error(err));
-    document.location.href = `/questions/${id}`;
+    // document.location.href = `/questions/${id}`;
 
     // dispatch(postAnswer(content));
   };
+
+  //실제 서버 연결용
+  // const handleEditBtn = () => {
+  //   const instance = editorRef.current.getInstance();
+  //   const content = instance.getMarkdown();
+  //   axios
+  //     .patch(`${questionData}/${id}`, {
+  //       answer: [
+  //         {
+  //           author: userinfo.displayName,
+  //           id: id,
+  //           content: content,
+  //         },
+  //       ],
+  //     })
+  //     .then(res => console.log(res.data))
+  //     .catch(err => console.error(err));
+
+  //   setEdit(false);
+  //   document.location.href = `/questions/${id}`;
+  // };
 
   const handleEditBtn = () => {
     const instance = editorRef.current.getInstance();
     const content = instance.getMarkdown();
     axios
-      .patch(`http://localhost:3001/QUESTION_DATA/${id}`, {
+      .patch(`${questionData}/${id}`, {
         answer: [
           {
             author: userinfo.displayName,

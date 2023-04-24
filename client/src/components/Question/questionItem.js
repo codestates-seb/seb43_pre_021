@@ -6,9 +6,23 @@ import axios from 'axios';
 const QuestionItem = () => {
   const [questions, setQuestions] = useState([]);
 
+  const questionData = 'http://localhost:3001/QUESTION_DATA';
+
+  // 실제 서버 연결용
+  // useEffect(() => {
+  //   axios
+  //     .get('/question')
+  //     .then(res => {
+  //       setQuestions(res.data.content);
+  //     })
+  //     .catch(error => {
+  //       console.error(error);
+  //     });
+  // }, []);
+
   useEffect(() => {
     axios
-      .get('http://localhost:3001/QUESTION_DATA')
+      .get(`${questionData}`)
       .then(res => {
         setQuestions(res.data);
       })
@@ -28,6 +42,8 @@ const QuestionItem = () => {
               <p>0 views</p>
             </Response>
             <Question>
+              {/* 실제 서버 연결용 */}
+              {/* <Link to={`/questions/${question.questionId}`}> */}
               <Link to={`/questions/${question.id}`}>
                 <h3>{question.title}</h3>
               </Link>

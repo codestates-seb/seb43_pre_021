@@ -11,6 +11,8 @@ const QuestionInput = () => {
   const editorRef = useRef(null);
   const { id } = useParams();
 
+  const questionData = 'http://localhost:3001/QUESTION_DATA';
+
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const [data, setData] = useState([]);
@@ -28,17 +30,42 @@ const QuestionInput = () => {
     const instance = editorRef.current.getInstance();
     const content = instance.getMarkdown();
     e.preventDefault();
+
+    // 실제 서버 연결용
+    // if (title === '' || content === '') {
+    //   alert('내용을 입력해주세요!');
+    // } else {
+    //   axios
+    //     .post('/question', {
+    //       title: title,
+    //       content: content,
+    //     })
+    //     .then(res => {
+    //       const newId = res.data.questionId;
+    //       document.location.href = `/questions/${newId}`;
+    //     })
+    //     .catch(error => {
+    //       console.error(error);
+    //     });
+    //   setTitle('');
+    //   setContent('');
+    //   editorRef.current.getInstance().setMarkdown('');
+    // }
+
     if (title === '' || content === '') {
       alert('내용을 입력해주세요!');
     } else {
       axios
-        .post('http://localhost:3001/QUESTION_DATA', {
-          id: data.length + 1,
+        .post(`${questionData}`, {
+          id: data.length === 0 ? 1 : data[data.length - 1].id + 1,
           title: title,
           content: content,
           answer: [],
         })
         .then(res => {
+          // 실제 서버 연결용
+          // const newId = res.data.questionId;
+
           const newId = res.data.id;
           document.location.href = `/questions/${newId}`;
         })
@@ -55,15 +82,40 @@ const QuestionInput = () => {
     const instance = editorRef.current.getInstance();
     const content = instance.getMarkdown();
     e.preventDefault();
+
+    // 실제 서버 연결용
+    // if (title === '' || content === '') {
+    //   alert('내용을 입력해주세요!');
+    // } else {
+    //   axios
+    //     .patch(`/question/${id}`, {
+    //       title: title,
+    //       content: content,
+    //     })
+    //     .then(res => {
+    //       const id = res.data.data.questionId;
+    //       document.location.href = `/questions/${id}`;
+    //     })
+    //     .catch(error => {
+    //       console.error(error);
+    //     });
+    //   setTitle('');
+    //   setContent('');
+    //   editorRef.current.getInstance().setMarkdown('');
+    // }
+
     if (title === '' || content === '') {
       alert('내용을 입력해주세요!');
     } else {
       axios
-        .put(`http://localhost:3001/QUESTION_DATA/${id}`, {
+        .patch(`${questionData}/${id}`, {
           title: title,
           content: content,
         })
         .then(res => {
+          // 실제 서버 연결용
+          // const id = res.data.data.questionId;
+
           const id = res.data.id;
           document.location.href = `/questions/${id}`;
         })
@@ -76,12 +128,23 @@ const QuestionInput = () => {
     }
   };
 
+  // 실제 서버 연결용
+  // useEffect(() => {
+  //   if (id) {
+  //     setIsUpdate(true);
+  //     axios.get(`/question/${id}`).then(res => {
+  //       setTitle(res.data.title);
+  //       setContent(res.data.content);
+  //     });
+  //   }
+  // }, []);
+
   useEffect(() => {
-    axios.get('http://localhost:3001/QUESTION_DATA').then(res => setData(res.data));
+    axios.get(`${questionData}`).then(res => setData(res.data));
 
     if (id) {
       setIsUpdate(true);
-      axios.get('http://localhost:3001/QUESTION_DATA/${id}').then(res => {
+      axios.get(`${questionData}/${id}`).then(res => {
         setData(res.data);
         setTitle(res.data.title);
         setContent(res.data.content);
