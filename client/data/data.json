@@ -29,14 +29,14 @@
       "content": "1",
       "answer": [
         {
-          "author": "aa",
-          "id": 1,
-          "content": "kk"
-        },
-        {
           "author": "bb",
           "id": 2,
-          "content": "jj"
+          "content": "bb"
+        },
+        {
+          "author": "aa",
+          "id": 1,
+          "content": "aa"
         }
       ]
     },

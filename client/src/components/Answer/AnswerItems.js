@@ -96,6 +96,7 @@ const AnswerItems = () => {
       setA(res.data.answer);
     });
   }, []);
+
   return (
     <>
       {a
@@ -109,7 +110,6 @@ const AnswerItems = () => {
                   </UserInfo>
 
                   <IconContainer>
-                    {console.log('eeeee', el)}
                     {el.author === userinfo.displayName ? (
                       <>
                         <BsPencilSquare onClick={handleUpdate} />
@@ -119,7 +119,7 @@ const AnswerItems = () => {
                   </IconContainer>
                 </div>
                 <Viewer key={idx} initialValue={el.content} />
-                {update ? (
+                {update && el.author === userinfo.displayName ? (
                   <Answer from={update} text={el.content} idx={idx + 1} author={el.author} />
                 ) : null}
               </Container>

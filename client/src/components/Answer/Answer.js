@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Button from '../button';
 import { useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 import { Editor } from '@toast-ui/react-editor';
@@ -36,7 +36,6 @@ const StyledEditor = styled(Editor)`
 `;
 
 const Answer = (...props) => {
-  const navigate = useNavigate();
   let { id } = useParams();
   const editorRef = useRef(null);
 
@@ -79,11 +78,10 @@ const Answer = (...props) => {
         ],
       })
       .then(res => {
-        console.log(res.data);
-        navigate(`/questions/${id}`);
+        console.log('res', res.data);
+        document.location.href = `/questions/${id}`;
       })
       .catch(err => console.error(err));
-    // document.location.href = `/questions/${id}`;
 
     // dispatch(postAnswer(content));
   };
@@ -109,20 +107,26 @@ const Answer = (...props) => {
   //   document.location.href = `/questions/${id}`;
   // };
 
-  const handleEditBtn = () => {
+  const handleEditBtn = (answerId, e) => {
+    e.preventDefault();
     const instance = editorRef.current.getInstance();
     const content = instance.getMarkdown();
+
+    console.log('aa', answer);
+
+    const editedAnswer = answer.find(q => q.id === answerId);
+    const updatedAnswer = {
+      ...editedAnswer,
+      content: content,
+    };
+
+    const otherAnswers = answer.filter(q => q.id !== answerId);
+
     axios
       .patch(`${questionData}/${id}`, {
-        answer: [
-          {
-            author: userinfo.displayName,
-            id: id,
-            content: content,
-          },
-        ],
+        answer: [...otherAnswers, updatedAnswer],
       })
-      .then(res => console.log(res.data))
+      .then(res => console.log('res', res.data))
       .catch(err => console.error(err));
 
     setEdit(false);
@@ -137,7 +141,6 @@ const Answer = (...props) => {
     <>
       {props[0].from && edit ? (
         <>
-          {console.log(props[0])}
           <Form>
             <Title>Edit Your Answer</Title>
             <StyledEditor
@@ -156,9 +159,8 @@ const Answer = (...props) => {
               ]}
             ></StyledEditor>
           </Form>
-          {console.log(props[0].author === userinfo.displayName)}
 
-          <Button onClick={handleEditBtn}>Edit</Button>
+          <Button onClick={e => handleEditBtn(props[0].idx, e)}>Edit</Button>
         </>
       ) : edit === false ? null : answer.filter(el => el.author === userinfo.displayName).length >
         0 ? null : (
