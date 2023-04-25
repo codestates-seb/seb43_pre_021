@@ -3,10 +3,11 @@ import styled from 'styled-components';
 import Button from '../button';
 import { useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 import { Editor } from '@toast-ui/react-editor';
+import { useEffect } from 'react';
 
 const Title = styled.div`
   font-weight: 500;
@@ -35,11 +36,11 @@ const StyledEditor = styled(Editor)`
 `;
 
 const Answer = (...props) => {
-  const navigate = useNavigate();
   let { id } = useParams();
   const editorRef = useRef(null);
 
   const [edit, setEdit] = useState(true);
+  const [answer, setAnswer] = useState([]);
 
   const userinfo = useSelector(state => state.userinfo.user);
 
@@ -68,22 +69,19 @@ const Answer = (...props) => {
   const handlePostBtn = () => {
     const instance = editorRef.current.getInstance();
     const content = instance.getMarkdown();
+
     axios
       .patch(`${questionData}/${id}`, {
         answer: [
-          {
-            author: userinfo.displayName,
-            id: id,
-            content: content,
-          },
+          ...answer,
+          { author: userinfo.displayName, id: answer.length + 1, content: content, vote: 0 },
         ],
       })
       .then(res => {
-        console.log(res.data);
-        navigate(`/questions/${id}`);
+        console.log('res', res.data);
+        document.location.href = `/questions/${id}`;
       })
       .catch(err => console.error(err));
-    // document.location.href = `/questions/${id}`;
 
     // dispatch(postAnswer(content));
   };
@@ -109,25 +107,35 @@ const Answer = (...props) => {
   //   document.location.href = `/questions/${id}`;
   // };
 
-  const handleEditBtn = () => {
+  const handleEditBtn = (answerId, e) => {
+    e.preventDefault();
     const instance = editorRef.current.getInstance();
     const content = instance.getMarkdown();
+
+    console.log('aa', answer);
+
+    const editedAnswer = answer.find(q => q.id === answerId);
+    const updatedAnswer = {
+      ...editedAnswer,
+      content: content,
+    };
+
+    const otherAnswers = answer.filter(q => q.id !== answerId);
+
     axios
       .patch(`${questionData}/${id}`, {
-        answer: [
-          {
-            author: userinfo.displayName,
-            id: id,
-            content: content,
-          },
-        ],
+        answer: [...otherAnswers, updatedAnswer],
       })
-      .then(res => console.log(res.data))
+      .then(res => console.log('res', res.data))
       .catch(err => console.error(err));
 
     setEdit(false);
     document.location.href = `/questions/${id}`;
   };
+
+  useEffect(() => {
+    axios.get(`${questionData}/${id}`).then(res => setAnswer(res.data.answer));
+  }, []);
 
   return (
     <>
@@ -151,9 +159,11 @@ const Answer = (...props) => {
               ]}
             ></StyledEditor>
           </Form>
-          <Button onClick={handleEditBtn}>Edit</Button>
+
+          <Button onClick={e => handleEditBtn(props[0].idx, e)}>Edit</Button>
         </>
-      ) : edit === false ? null : (
+      ) : edit === false ? null : answer.filter(el => el.author === userinfo.displayName).length >
+        0 ? null : (
         <>
           <Form>
             <Title>Your Answer</Title>
