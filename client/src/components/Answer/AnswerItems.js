@@ -109,12 +109,19 @@ const AnswerItems = () => {
                   </UserInfo>
 
                   <IconContainer>
-                    <BsPencilSquare onClick={handleUpdate} />
-                    <BsTrash onClick={e => handleDelete(idx, e)} />
+                    {console.log('eeeee', el)}
+                    {el.author === userinfo.displayName ? (
+                      <>
+                        <BsPencilSquare onClick={handleUpdate} />
+                        <BsTrash onClick={e => handleDelete(idx, e)} />
+                      </>
+                    ) : null}
                   </IconContainer>
                 </div>
                 <Viewer key={idx} initialValue={el.content} />
-                {update ? <Answer from={update} text={el.content} idx={idx} /> : null}
+                {update ? (
+                  <Answer from={update} text={el.content} idx={idx + 1} author={el.author} />
+                ) : null}
               </Container>
             </div>
           ))

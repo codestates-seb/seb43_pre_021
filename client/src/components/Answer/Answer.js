@@ -137,6 +137,7 @@ const Answer = (...props) => {
     <>
       {props[0].from && edit ? (
         <>
+          {console.log(props[0])}
           <Form>
             <Title>Edit Your Answer</Title>
             <StyledEditor
@@ -155,6 +156,8 @@ const Answer = (...props) => {
               ]}
             ></StyledEditor>
           </Form>
+          {console.log(props[0].author === userinfo.displayName)}
+
           <Button onClick={handleEditBtn}>Edit</Button>
         </>
       ) : edit === false ? null : answer.filter(el => el.author === userinfo.displayName).length >
