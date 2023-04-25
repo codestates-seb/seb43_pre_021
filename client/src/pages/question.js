@@ -13,7 +13,7 @@ import { Viewer } from '@toast-ui/react-editor';
 const Question = () => {
   let { id } = useParams();
 
-  const questionData = 'http://localhost:3001/QUESTION_DATA';
+  // const questionData = 'http://localhost:3001/QUESTION_DATA';
   const isLoggedIn = useSelector(state => state.login.isLoggedIn);
   const userId = useSelector(state => state.userinfo.user.id);
 
@@ -23,23 +23,9 @@ const Question = () => {
     const confirmDelete = window.confirm('정말로 삭제하시겠습니까?');
 
     // 실제 서버 연결용
-    // if (confirmDelete) {
-    //   axios
-    //     .delete(`/question/${id}`)
-    //     .then(res => {
-    //       console.log(res.data);
-    //     })
-    //     .then(() => {
-    //       document.location.href = '/questions';
-    //     })
-    //     .catch(error => {
-    //       console.error(error);
-    //     });
-    // }
-
     if (confirmDelete) {
       axios
-        .delete(`${questionData}/${id}`)
+        .delete(`/question/${id}`)
         .then(res => {
           console.log(res.data);
         })
@@ -50,6 +36,20 @@ const Question = () => {
           console.error(error);
         });
     }
+
+    // if (confirmDelete) {
+    //   axios
+    //     .delete(`${questionData}/${id}`)
+    //     .then(res => {
+    //       console.log(res.data);
+    //     })
+    //     .then(() => {
+    //       document.location.href = '/questions';
+    //     })
+    //     .catch(error => {
+    //       console.error(error);
+    //     });
+    // }
   };
 
   const onUpdate = () => {
@@ -57,17 +57,17 @@ const Question = () => {
   };
 
   // 실제 서버 연결용
-  // useEffect(() => {
-  //   axios.get(`/question/${id}`).then(res => {
-  //     setQuestion(res.data);
-  //   });
-  // }, [id]);
-
   useEffect(() => {
-    axios.get(`${questionData}/${id}`).then(res => {
+    axios.get(`/question/${id}`).then(res => {
       setQuestion(res.data);
     });
   }, [id]);
+
+  // useEffect(() => {
+  //   axios.get(`${questionData}/${id}`).then(res => {
+  //     setQuestion(res.data);
+  //   });
+  // }, [id]);
 
   return (
     <Container>

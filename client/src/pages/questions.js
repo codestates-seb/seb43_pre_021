@@ -11,9 +11,10 @@ const Questions = () => {
   const [questions, setQuestions] = useState([]);
   const isLoggedIn = useSelector(state => state.login.isLoggedIn);
 
+  // 실제 서버 연결용
   useEffect(() => {
     axios
-      .get('http://localhost:3001/QUESTION_DATA')
+      .get('/question')
       .then(res => {
         setQuestions(res.data);
       })
@@ -21,6 +22,17 @@ const Questions = () => {
         console.error(error);
       });
   }, []);
+
+  // useEffect(() => {
+  //   axios
+  //     .get('http://localhost:3001/QUESTION_DATA')
+  //     .then(res => {
+  //       setQuestions(res.data);
+  //     })
+  //     .catch(error => {
+  //       console.error(error);
+  //     });
+  // }, []);
 
   return (
     <Container>

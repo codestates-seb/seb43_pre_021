@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import logo from '../assets/logo-stackoverflow.png';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 
 const Container = styled.div`
@@ -129,8 +129,8 @@ function SignUp() {
   const [pwd, setPwd] = useState('');
   const [clikedSignup, setClickedSignup] = useState(false);
 
-  const userData = 'http://localhost:3001/USER_DATA';
-  const [userDataa, setUserDataa] = useState([]);
+  // const userData = 'http://localhost:3001/USER_DATA';
+  // const [userDataa, setUserDataa] = useState([]);
 
   const handleDisplayName = e => {
     setDisplayName(e.target.value);
@@ -152,28 +152,10 @@ function SignUp() {
     }
 
     // 실제 서버 연결용
-    // if (displayName && email && pwd) {
-    //   axios
-    //     .post('/members/signup', {
-    //       // img: 'https://images.unsplash.com/photo-1680903413454-ff0f93efbcc3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2864&q=80',
-    //       displayName: displayName,
-    //       email: email,
-    //       password: pwd,
-    //     })
-    //     .then(() => {
-    //       document.location.href = '/login';
-    //     })
-    //     .catch(error => {
-    //       console.error(error);
-    //     });
-    // }
-
     if (displayName && email && pwd) {
       axios
-        .post(`${userData}`, {
-          // 실제 서버  연결하면 삭제할 거
-          id: userDataa.length + 1,
-          img: 'https://images.unsplash.com/photo-1680903413454-ff0f93efbcc3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2864&q=80',
+        .post('/members/signup', {
+          // img: 'https://images.unsplash.com/photo-1680903413454-ff0f93efbcc3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2864&q=80',
           displayName: displayName,
           email: email,
           password: pwd,
@@ -185,11 +167,29 @@ function SignUp() {
           console.error(error);
         });
     }
+
+    // if (displayName && email && pwd) {
+    //   axios
+    //     .post(`${userData}`, {
+    //       // 실제 서버  연결하면 삭제할 거
+    //       id: userDataa.length + 1,
+    //       img: 'https://images.unsplash.com/photo-1680903413454-ff0f93efbcc3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2864&q=80',
+    //       displayName: displayName,
+    //       email: email,
+    //       password: pwd,
+    //     })
+    //     .then(() => {
+    //       document.location.href = '/login';
+    //     })
+    //     .catch(error => {
+    //       console.error(error);
+    //     });
+    // }
   };
 
-  useEffect(() => {
-    axios.get(`${userData}`).then(res => setUserDataa(res.data));
-  }, []);
+  // useEffect(() => {
+  //   axios.get(`${userData}`).then(res => setUserDataa(res.data));
+  // }, []);
 
   // useEffect(() => {
   //   axios.get('/members/1').then(res => console.log(res.data));
