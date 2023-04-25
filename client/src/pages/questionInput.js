@@ -1,5 +1,4 @@
 import { useRef, useState, useEffect } from 'react';
-import Navigation from '../components/Navigation';
 import Container from '../components/Container.js';
 import QuestionEditor from '../components/Question/questionEditor';
 import Loading from '../components/loading';
@@ -159,7 +158,6 @@ const QuestionInput = () => {
 
   return (
     <Container>
-      <Navigation />
       {isLoading ? (
         <Loading />
       ) : (

@@ -37,7 +37,8 @@ const MyPageBtnBlock = styled.ol`
 `;
 
 const MyPageBtn = styled(Button)`
-  padding: 10px 20px;
+  line-height: normal;
+  padding: 9px 15px 6px;
   cursor: pointer;
   border-radius: 20px;
   font-size: 1rem;

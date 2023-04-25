@@ -15,6 +15,7 @@
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.10.0",
     "react-scripts": "5.0.1",
+    "react-spinners": "^0.13.8",
     "styled-components": "^5.3.9",
     "styled-reset": "^4.4.6",
     "web-vitals": "^2.1.4"
@@ -53,5 +54,5 @@
     "prettier": "^2.8.7",
     "redux-persist": "^6.0.0"
   },
-  "proxy" : "https://c2f8-210-106-15-3.jp.ngrok.io/"
+  "proxy": "https://c2f8-210-106-15-3.jp.ngrok.io/"
 }

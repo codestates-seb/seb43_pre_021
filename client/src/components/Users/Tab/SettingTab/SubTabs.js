@@ -5,11 +5,12 @@ import { NavLink } from 'react-router-dom';
 
 const UserHeaderNav = styled.ol`
   display: flex;
+  gap: 5px;
   flex-direction: column;
   align-items: center;
-  margin-top: 20px;
-  li:first-child {
-    margin-bottom: 20px;
+  margin-right: 40px;
+  li {
+    width: 100%;
   }
   .active {
     color: #fff;
@@ -18,13 +19,20 @@ const UserHeaderNav = styled.ol`
 `;
 
 const TabBtn = styled(Button)`
-  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  line-height: normal;
+  padding: 9px 12px 6px;
   cursor: pointer;
   border-radius: 20px;
   font-size: 1rem;
+  &:not(.active):hover {
+    background: #f2f2f2;
+  }
 `;
 
-function Tabs() {
+function SubTabs() {
   const id = useSelector(state => state.userinfo.user.id);
 
   return (
@@ -57,4 +65,4 @@ function Tabs() {
   );
 }
 
-export default Tabs;
+export default SubTabs;

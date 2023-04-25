@@ -1,13 +1,12 @@
 import axios from 'axios';
 import Container from '../components/Container';
-import Navigation from '../components/Navigation';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const UsersBlock = styled.main`
   width: calc(100% - 164px);
-  margin: 50px;
+  padding: 50px;
   h1 {
     font-size: 2rem;
   }
@@ -64,7 +63,6 @@ function Users() {
 
   return (
     <Container>
-      <Navigation />
       <UsersBlock>
         <h1>Users</h1>
         <UserList>
