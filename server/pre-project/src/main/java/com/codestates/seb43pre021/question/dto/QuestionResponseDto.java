@@ -9,6 +9,7 @@ import java.util.List;
 
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 public class QuestionResponseDto {
     private long questionId;
     private long memberId;
