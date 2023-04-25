@@ -71,8 +71,6 @@ const Answer = (...props) => {
     const instance = editorRef.current.getInstance();
     const content = instance.getMarkdown();
 
-    console.log('aa', answer);
-
     axios
       .patch(`${questionData}/${id}`, {
         answer: [
@@ -159,7 +157,8 @@ const Answer = (...props) => {
           </Form>
           <Button onClick={handleEditBtn}>Edit</Button>
         </>
-      ) : edit === false ? null : (
+      ) : edit === false ? null : answer.filter(el => el.author === userinfo.displayName).length >
+        0 ? null : (
         <>
           <Form>
             <Title>Your Answer</Title>
