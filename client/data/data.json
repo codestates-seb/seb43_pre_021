@@ -29,14 +29,16 @@
       "content": "1",
       "answer": [
         {
-          "author": "bb",
-          "id": 2,
-          "content": "bb"
-        },
-        {
           "author": "aa",
           "id": 1,
-          "content": "aa"
+          "content": "kk",
+          "vote": 2
+        },
+        {
+          "author": "bb",
+          "id": 2,
+          "content": "bb",
+          "vote": 0
         }
       ]
     },

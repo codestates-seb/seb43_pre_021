@@ -74,7 +74,7 @@ const Answer = (...props) => {
       .patch(`${questionData}/${id}`, {
         answer: [
           ...answer,
-          { author: userinfo.displayName, id: answer.length + 1, content: content },
+          { author: userinfo.displayName, id: answer.length + 1, content: content, vote: 0 },
         ],
       })
       .then(res => {
