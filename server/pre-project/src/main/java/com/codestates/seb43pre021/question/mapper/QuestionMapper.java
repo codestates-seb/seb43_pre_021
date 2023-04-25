@@ -24,7 +24,7 @@ public class QuestionMapper {
     public Question questionPatchDtoToQuestion(QuestionPatchDto questionPatchDto) {
         Question question = new Question();
         question.setQuestionId(questionPatchDto.getQuestionId());
-        question.setTitle(question.getTitle());
+        question.setTitle(questionPatchDto.getTitle());
         question.setContent(questionPatchDto.getContent());
         return question;
     }
@@ -36,7 +36,8 @@ public class QuestionMapper {
                 question.getContent(),
                 question.getViewCount(),
                 question.getCreatedAt(),
-                question.getModifiedAt());
+                question.getModifiedAt(),
+                question.getAnswers());
     }
 
     public QuestionResponseDto mapToQuestionResponseDto(Question question) {
@@ -46,7 +47,8 @@ public class QuestionMapper {
                 question.getContent(),
                 question.getViewCount(),
                 question.getCreatedAt(),
-                question.getModifiedAt());
+                question.getModifiedAt(),
+                question.getAnswers());
     }
 
     public Page<QuestionResponseDto> questionPageToQuestionResponseDtoPage(Page<Question> questionPage) {

@@ -32,9 +32,10 @@ public class Answer {
     @Column(nullable = false)
     private LocalDateTime modifiedAt = LocalDateTime.now();
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @ManyToOne
     @JoinColumn(name = "question_id")
     private Question question;
+
 
 
     /*@ManyToOne
@@ -46,19 +47,19 @@ public class Answer {
     }*/
 
 
-    public enum AnswerStatus {
-        ANSWER_RESISTRATION("답변등록"),
-        ANSWER_MODIFIED("답변수정"),
-        ANSWER_DELETED("답변삭제");
+        public enum AnswerStatus {
+            ANSWER_RESISTRATION("답변등록"),
+            ANSWER_MODIFIED("답변수정"),
+            ANSWER_DELETED("답변삭제");
 
-        @Getter
-        private String status;
+            @Getter
+            private String status;
 
-        AnswerStatus(String status) {
-            this.status = status;
+            AnswerStatus(String status) {
+                this.status = status;
+            }
         }
     }
-}
 
 
 

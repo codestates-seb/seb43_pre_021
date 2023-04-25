@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @CrossOrigin
@@ -52,17 +54,25 @@ import javax.validation.constraints.Positive;
                                              @Valid @RequestBody QuestionPatchDto questionPatchDto) {
 
             questionPatchDto.setQuestionId(questionId);
-            Question question = questionService.updateQuestion(mapper.questionPatchDtoToQuestion(questionPatchDto));
+            Question response = questionService.updateQuestion(mapper.questionPatchDtoToQuestion(questionPatchDto));
 
-            return new ResponseEntity<>(new SingleResponseDto<>(mapper.questionToQuestionResponseDto(question)), HttpStatus.OK);
+            return new ResponseEntity<>(mapper.questionToQuestionResponseDto(response), HttpStatus.OK);
         }
-
         @GetMapping("/{question-id}")
         public ResponseEntity getQuestion(@PathVariable("question-id") @Positive long questionId) {
             Question response = questionService.questionViewCounts(questionId);
 
             return new ResponseEntity<>(mapper.questionToQuestionResponseDto(response), HttpStatus.OK);
         }
+
+        /*@GetMapping("/{question-id}")
+        public ResponseEntity<List<QuestionResponseDto>> getQuestions(@PathVariable("question-id") @Positive long questionId) {
+            List<Question> questions = questionService.getQuestions();
+            List<QuestionResponseDto> response = questions.stream()
+                    .map(mapper::questionToQuestionResponseDto)
+                    .collect(Collectors.toList());
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        }*/
 
         @GetMapping
         public ResponseEntity<Page<QuestionResponseDto>> getQuestions(@PageableDefault(size=10, page = 0, sort="questionId",direction = Sort.Direction.DESC) Pageable pageable) {

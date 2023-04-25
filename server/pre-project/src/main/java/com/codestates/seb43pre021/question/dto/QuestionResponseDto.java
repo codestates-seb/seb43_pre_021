@@ -1,10 +1,12 @@
 package com.codestates.seb43pre021.question.dto;
 
+import com.codestates.seb43pre021.answer.entity.Answer;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
-@Builder
+
 @Getter
 @AllArgsConstructor
 public class QuestionResponseDto {
@@ -15,7 +17,7 @@ public class QuestionResponseDto {
     private long viewCount;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
-
+    private List<Answer> answers;
 
 }
 

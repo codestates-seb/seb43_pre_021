@@ -70,7 +70,7 @@ public class QuestionService {
         return findVerifiedQuestion(questionId);
     }
 
-    public List<Question> getQuestions() {
+   public List<Question> getQuestions() {
         List<Question> questions = questionRepository.findAll();
         for(Question question : questions) {
             List<Answer> answers = answerRepository.findById(question.getQuestionId())

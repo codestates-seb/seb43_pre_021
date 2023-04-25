@@ -9,8 +9,8 @@ import java.time.LocalDateTime;
 
 
 @Getter
-    @Setter
-    @AllArgsConstructor
+@Setter
+@AllArgsConstructor
     public class AnswerPatchDto {
 
         private long answerId;

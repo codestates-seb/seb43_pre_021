@@ -31,6 +31,6 @@ public class AnswerMapper {
                     answer.getModifiedAt());
         }
 
-    }
+}
 
 

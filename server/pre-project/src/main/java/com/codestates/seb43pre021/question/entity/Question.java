@@ -19,7 +19,6 @@ import java.util.List;
 public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "question_id")
     private long questionId;
     @Column(nullable = false, length = 100)
     private String title;
@@ -27,6 +26,7 @@ public class Question {
     private String content;
     @Column(nullable = false)
     private long memberId;
+
 
 
     @Enumerated(value = EnumType.STRING)
@@ -51,8 +51,14 @@ public class Question {
         this.member = member;
     }*/
 
-    @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
+   @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<Answer> answers = new ArrayList<>();
+
+    public void add(Answer answer) {
+        answer.setQuestion(this);
+        getAnswers().add(answer);
+    }
+
 
 
     public enum QuestionStatus {
@@ -66,8 +72,6 @@ public class Question {
         QuestionStatus(String questDec) {
             this.questDec = questDec;
 
-
         }
-
     }
 }
