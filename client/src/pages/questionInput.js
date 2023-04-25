@@ -1,4 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import Navigation from '../components/Navigation';
 import Container from '../components/Container.js';
 import QuestionEditor from '../components/Question/questionEditor';
 import Loading from '../components/loading';
@@ -12,6 +14,7 @@ const QuestionInput = () => {
   const { id } = useParams();
 
   const questionData = 'http://localhost:3001/QUESTION_DATA';
+  const userinfo = useSelector(state => state.userinfo.user);
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
@@ -62,8 +65,10 @@ const QuestionInput = () => {
           title: title,
           content: content,
           answer: [],
+          userinfo: userinfo,
         })
         .then(res => {
+          console.log(res.data);
           // 실제 서버 연결용
           // const newId = res.data.questionId;
 
