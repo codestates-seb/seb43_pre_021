@@ -7,7 +7,6 @@ import styled from 'styled-components';
 import QuestionItem from '../components/Question/questionItem.js';
 import Button from '../components/button.js';
 import Container from '../components/Container.js';
-import Navigation from '../components/Navigation.js';
 const Questions = () => {
   const [questions, setQuestions] = useState([]);
   const isLoggedIn = useSelector(state => state.login.isLoggedIn);
@@ -25,7 +24,6 @@ const Questions = () => {
 
   return (
     <Container>
-      <Navigation />
       <QuestionsDiv>
         <PageTitle>
           <div>

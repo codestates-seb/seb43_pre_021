@@ -8,6 +8,8 @@ import { useState } from 'react';
 import logo from '../../assets/logo-stackoverflow.png';
 
 const HeaderWrap = styled.header`
+  position: sticky;
+  top: 0;
   width: 100%;
   display: flex;
   justify-content: center;

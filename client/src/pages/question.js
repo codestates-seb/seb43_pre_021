@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 
 import Container from '../components/Container';
 import Button from '../components/button';
-import Navigation from '../components/Navigation';
 import axios from 'axios';
 import Answer from '../components/Answer/Answer';
 import AnswerItems from '../components/Answer/AnswerItems';
@@ -72,7 +71,6 @@ const Question = () => {
 
   return (
     <Container>
-      <Navigation />
       <QuestionDiv>
         {question && (
           <>

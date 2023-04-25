@@ -37,8 +37,8 @@ function App() {
           <Route path="/questions" element={<Questions />} />
           <Route path="/questions/:id" element={<Question />} />
           <Route path="/questions/ask" element={<QuestionInput />} />
-          <Route path="/users" element={<Users />} />
           <Route path="/questions/ask/:id" element={<QuestionInput />} />
+          <Route path="/users" element={<Users />} />
           <Route path="/users/:id" element={<User />} />
           <Route path="/users/edit/:id" element={<UserEdit />} />
           <Route path="/users/delete/:id" element={<UserDelete />} />

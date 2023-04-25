@@ -163,7 +163,6 @@ const QuestionInput = () => {
 
   return (
     <Container>
-      <Navigation />
       {isLoading ? (
         <Loading />
       ) : (
