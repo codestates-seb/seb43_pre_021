@@ -6,6 +6,7 @@ import { NavLink } from 'react-router-dom';
 const UserHeaderNav = styled.ol`
   display: flex;
   flex-direction: row;
+  gap: 5px;
   margin-top: 50px;
   .active {
     color: #fff;
@@ -14,10 +15,14 @@ const UserHeaderNav = styled.ol`
 `;
 
 const TabBtn = styled(Button)`
-  padding: 8px 16px;
+  line-height: normal;
+  padding: 9px 12px 6px;
   cursor: pointer;
   border-radius: 20px;
   font-size: 1rem;
+  &:not(.active):hover {
+    background: #f2f2f2;
+  }
 `;
 
 function Tabs({ active, isLoggedIn, activeU, user }) {

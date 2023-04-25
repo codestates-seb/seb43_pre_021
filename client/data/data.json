@@ -5,26 +5,29 @@
       "img": "https://images.unsplash.com/photo-1680903413454-ff0f93efbcc3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2864&q=80",
       "displayName": "aa",
       "email": "aa@gmail.com",
-      "pwd": "aa"
+      "pwd": "aa",
+      "about": "내용이 추가됩니다"
     },
     {
       "id": 2,
       "img": "https://images.unsplash.com/photo-1680903413454-ff0f93efbcc3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2864&q=80",
       "displayName": "bb",
       "email": "bb@gmail.com",
-      "pwd": "bb"
+      "pwd": "bb",
+      "about": null
     },
     {
       "id": 3,
       "img": "https://images.unsplash.com/photo-1680903413454-ff0f93efbcc3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2864&q=80",
       "displayName": "cc",
       "email": "cc@gmail.com",
-      "pwd": "cc"
+      "pwd": "cc",
+      "about": null
     }
   ],
   "QUESTION_DATA": [
     {
-      "id": 1,
+      "id": 5,
       "title": "1",
       "content": "1",
       "answer": [
@@ -43,20 +46,26 @@
       ]
     },
     {
-      "id": 2,
-      "title": "2",
-      "content": "2",
-      "answer": []
+      "id": 6,
+      "title": "22",
+      "content": "22",
+      "answer": [],
+      "userinfo": {
+        "displayName": "aa",
+        "img": "https://images.unsplash.com/photo-1680903413454-ff0f93efbcc3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2864&q=80",
+        "id": 1
+      }
     },
     {
-      "title": "23",
-      "content": "33",
-      "id": 3
-    },
-    {
-      "title": "qw",
-      "content": "qw",
-      "id": 4
+      "id": 8,
+      "title": "new",
+      "content": "new",
+      "answer": [],
+      "userinfo": {
+        "displayName": "bb",
+        "img": "https://images.unsplash.com/photo-1680903413454-ff0f93efbcc3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2864&q=80",
+        "id": 2
+      }
     }
   ]
 }
