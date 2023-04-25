@@ -103,6 +103,8 @@ function Login() {
   const [email, setEmail] = useState('');
   const [pwd, setPwd] = useState('');
   const [clickLogin, setClickLogin] = useState(false);
+  const [emailErr, setEmailErr] = useState(false);
+  const [pwdErr, setPwdErr] = useState(false);
 
   const emailInput = useRef(null);
   const pwdInput = useRef(null);
@@ -146,12 +148,29 @@ function Login() {
 
     if (email && pwd) {
       axios.get(`${userData}`, { email, pwd }).then(res => {
-        const user =
-          res.data.filter(el => el.userID === email) && res.data.filter(el => el.pwd === pwd);
-        if (user) {
+        console.log('res', res.data);
+        const userEmail = res.data.filter(el => el.email === email);
+        const userPwd = res.data.filter(el => el.pwd === pwd);
+
+        if (userEmail.length === 0 && userPwd.length === 0) {
+          setEmailErr(true);
+          setPwdErr(true);
+        } else if (userEmail.length === 0) {
+          setPwdErr(false);
+          setEmailErr(true);
+        } else if (userPwd.length === 0) {
+          setEmailErr(false);
+          setPwdErr(true);
+        }
+
+        if (userEmail.length > 0 && userPwd.length > 0) {
           dispatch(login());
           dispatch(
-            loginSuccess({ displayName: user[0].displayName, img: user[0].img, id: user[0].id })
+            loginSuccess({
+              displayName: userEmail[0].displayName,
+              img: userEmail[0].img,
+              id: userEmail[0].id,
+            })
           );
 
           document.location.href = '/';
@@ -184,6 +203,23 @@ function Login() {
           </PwdBox>
 
           <LoginBtn onClick={handleLoginBtn}>Log in</LoginBtn>
+          {emailErr && !pwdErr ? (
+            <Alert>
+              <p>⚠️</p> Please check your email
+            </Alert>
+          ) : null}
+
+          {pwdErr && !emailErr ? (
+            <Alert>
+              <p>⚠️</p> Please check your password
+            </Alert>
+          ) : null}
+
+          {pwdErr && emailErr ? (
+            <Alert>
+              <p>⚠️</p> Please check both of your inputs
+            </Alert>
+          ) : null}
         </LoginBox>
         <CreateAccount>
           Don&lsquo;t have an account ?<Link to="/signup">Sign Up</Link>
