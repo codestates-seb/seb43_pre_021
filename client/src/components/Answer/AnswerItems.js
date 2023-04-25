@@ -105,7 +105,7 @@ const AnswerItems = () => {
                 <div>
                   <UserInfo>
                     <UserImg src={userinfo.img} alt="userimg" />
-                    <p>{userinfo.displayName}</p>
+                    <p>{el.author}</p>
                   </UserInfo>
 
                   <IconContainer>

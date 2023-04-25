@@ -7,6 +7,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import { Editor } from '@toast-ui/react-editor';
+import { useEffect } from 'react';
 
 const Title = styled.div`
   font-weight: 500;
@@ -40,6 +41,7 @@ const Answer = (...props) => {
   const editorRef = useRef(null);
 
   const [edit, setEdit] = useState(true);
+  const [answer, setAnswer] = useState([]);
 
   const userinfo = useSelector(state => state.userinfo.user);
 
@@ -68,14 +70,14 @@ const Answer = (...props) => {
   const handlePostBtn = () => {
     const instance = editorRef.current.getInstance();
     const content = instance.getMarkdown();
+
+    console.log('aa', answer);
+
     axios
       .patch(`${questionData}/${id}`, {
         answer: [
-          {
-            author: userinfo.displayName,
-            id: id,
-            content: content,
-          },
+          ...answer,
+          { author: userinfo.displayName, id: answer.length + 1, content: content },
         ],
       })
       .then(res => {
@@ -128,6 +130,10 @@ const Answer = (...props) => {
     setEdit(false);
     document.location.href = `/questions/${id}`;
   };
+
+  useEffect(() => {
+    axios.get(`${questionData}/${id}`).then(res => setAnswer(res.data.answer));
+  }, []);
 
   return (
     <>
