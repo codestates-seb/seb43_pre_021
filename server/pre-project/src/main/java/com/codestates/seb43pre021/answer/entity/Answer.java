@@ -21,7 +21,9 @@ public class Answer {
     @Column(nullable = false)
     private String content;
     @Column(nullable = false)
-    private long memberId;
+    private String displayName;
+    @Column(nullable = false, columnDefinition = "integer default 0")
+    private long vote;
 
     @Enumerated(value = EnumType.STRING)
     private AnswerStatus answerStatus = AnswerStatus.ANSWER_RESISTRATION;
@@ -33,7 +35,7 @@ public class Answer {
     private LocalDateTime modifiedAt = LocalDateTime.now();
 
     @ManyToOne
-    @JoinColumn(name = "question_id")
+    @JoinColumn(foreignKey = @ForeignKey(name = "question_id"))
     private Question question;
 
 

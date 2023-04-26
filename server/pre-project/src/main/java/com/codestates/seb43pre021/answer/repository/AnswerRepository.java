@@ -9,7 +9,7 @@ import java.util.Optional;
 @Repository
 public interface AnswerRepository extends JpaRepository<Answer, Long> {
     Optional<Answer> findByAnswerId(long answerId);
-    Optional<Answer> findByMemberId(long memberId);
+    Optional<Answer> findByDisplayName(String displayName);
 
     Optional<Answer> findById(long questionId);
 }

@@ -8,17 +8,19 @@ import java.util.List;
 
 
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class QuestionResponseDto {
     private long questionId;
-    private long memberId;
+    private String  displayName;
     private String title;
     private String content;
     private long viewCount;
+    private long vote;
+    private String img;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
-    private List<Answer> answers;
 
 }
 
