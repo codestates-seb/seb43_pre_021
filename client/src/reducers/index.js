@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { questionSlice } from '../store/questionSlice.js';
+import searchReducer from '../store/searchSlice.js';
 import { loginReducer } from './loginReducer';
 import { userInfoReducer } from './userInfoReducer';
 import { persistReducer } from 'redux-persist';
@@ -12,14 +12,14 @@ const persistConfig = {
   // localStorage에 저장합니다.
   storage,
   // auth, board, studio 3개의 reducer 중에 auth reducer만 localstorage에 저장합니다.
-  whitelist: ['login', 'userinfo', 'answer'],
+  whitelist: ['login', 'userinfo', 'answer', 'search'],
   // blacklist -> 그것만 제외합니다
 };
 
 const rootReducer = combineReducers({
   login: loginReducer,
   userinfo: userInfoReducer,
-  question: questionSlice.reducer,
+  search: searchReducer,
   answer: answerReducer,
 });
 
