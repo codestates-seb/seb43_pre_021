@@ -1,14 +1,17 @@
 import styled from 'styled-components';
 
-const Member = ({ img, name, githubId }) => {
+const Member = ({ img, name, githubId, url }) => {
+  const handleLink = url => {
+    window.open(url);
+  };
   return (
     <>
-      <Container>
+      <Container onClick={() => handleLink(url)}>
         <Img src={img} alt="img" />
 
         <Intro>
           <div>{name}</div>
-          <div>githun ID : {githubId}</div>
+          <button>{githubId}</button>
         </Intro>
       </Container>
     </>
@@ -17,6 +20,11 @@ const Member = ({ img, name, githubId }) => {
 
 const Container = styled.div`
   display: flex;
+  margin-top: 30px;
+  margin-left: 10px;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Img = styled.img`
@@ -26,11 +34,16 @@ const Img = styled.img`
 `;
 
 const Intro = styled.div`
-  border: 1px solid blue;
   margin-left: 10px;
 
   > div {
     margin-bottom: 5px;
+  }
+
+  button {
+    border: none;
+    background-color: white;
+    margin-left: -4px;
   }
 `;
 
