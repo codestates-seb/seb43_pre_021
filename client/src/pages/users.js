@@ -75,7 +75,7 @@ function Users() {
           {members.map((user, idx) => {
             return (
               <li key={idx}>
-                <Link to={`/users/${user.id}`}>
+                <Link to={`/users/${user.memberId}`}>
                   <UserImg background={user.img} />
                   <UserInfo>
                     <p>{user.displayName}</p>

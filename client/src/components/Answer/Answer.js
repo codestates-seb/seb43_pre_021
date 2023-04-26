@@ -71,7 +71,10 @@ const Answer = (...props) => {
 
     axios
       .post(`/answer`, {
-        answer: [...answer, { displayName: userinfo.displayName, content: content, vote: 0 }],
+        questionId: id,
+        displayName: userinfo.displayName,
+        content: content,
+        vote: 0,
       })
       .then(res => {
         console.log('res', res.data);
@@ -130,7 +133,10 @@ const Answer = (...props) => {
   };
 
   useEffect(() => {
-    axios.get(`${questionData}/${id}`).then(res => setAnswer(res.data.answer));
+    axios.get(`/question/${id}/answer`).then(res => {
+      console.log('aa', res.data);
+      setAnswer(res.data.answer);
+    });
   }, []);
 
   return (

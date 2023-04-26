@@ -28,6 +28,8 @@ const TabBtn = styled(Button)`
 function Tabs({ active, isLoggedIn, activeU, user }) {
   const id = useSelector(state => state.userinfo.user.id);
 
+  console.log('bbbb', user);
+
   return (
     <>
       <UserHeaderNav>
