@@ -1,6 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import Navigation from '../components/Navigation';
 import Container from '../components/Container.js';
 import QuestionEditor from '../components/Question/questionEditor';
 import Loading from '../components/loading';

@@ -96,44 +96,51 @@ const AnswerItems = () => {
     });
   };
 
-  const handleUp = (answerId, e) => {
+  const handleUp = (answerId, author, e) => {
     e.preventDefault();
-    const clickedAnswer = a.find(q => q.id === answerId);
 
-    const updatedAnswer = {
-      ...clickedAnswer,
-      vote: clickedAnswer.vote + 1,
-    };
+    if (author === userinfo.displayName) {
+      alert('본인의 답글은 투표할 수 없습니다');
+    } else {
+      const clickedAnswer = a.find(q => q.id === answerId);
 
-    const otherAnswers = a.filter(q => q.id !== answerId);
+      const updatedAnswer = {
+        ...clickedAnswer,
+        vote: clickedAnswer.vote + 1,
+      };
 
-    axios
-      .patch(`${questionData}/${id}`, {
-        answer: [...otherAnswers, updatedAnswer],
-      })
-      .then(res => setA(res.data.answer))
-      .catch(err => console.error(err));
+      const otherAnswers = a.filter(q => q.id !== answerId);
+
+      axios
+        .patch(`${questionData}/${id}`, {
+          answer: [...otherAnswers, updatedAnswer],
+        })
+        .then(res => setA(res.data.answer))
+        .catch(err => console.error(err));
+    }
   };
 
-  const handleDown = (answerId, e) => {
+  const handleDown = (answerId, author, e) => {
     e.preventDefault();
-    const clickedAnswer = a.find(q => q.id === answerId);
+    if (author === userinfo.displayName) {
+      alert('본인의 답글은 투표할 수 없습니다');
+    } else {
+      const clickedAnswer = a.find(q => q.id === answerId);
 
-    console.log('a', a);
+      const updatedAnswer = {
+        ...clickedAnswer,
+        vote: clickedAnswer.vote - 1,
+      };
 
-    const updatedAnswer = {
-      ...clickedAnswer,
-      vote: clickedAnswer.vote - 1,
-    };
+      const otherAnswers = a.filter(q => q.id !== answerId);
 
-    const otherAnswers = a.filter(q => q.id !== answerId);
-
-    axios
-      .patch(`${questionData}/${id}`, {
-        answer: [...otherAnswers, updatedAnswer],
-      })
-      .then(res => setA(res.data.answer))
-      .catch(err => console.error(err));
+      axios
+        .patch(`${questionData}/${id}`, {
+          answer: [...otherAnswers, updatedAnswer],
+        })
+        .then(res => setA(res.data.answer))
+        .catch(err => console.error(err));
+    }
   };
 
   // 실제 서버  연결용
@@ -157,21 +164,17 @@ const AnswerItems = () => {
             <div key={idx}>
               <Container>
                 <div>
-                  {el.author === userinfo.displayName ? null : (
-                    <>
-                      <VscTriangleUp
-                        size={30}
-                        color="rgb(187, 191, 195)"
-                        onClick={e => handleUp(idx + 1, e)}
-                      />
-                      <p>{el.vote}</p>
-                      <VscTriangleDown
-                        size={30}
-                        color="rgb(187, 191, 195)"
-                        onClick={e => handleDown(idx + 1, e)}
-                      />
-                    </>
-                  )}
+                  <VscTriangleUp
+                    size={30}
+                    color="rgb(187, 191, 195)"
+                    onClick={e => handleUp(idx + 1, el.author, e)}
+                  />
+                  <p>{el.vote}</p>
+                  <VscTriangleDown
+                    size={30}
+                    color="rgb(187, 191, 195)"
+                    onClick={e => handleDown(idx + 1, el.author, e)}
+                  />
                 </div>
                 <div>
                   <div>
