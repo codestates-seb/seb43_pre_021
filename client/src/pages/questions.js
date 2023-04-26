@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import styled from 'styled-components';
-import QuestionItem from '../components/Question/questionItem.js';
+import QuestionItem from '../components/Question/questionItem';
 import SearchItem from '../components/Question/searchItem.js';
 import Button from '../components/button.js';
 import Container from '../components/Container.js';
@@ -17,7 +17,8 @@ const Questions = () => {
     axios
       .get('/question')
       .then(res => {
-        setQuestions(res.data);
+        console.log(res.data);
+        setQuestions(res.data.content);
       })
       .catch(error => {
         console.error(error);

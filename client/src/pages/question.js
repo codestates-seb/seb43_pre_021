@@ -18,6 +18,9 @@ const Question = () => {
   const userId = useSelector(state => state.userinfo.user.id);
 
   const [question, setQuestion] = useState('');
+  const [members, setMembers] = useState([]);
+
+  const member = members.filter(el => el.displayName === question.displayName);
 
   const onDelete = () => {
     const confirmDelete = window.confirm('정말로 삭제하시겠습니까?');
@@ -63,6 +66,15 @@ const Question = () => {
     });
   }, [id]);
 
+  useEffect(() => {
+    axios
+      .get('/members')
+      .then(res => {
+        setMembers(res.data);
+      })
+      .catch(err => console.error(err));
+  }, []);
+
   // useEffect(() => {
   //   axios.get(`${questionData}/${id}`).then(res => {
   //     setQuestion(res.data);
@@ -98,11 +110,14 @@ const Question = () => {
                     </Button>
                   </Link>
                 )}
+                {/* <Link to={`/users/${member.id}`}>
+                  <DisplayName>{question.displayName}</DisplayName>
+                </Link> */}
               </Info>
             </PageTitle>
             <ContentContainer>
               <Viewer initialValue={question.content} />
-              {isLoggedIn && userId === question.userinfo.id ? (
+              {isLoggedIn && userId === member.id ? (
                 <BtnContainer>
                   <Button onClick={onUpdate} background="none" border="#ffffff" color="#888888">
                     수정

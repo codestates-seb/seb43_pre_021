@@ -49,24 +49,30 @@ const UserImg = styled.div`
 `;
 
 function Users() {
-  const [users, setUsers] = useState([]);
+  // const [users, setUsers] = useState([]);
+  const [members, setMembers] = useState([]);
 
-  const userData = 'http://localhost:3001/USER_DATA';
-
-  // useEffect(() => {
-  //   axios.get('http://localhost:3001/USER_DATA').then(res => setUsers(res.data));
-  // }, []);
+  // const userData = 'http://localhost:3001/USER_DATA';
 
   useEffect(() => {
-    axios.get(`${userData}`).then(res => setUsers(res.data));
+    axios
+      .get('/members')
+      .then(res => {
+        setMembers(res.data);
+      })
+      .catch(err => console.error(err));
   }, []);
+
+  // useEffect(() => {
+  //   axios.get(`${userData}`).then(res => setUsers(res.data));
+  // }, []);
 
   return (
     <Container>
       <UsersBlock>
         <h1>Users</h1>
         <UserList>
-          {users.map((user, idx) => {
+          {members.map((user, idx) => {
             return (
               <li key={idx}>
                 <Link to={`/users/${user.id}`}>

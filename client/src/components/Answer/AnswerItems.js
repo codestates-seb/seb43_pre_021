@@ -166,27 +166,31 @@ const AnswerItems = () => {
             <div key={idx}>
               <Container>
                 <div>
-                  <VscTriangleUp
-                    size={30}
-                    color="rgb(187, 191, 195)"
-                    onClick={e => handleUp(idx + 1, el.author, e)}
-                  />
-                  <p>{el.vote}</p>
-                  <VscTriangleDown
-                    size={30}
-                    color="rgb(187, 191, 195)"
-                    onClick={e => handleDown(idx + 1, el.author, e)}
-                  />
+                  {el.displayName === userinfo.displayName ? null : (
+                    <>
+                      <VscTriangleUp
+                        size={30}
+                        color="rgb(187, 191, 195)"
+                        onClick={e => handleUp(idx + 1, e)}
+                      />
+                      <p>{el.vote}</p>
+                      <VscTriangleDown
+                        size={30}
+                        color="rgb(187, 191, 195)"
+                        onClick={e => handleDown(idx + 1, e)}
+                      />
+                    </>
+                  )}
                 </div>
                 <div>
                   <div>
                     <UserInfo>
                       <UserImg src={userinfo.img} alt="userimg" />
-                      <p>{el.author}</p>
+                      <p>{el.displayName}</p>
                     </UserInfo>
 
                     <IconContainer>
-                      {el.author === userinfo.displayName ? (
+                      {el.displayName === userinfo.displayName ? (
                         <>
                           <BsPencilSquare onClick={handleUpdate} />
                           <BsTrash onClick={e => handleDelete(idx, e)} />
@@ -195,8 +199,13 @@ const AnswerItems = () => {
                     </IconContainer>
                   </div>
                   <Viewer key={idx} initialValue={el.content} />
-                  {update && el.author === userinfo.displayName ? (
-                    <Answer from={update} text={el.content} idx={idx + 1} author={el.author} />
+                  {update && el.displayName === userinfo.displayName ? (
+                    <Answer
+                      from={update}
+                      text={el.content}
+                      idx={idx + 1}
+                      displayName={el.displayName}
+                    />
                   ) : null}
                 </div>
               </Container>
