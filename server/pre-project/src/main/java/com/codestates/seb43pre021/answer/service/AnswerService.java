@@ -4,6 +4,7 @@ import com.codestates.seb43pre021.answer.entity.Answer;
 import com.codestates.seb43pre021.exception.BusinessLogicException;
 import com.codestates.seb43pre021.exception.ExceptionCode;
 import com.codestates.seb43pre021.answer.repository.AnswerRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -14,6 +15,7 @@ import java.util.Optional;
 @Service
 public class AnswerService {
 
+    @Autowired
     private final AnswerRepository answerRepository;
 
     public AnswerService(AnswerRepository answerRepository) {
@@ -21,18 +23,18 @@ public class AnswerService {
     }
 
     public Answer createAnswer(Answer answer) {
-        verifyExistsMemberId(answer.getMemberId());
+        verifyExistsDisplayName(answer.getDisplayName());
         return answerRepository.save(answer);
     }
 
-    private void verifyExistsMemberId(long memberId) {
+    private void verifyExistsDisplayName(String displayName) {
     }
 
     public Answer updateAnswer(Answer answer) {
         Answer findAnswer = findVerifiedAnswer(answer.getAnswerId());
 
-        Optional.ofNullable(answer.getMemberId())
-                .ifPresent(memberId -> findAnswer.setMemberId(memberId));
+        Optional.ofNullable(answer.getDisplayName())
+                .ifPresent(displayName -> findAnswer.setDisplayName(displayName));
         Optional.ofNullable(answer.getContent())
                 .ifPresent(content -> findAnswer.setContent(content));
         Optional.ofNullable(answer.getAnswerStatus())

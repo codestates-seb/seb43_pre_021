@@ -41,10 +41,14 @@ public class QuestionService {
 
         Question findQuestion = findVerifiedQuestion(question.getQuestionId());
 
+        Optional.ofNullable(question.getDisplayName())
+                .ifPresent(displayName -> findQuestion.setDisplayName(displayName));
         Optional.ofNullable(question.getTitle())
                 .ifPresent(title -> findQuestion.setTitle(title));
         Optional.ofNullable(question.getContent())
                 .ifPresent(content -> findQuestion.setContent(content));
+        Optional.ofNullable(question.getImg())
+                .ifPresent(img -> findQuestion.setImg(img));
         Optional.ofNullable(question.getQuestionStatus())
                 .ifPresent(questionStatus -> findQuestion.setQuestionStatus(questionStatus));
 

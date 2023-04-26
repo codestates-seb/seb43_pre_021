@@ -13,9 +13,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class PagingDto {
     private long questionId;
+    private String displayName;
     private String title;
     private long memberId;
     private LocalDateTime createAt;
     private long viewCount;
+    private long vote;
 
 }
