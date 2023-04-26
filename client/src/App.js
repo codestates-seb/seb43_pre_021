@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from './components/header/Header';
-import Home from './pages/Home';
 import Questions from './pages/questions';
 import Question from './pages/question';
 import QuestionInput from './pages/questionInput';
@@ -32,10 +31,9 @@ function App() {
         <GlobalStyle />
         <Header />
         <Routes>
-          <Route exact path="/" element={<Home />} />
+          <Route exact path="/" element={<Questions />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/questions" element={<Questions />} />
           <Route path="/questions/:id" element={<Question />} />
           <Route path="/questions/ask" element={<QuestionInput />} />
           <Route path="/questions/ask/:id" element={<QuestionInput />} />

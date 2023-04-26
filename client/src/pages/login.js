@@ -109,7 +109,7 @@ function Login() {
   const emailInput = useRef(null);
   const pwdInput = useRef(null);
 
-  const userData = 'http://localhost:3001/USER_DATA';
+  // const userData = 'http://localhost:3001/USER_DATA';
 
   const dispatch = useDispatch();
 
@@ -131,24 +131,8 @@ function Login() {
     }
 
     // 실제 서버 연결용
-    // if (email && pwd) {
-    //   axios.get('http://localhost:3001/USER_DATA', { email, pwd }).then(res => {
-    //     const user =
-    //       res.data.filter(el => el.userID === email) && res.data.filter(el => el.pwd === pwd);
-    //     if (user) {
-    //       dispatch(login());
-    //       dispatch(
-    //         loginSuccess({ displayName: user[0].displayName, img: user[0].img, id: user[0].id })
-    //       );
-
-    //       document.location.href = '/';
-    //     }
-    //   });
-    // }
-
     if (email && pwd) {
-      axios.get(`${userData}`, { email, pwd }).then(res => {
-        console.log('res', res.data);
+      axios.get('/auth/login', { email, pwd }).then(res => {
         const userEmail = res.data.filter(el => el.email === email);
         const userPwd = res.data.filter(el => el.pwd === pwd);
 
@@ -177,6 +161,38 @@ function Login() {
         }
       });
     }
+
+    // if (email && pwd) {
+    //   axios.get(`${userData}`, { email, pwd }).then(res => {
+    //     console.log('res', res.data);
+    //     const userEmail = res.data.filter(el => el.email === email);
+    //     const userPwd = res.data.filter(el => el.pwd === pwd);
+
+    //     if (userEmail.length === 0 && userPwd.length === 0) {
+    //       setEmailErr(true);
+    //       setPwdErr(true);
+    //     } else if (userEmail.length === 0) {
+    //       setPwdErr(false);
+    //       setEmailErr(true);
+    //     } else if (userPwd.length === 0) {
+    //       setEmailErr(false);
+    //       setPwdErr(true);
+    //     }
+
+    //     if (userEmail.length > 0 && userPwd.length > 0) {
+    //       dispatch(login());
+    //       dispatch(
+    //         loginSuccess({
+    //           displayName: userEmail[0].displayName,
+    //           img: userEmail[0].img,
+    //           id: userEmail[0].id,
+    //         })
+    //       );
+
+    //       document.location.href = '/';
+    //     }
+    //   });
+    // }
   };
   return (
     <>
