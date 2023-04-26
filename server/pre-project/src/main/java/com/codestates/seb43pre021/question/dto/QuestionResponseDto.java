@@ -19,6 +19,7 @@ public class QuestionResponseDto {
     private long viewCount;
     private long vote;
     private String img;
+    private List<Answer> answers;
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
 
