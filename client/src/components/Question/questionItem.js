@@ -6,9 +6,9 @@ const QuestionItem = ({ question }) => {
     <div>
       <Item>
         <Response>
-          <p>0 votes</p>
-          <p>0 answer</p>
-          <p>0 views</p>
+          <p>{question.vote || 0} votes</p>
+          <p>{question.answer.length} answer</p>
+          <p>{question.viewCount || 0} views</p>
         </Response>
         <Question>
           {/* 실제 서버 연결용 */}

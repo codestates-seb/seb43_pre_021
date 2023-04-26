@@ -54,15 +54,12 @@ function Navigation() {
     <NavigationBlock>
       <ol>
         <li>
-          <NavLink to="/">Home</NavLink>
-        </li>
-        <li>
           <ol>
             <li>
               <span>Public</span>
             </li>
             <li>
-              <NavLink to="/questions">
+              <NavLink to={'/'}>
                 <GiEarthAmerica className="questionsIcon" />
                 Questions
               </NavLink>
