@@ -65,13 +65,13 @@
           "author": "bb",
           "id": 1,
           "content": "bb",
-          "vote": 4
+          "vote": 14
         },
         {
           "author": "aa",
           "id": 2,
-          "content": "aa",
-          "vote": 0
+          "content": "ㅁㅁaa",
+          "vote": 5
         }
       ],
       "userinfo": {

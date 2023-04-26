@@ -110,10 +110,11 @@ const AnswerItems = () => {
       };
 
       const otherAnswers = a.filter(q => q.id !== answerId);
+      const newAnswer = [...otherAnswers, updatedAnswer].sort((a, b) => a.id - b.id);
 
       axios
         .patch(`${questionData}/${id}`, {
-          answer: [...otherAnswers, updatedAnswer],
+          answer: newAnswer,
         })
         .then(res => setA(res.data.answer))
         .catch(err => console.error(err));
@@ -133,10 +134,11 @@ const AnswerItems = () => {
       };
 
       const otherAnswers = a.filter(q => q.id !== answerId);
+      const newAnswer = [...otherAnswers, updatedAnswer].sort((a, b) => a.id - b.id);
 
       axios
         .patch(`${questionData}/${id}`, {
-          answer: [...otherAnswers, updatedAnswer],
+          answer: newAnswer,
         })
         .then(res => setA(res.data.answer))
         .catch(err => console.error(err));
