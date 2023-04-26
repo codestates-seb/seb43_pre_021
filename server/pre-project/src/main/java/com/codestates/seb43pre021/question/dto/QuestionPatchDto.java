@@ -23,7 +23,6 @@ public class QuestionPatchDto {
         @NotBlank(message = "내용은 공백이 아니어야 합니다.")
         private String content;
         private String img;
-        private String answer;
         private LocalDateTime modifiedAt;
 
     }

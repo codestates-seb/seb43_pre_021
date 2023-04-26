@@ -57,7 +57,7 @@ function ProfileTab({ user, isLoggedIn, userinfo }) {
   // 실제서버용
   useEffect(() => {
     axios.get('/question').then(res => {
-      setQuestions(res.data);
+      setQuestions(res.data.content);
     });
   }, []);
 
@@ -67,7 +67,9 @@ function ProfileTab({ user, isLoggedIn, userinfo }) {
   //   });
   // }, []);
 
-  const question = questions.filter(question => question.userinfo.displayName === user.displayName);
+  console.log('user', user);
+
+  const question = questions.filter(question => question.displayName === user.displayName);
 
   return (
     <ProfileSection>
@@ -100,7 +102,7 @@ function ProfileTab({ user, isLoggedIn, userinfo }) {
             <ol>
               {questions
                 ? questions
-                    .filter(data => data.userinfo.displayName === user.displayName)
+                    .filter(data => data.displayName === user.displayName)
                     .map((question, idx) => {
                       return (
                         <li key={idx}>

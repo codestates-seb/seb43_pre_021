@@ -24,6 +24,8 @@ function User() {
   const userinfo = useSelector(state => state.userinfo.user);
   const [user, setUser] = useState([]);
 
+  console.log('user', user);
+
   // const userData = 'http://localhost:3001/USER_DATA';
 
   // 실제 서버 연결용
@@ -40,7 +42,7 @@ function User() {
       <MyPageBlock>
         <UserHeader isLoggedIn={isLoggedIn} user={user} userinfo={userinfo.id} />
         <div>
-          <Tabs isLoggedIn={isLoggedIn} user={user.id} activeU={'active'} />
+          <Tabs isLoggedIn={isLoggedIn} user={user.memberId} activeU={'active'} />
           <ProfileTab isLoggedIn={isLoggedIn} user={user} userinfo={userinfo.id} />
         </div>
       </MyPageBlock>

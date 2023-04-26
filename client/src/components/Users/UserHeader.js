@@ -56,12 +56,12 @@ function UserHeader({ user, isLoggedIn, userinfo }) {
           <p>가입한 날짜표시</p>
         </UserInfo>
       </UserInfoBlock>
-      {isLoggedIn && userinfo === user.id ? (
+      {isLoggedIn && userinfo === user.memberId ? (
         <MyPageBtnBlock>
           <li>
             <MyPageBtn
               as={NavLink}
-              to={`/users/edit/${user.id}`}
+              to={`/users/edit/${user.memberId}`}
               background="#E5883E"
               border="#E5883E"
             >
@@ -71,7 +71,7 @@ function UserHeader({ user, isLoggedIn, userinfo }) {
           <li>
             <MyPageBtn
               as={NavLink}
-              to={`/users/delete/${user.id}`}
+              to={`/users/delete/${user.memberId}`}
               background="#E5883E"
               border="#E5883E"
             >

@@ -7,7 +7,7 @@ const QuestionItem = ({ question }) => {
       <Item>
         <Response>
           <p>{question.vote || 0} votes</p>
-          <p>{question.answer.length} answer</p>
+          <p>{question.answers.length} answer</p>
           <p>{question.viewCount || 0} views</p>
         </Response>
         <Question>

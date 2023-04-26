@@ -88,8 +88,9 @@ const Question = () => {
           <>
             <PageTitle>
               <div>
-                <Link to={`/users/${question.userinfo.id}`}>
-                  <UserImg src={question.userinfo.img} alt="userimg" />
+                {console.log(question)}
+                <Link to={`/users/${member.id}`}>
+                  <UserImg src={question.img} alt="userimg" />
                 </Link>
                 <span>{question.title}</span>
                 <CreatedAt>

@@ -19,8 +19,8 @@ import java.time.LocalDateTime;
         @NotBlank(message = "작성자명은 공백이 아니어야 합니다.")
         private String displayName;
         @NotBlank(message = "내용은 공백이 아니어야 합니다.")
-        private long questionNum;
         private String content;
+        private long questionNum;
         private LocalDateTime modifiedAt;
 
     }

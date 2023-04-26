@@ -46,7 +46,7 @@ function UserEdit() {
       <MyPageBlock>
         <UserHeader isLoggedIn={isLoggedIn} user={user} userinfo={userinfo.id} />
         <div>
-          <Tabs isLoggedIn={isLoggedIn} user={user.id} />
+          <Tabs isLoggedIn={isLoggedIn} user={user.memberId} />
           <SettingBlock>
             <SubTabs />
             <EditSection user={user} />
