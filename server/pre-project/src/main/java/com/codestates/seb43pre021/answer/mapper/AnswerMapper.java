@@ -10,7 +10,9 @@ import org.springframework.stereotype.Component;
 public class AnswerMapper {
         public Answer answerPostDtoToAnswer(AnswerPostDto answerPostDto) {
             Answer answer = new Answer();
+            answer.setDisplayName(answerPostDto.getDisplayName());
             answer.setContent(answerPostDto.getContent());
+
             return answer;
         }
 
@@ -19,14 +21,16 @@ public class AnswerMapper {
             Answer answer = new Answer();
 
             answer.setAnswerId(answerPatchDto.getAnswerId());
+            answer.setDisplayName(answerPatchDto.getDisplayName());
             answer.setContent(answerPatchDto.getContent());
 
             return answer;
         }
         public AnswerResponseDto answerToAnswerResponseDto(Answer answer) {
             return new AnswerResponseDto(answer.getAnswerId(),
-                    answer.getMemberId(),
+                    answer.getDisplayName(),
                     answer.getContent(),
+                    answer.getVote(),
                     answer.getCreatedAt(),
                     answer.getModifiedAt());
         }

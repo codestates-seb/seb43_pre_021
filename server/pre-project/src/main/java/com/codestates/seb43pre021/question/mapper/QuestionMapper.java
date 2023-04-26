@@ -16,39 +16,46 @@ public class QuestionMapper {
 
     public Question questionPostDtoToQuestion(QuestionPostDto questionPostDto) {
         Question question = new Question();
+        question.setDisplayName(questionPostDto.getDisplayName());
         question.setTitle(questionPostDto.getTitle());
         question.setContent(questionPostDto.getContent());
+        question.setImg(questionPostDto.getImg());
         return question;
     }
 
     public Question questionPatchDtoToQuestion(QuestionPatchDto questionPatchDto) {
         Question question = new Question();
         question.setQuestionId(questionPatchDto.getQuestionId());
+        question.setDisplayName(questionPatchDto.getDisplayName());
         question.setTitle(questionPatchDto.getTitle());
         question.setContent(questionPatchDto.getContent());
+        question.setImg(questionPatchDto.getImg());
         return question;
     }
 
     public QuestionResponseDto questionToQuestionResponseDto(Question question) {
         return new QuestionResponseDto(question.getQuestionId(),
-                question.getMemberId(),
+                question.getDisplayName(),
                 question.getTitle(),
                 question.getContent(),
                 question.getViewCount(),
+                question.getVote(),
+                question.getImg(),
                 question.getCreatedAt(),
-                question.getModifiedAt(),
-                question.getAnswers());
+                question.getModifiedAt());
     }
 
     public QuestionResponseDto mapToQuestionResponseDto(Question question) {
         return new QuestionResponseDto(question.getQuestionId(),
-                question.getMemberId(),
+                question.getDisplayName(),
                 question.getTitle(),
                 question.getContent(),
                 question.getViewCount(),
+                question.getVote(),
+                question.getImg(),
                 question.getCreatedAt(),
-                question.getModifiedAt(),
-                question.getAnswers());
+                question.getModifiedAt());
+
     }
 
     public Page<QuestionResponseDto> questionPageToQuestionResponseDtoPage(Page<Question> questionPage) {
