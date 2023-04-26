@@ -5,7 +5,7 @@ spring:
             path: /h2
     datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://database-1.cws5cfcezt45.ap-northeast-2.rds.amazonaws.com:3306/sys?serverTimezone=UTC
+        url: jdbc:mysql://database-1.cws5cfcezt45.ap-northeast-2.rds.amazonaws.com:3306/sys?&serverTimezone=UTC
         username: admin
         password: Baek102504!
     jpa:

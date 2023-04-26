@@ -1,13 +1,12 @@
 import '@toast-ui/editor/dist/toastui-editor.css';
 import styled from 'styled-components';
 import Button from '../button';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 import { Editor } from '@toast-ui/react-editor';
-import { useEffect } from 'react';
 
 const Title = styled.div`
   font-weight: 500;
