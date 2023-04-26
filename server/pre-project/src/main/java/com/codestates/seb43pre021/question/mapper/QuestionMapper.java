@@ -20,6 +20,7 @@ public class QuestionMapper {
         question.setTitle(questionPostDto.getTitle());
         question.setContent(questionPostDto.getContent());
         question.setImg(questionPostDto.getImg());
+        question.setAnswers(questionPostDto.getAnswers());
         return question;
     }
 
@@ -30,29 +31,30 @@ public class QuestionMapper {
         question.setTitle(questionPatchDto.getTitle());
         question.setContent(questionPatchDto.getContent());
         question.setImg(questionPatchDto.getImg());
+        question.setAnswers(questionPatchDto.getAnswers());
         return question;
     }
 
     public QuestionResponseDto questionToQuestionResponseDto(Question question) {
         return new QuestionResponseDto(question.getQuestionId(),
-                question.getDisplayName(),
-                question.getTitle(),
+                question.getTitle(), question.getDisplayName(),
                 question.getContent(),
                 question.getViewCount(),
                 question.getVote(),
                 question.getImg(),
+                question.getAnswers(),
                 question.getCreatedAt(),
                 question.getModifiedAt());
     }
 
     public QuestionResponseDto mapToQuestionResponseDto(Question question) {
         return new QuestionResponseDto(question.getQuestionId(),
-                question.getDisplayName(),
-                question.getTitle(),
+                question.getTitle(), question.getDisplayName(),
                 question.getContent(),
                 question.getViewCount(),
                 question.getVote(),
                 question.getImg(),
+                question.getAnswers(),
                 question.getCreatedAt(),
                 question.getModifiedAt());
 
