@@ -2,6 +2,7 @@ package com.codestates.seb43pre021.member.controller;
 
 import com.codestates.seb43pre021.member.dto.MemberPatchDto;
 import com.codestates.seb43pre021.member.dto.MemberPostDto;
+import com.codestates.seb43pre021.member.dto.MemberResponseDto;
 import com.codestates.seb43pre021.member.entity.Member;
 import com.codestates.seb43pre021.member.mapper.MemberMapper;
 import com.codestates.seb43pre021.member.service.MemberService;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/members")
@@ -42,6 +45,17 @@ public class MemberController {
         Member response = memberService.updateMember(mapper.memberPatchDtoToMember(memberPatchDto));
         return new ResponseEntity<>(mapper.memberToMemberResponseDto(response), HttpStatus.OK);
     }
+    //전체 회원 정보 조회
+    @GetMapping
+    public ResponseEntity getMembers() {
+        List<Member> members = memberService.findMembers();
+        List<MemberResponseDto> response =
+                members.stream()
+                        .map(member -> mapper.memberToMemberResponseDto(member))
+                        .collect(Collectors.toList());
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
 
     //회원 정보 조회
     @GetMapping("/{member-id}")
