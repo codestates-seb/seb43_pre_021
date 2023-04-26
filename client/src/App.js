@@ -12,6 +12,7 @@ import Users from './pages/users';
 import User from './pages/user';
 import UserEdit from './pages/userEdit';
 import UserDelete from './pages/userDelete';
+import About from './pages/about';
 
 const GlobalStyle = createGlobalStyle`
 ${reset}
@@ -42,6 +43,7 @@ function App() {
           <Route path="/users/:id" element={<User />} />
           <Route path="/users/edit/:id" element={<UserEdit />} />
           <Route path="/users/delete/:id" element={<UserDelete />} />
+          <Route path="/about" element={<About />} />
         </Routes>
       </BrowserRouter>
     </>

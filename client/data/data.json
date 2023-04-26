@@ -11,7 +11,7 @@
     {
       "id": 2,
       "img": "https://images.unsplash.com/photo-1680903413454-ff0f93efbcc3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2864&q=80",
-      "displayName": "bb",
+      "displayName": "bbnn",
       "email": "bb@gmail.com",
       "pwd": "bb",
       "about": null
@@ -60,7 +60,20 @@
       "id": 8,
       "title": "new",
       "content": "new",
-      "answer": [],
+      "answer": [
+        {
+          "author": "bb",
+          "id": 1,
+          "content": "bb",
+          "vote": 4
+        },
+        {
+          "author": "aa",
+          "id": 2,
+          "content": "aa",
+          "vote": 0
+        }
+      ],
       "userinfo": {
         "displayName": "bb",
         "img": "https://images.unsplash.com/photo-1680903413454-ff0f93efbcc3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2864&q=80",
