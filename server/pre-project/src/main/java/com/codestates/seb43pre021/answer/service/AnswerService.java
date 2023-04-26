@@ -37,6 +37,8 @@ public class AnswerService {
                 .ifPresent(displayName -> findAnswer.setDisplayName(displayName));
         Optional.ofNullable(answer.getContent())
                 .ifPresent(content -> findAnswer.setContent(content));
+        Optional.ofNullable(answer.getQuestionNum())
+                .ifPresent(questionNum -> findAnswer.setQuestionNum(questionNum));
         Optional.ofNullable(answer.getAnswerStatus())
                 .ifPresent(answerStatus -> findAnswer.setAnswerStatus(answerStatus));
 
@@ -52,11 +54,8 @@ public class AnswerService {
     }
 
     public List<Answer> findAnswers() {
-        List<Answer> answers = List.of(
-                new Answer()
-        );
-        return answers;
 
+        return answerRepository.findAll();
     }
 
     public void deleteAnswer(long answerId) {

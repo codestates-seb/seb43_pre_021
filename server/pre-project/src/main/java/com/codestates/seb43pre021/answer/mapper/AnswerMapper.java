@@ -12,6 +12,7 @@ public class AnswerMapper {
             Answer answer = new Answer();
             answer.setDisplayName(answerPostDto.getDisplayName());
             answer.setContent(answerPostDto.getContent());
+            answer.setQuestionNum(answerPostDto.getQuestionNum());
 
             return answer;
         }
@@ -23,6 +24,7 @@ public class AnswerMapper {
             answer.setAnswerId(answerPatchDto.getAnswerId());
             answer.setDisplayName(answerPatchDto.getDisplayName());
             answer.setContent(answerPatchDto.getContent());
+            answer.setQuestionNum(answerPatchDto.getQuestionNum());
 
             return answer;
         }
@@ -31,6 +33,7 @@ public class AnswerMapper {
                     answer.getDisplayName(),
                     answer.getContent(),
                     answer.getVote(),
+                    answer.getQuestionNum(),
                     answer.getCreatedAt(),
                     answer.getModifiedAt());
         }
