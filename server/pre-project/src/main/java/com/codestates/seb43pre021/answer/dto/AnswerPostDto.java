@@ -10,13 +10,16 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Getter
-    @Setter
-    @AllArgsConstructor
-    public class AnswerPostDto {
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class AnswerPostDto {
 
-        @NotBlank(message = "내용은 공백이 아니어야 합니다.")
-        private String content;
-        private LocalDateTime createdAt;
+    @NotBlank(message = "작성자명은 공백이 아니어야 합니다.")
+    private String displayName;
+    @NotBlank(message = "내용은 공백이 아니어야 합니다.")
+    private String content;
+    private LocalDateTime createdAt;
 
     }
 

@@ -7,6 +7,7 @@ import com.codestates.seb43pre021.answer.entity.Answer;
 import com.codestates.seb43pre021.answer.mapper.AnswerMapper;
 import com.codestates.seb43pre021.answer.service.AnswerService;
 import com.codestates.seb43pre021.question.service.QuestionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -21,12 +22,16 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/answer")
 @Validated
-    public class AnswerController {
-        private final AnswerService answerService;
-        private final AnswerMapper mapper;
-        private final QuestionService questionService;
+public class AnswerController {
 
-        public AnswerController(AnswerService answerService, AnswerMapper mapper, QuestionService questionService) {
+    @Autowired
+    private final AnswerService answerService;
+    @Autowired
+    private final AnswerMapper mapper;
+    @Autowired
+    private final QuestionService questionService;
+
+    public AnswerController(AnswerService answerService, AnswerMapper mapper, QuestionService questionService) {
             this.answerService = answerService;
             this.mapper = mapper;
             this.questionService = questionService;

@@ -10,6 +10,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.SimpleTimeZone;
 
 @Getter
 @Setter
@@ -25,9 +26,11 @@ public class Question {
     @Column(nullable = false, length = 300)
     private String content;
     @Column(nullable = false)
-    private long memberId;
-
-
+    private String displayName;
+    @Column(nullable = false, columnDefinition = "integer default 0" )
+    private long vote;
+    @Column(nullable = false)
+    private String img = "https://images.unsplash.com/photo-1680903413454-ff0f93efbcc3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2864&q=80";
 
     @Enumerated(value = EnumType.STRING)
     private QuestionStatus questionStatus = QuestionStatus.QUESTION_RESISTRATION;
