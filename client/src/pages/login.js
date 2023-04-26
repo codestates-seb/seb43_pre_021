@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import logo from '../assets/logo-stackoverflow.png';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { login, loginSuccess } from '../actions/index';
@@ -105,6 +105,7 @@ function Login() {
   const [clickLogin, setClickLogin] = useState(false);
   const [emailErr, setEmailErr] = useState(false);
   const [pwdErr, setPwdErr] = useState(false);
+  const [members, setMembers] = useState([]);
 
   const emailInput = useRef(null);
   const pwdInput = useRef(null);
@@ -132,22 +133,11 @@ function Login() {
 
     // 실제 서버 연결용
     if (email && pwd) {
-      axios.get('/auth/login', { email, pwd }).then(res => {
-        const userEmail = res.data.filter(el => el.email === email);
-        const userPwd = res.data.filter(el => el.pwd === pwd);
-
-        if (userEmail.length === 0 && userPwd.length === 0) {
-          setEmailErr(true);
-          setPwdErr(true);
-        } else if (userEmail.length === 0) {
-          setPwdErr(false);
-          setEmailErr(true);
-        } else if (userPwd.length === 0) {
-          setEmailErr(false);
-          setPwdErr(true);
-        }
-
-        if (userEmail.length > 0 && userPwd.length > 0) {
+      axios.post('/auth/login', { username: email, password: pwd }).then(res => {
+        console.log('res', res);
+        if (res.status === 200) {
+          const userEmail = members.filter(el => el.email === email);
+          console.log(userEmail);
           dispatch(login());
           dispatch(
             loginSuccess({
@@ -158,6 +148,23 @@ function Login() {
           );
 
           document.location.href = '/';
+        } else {
+          const userEmail = members.filter(el => el.email === email);
+          const userPwd = members.filter(el => el.pwd === pwd);
+
+          console.log(userEmail);
+          console.log(userPwd);
+
+          if (userEmail.length === 0 && userPwd.length === 0) {
+            setEmailErr(true);
+            setPwdErr(true);
+          } else if (userEmail.length === 0) {
+            setPwdErr(false);
+            setEmailErr(true);
+          } else if (userPwd.length === 0) {
+            setEmailErr(false);
+            setPwdErr(true);
+          }
         }
       });
     }
@@ -194,6 +201,15 @@ function Login() {
     //   });
     // }
   };
+
+  useEffect(() => {
+    axios
+      .get('/members')
+      .then(res => {
+        setMembers(res.data);
+      })
+      .catch(err => console.error(err));
+  }, []);
   return (
     <>
       <Container>

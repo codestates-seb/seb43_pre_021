@@ -19,6 +19,7 @@ public class AnswerPostDto {
     private String displayName;
     @NotBlank(message = "내용은 공백이 아니어야 합니다.")
     private String content;
+    private long questionNum;
     private LocalDateTime createdAt;
 
     }

@@ -1,4 +1,6 @@
 import { CgSearch } from 'react-icons/cg';
+import { useSelector, useDispatch } from 'react-redux';
+import { setSearchTerm } from '../../store/searchSlice.js';
 import styled from 'styled-components';
 
 const Form = styled.form`
@@ -34,11 +36,19 @@ const FormBlock = styled.div`
 `;
 
 function Search() {
+  const searchTerm = useSelector(state => state.search.searchTerm);
+
+  const dispatch = useDispatch();
+
+  const handleChange = e => {
+    dispatch(setSearchTerm(e.target.value));
+  };
+
   return (
     <Form>
       <FormBlock>
         <CgSearch size="24" className="searchIcon" />
-        <input type="text" placeholder="Search ..." />
+        <input type="text" value={searchTerm} onChange={handleChange} placeholder="Search ..." />
       </FormBlock>
     </Form>
   );

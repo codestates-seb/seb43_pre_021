@@ -24,6 +24,8 @@ public class Answer {
     private String displayName;
     @Column(nullable = false, columnDefinition = "integer default 0")
     private long vote;
+    @Column(nullable = false)
+    private long questionNum;
 
     @Enumerated(value = EnumType.STRING)
     private AnswerStatus answerStatus = AnswerStatus.ANSWER_RESISTRATION;
@@ -37,6 +39,7 @@ public class Answer {
     @ManyToOne
     @JoinColumn(foreignKey = @ForeignKey(name = "question_id"))
     private Question question;
+
 
 
 

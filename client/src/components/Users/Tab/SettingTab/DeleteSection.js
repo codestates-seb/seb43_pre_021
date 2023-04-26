@@ -59,12 +59,14 @@ const CheckDelete = styled.div`
   }
 `;
 function DeleteSection({ isLoggedIn, user }) {
-  const userData = 'http://localhost:3001/USER_DATA';
+  // const userData = 'http://localhost:3001/USER_DATA';
   const navigate = useNavigate();
   const dispatch = useDispatch();
   function handleDelete(event) {
     event.preventDefault();
-    axios.delete(`${userData}/${user.id}`).then(!isLoggedIn);
+    // 실제 서버용
+    axios.delete(`/members/${user.id}`).then(!isLoggedIn);
+    // axios.delete(`${userData}/${user.id}`).then(!isLoggedIn);
     dispatch(logout());
     navigate('/');
   }
