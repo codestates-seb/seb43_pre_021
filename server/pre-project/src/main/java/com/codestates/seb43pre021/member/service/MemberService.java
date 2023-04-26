@@ -58,6 +58,10 @@ public class MemberService {
         return findVerifiedMember(memberId);
     }
 
+    public List<Member> findMembers() {
+        return (List<Member>) memberRepository.findAll();
+    }
+
     public void deleteMember(long memberId) {
         Member findMember = findVerifiedMember(memberId);
         memberRepository.delete(findMember);
