@@ -137,13 +137,13 @@ function Login() {
         console.log('res', res);
         if (res.status === 200) {
           const userEmail = members.filter(el => el.email === email);
-          console.log(userEmail);
+          console.log('user', userEmail[0].memberId);
           dispatch(login());
           dispatch(
             loginSuccess({
               displayName: userEmail[0].displayName,
               img: userEmail[0].img,
-              id: userEmail[0].id,
+              id: userEmail[0].memberId,
             })
           );
 

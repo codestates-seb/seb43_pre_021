@@ -64,13 +64,18 @@ function EditSection({ user }) {
     setEditData({
       ...editData,
       [e.target.name]: e.target.value,
+      password: 'bb',
     });
   }
 
   function handleSubmit(event) {
+    console.log(editData);
     event.preventDefault();
     // 실제 서버용
-    axios.patch(`/members/${id}`, editData).then(navigate(`/users/${id}`));
+    axios.patch(`/members/${id}`, editData).then(res => {
+      console.log(res.data);
+      // navigate(`/users/${id}`)
+    });
     // axios.patch(`${userData}/${id}`, editData).then(navigate(`/users/${id}`));
   }
 
@@ -96,7 +101,12 @@ function EditSection({ user }) {
           <label htmlFor="about" className="label">
             About me
           </label>
-          <textarea id="about" name="about" onChange={handleChange}></textarea>
+          <textarea
+            id="about"
+            name="about"
+            value={editData.about}
+            onChange={handleChange}
+          ></textarea>
         </div>
         <BtnBlock className="btns">
           <Button type="submit">Save profile</Button>
