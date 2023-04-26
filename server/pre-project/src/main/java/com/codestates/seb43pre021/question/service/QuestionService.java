@@ -49,8 +49,6 @@ public class QuestionService {
                 .ifPresent(content -> findQuestion.setContent(content));
         Optional.ofNullable(question.getImg())
                 .ifPresent(img -> findQuestion.setImg(img));
-        Optional.ofNullable(question.getAnswers())
-                .ifPresent(answers ->findQuestion.setAnswers(answers));
         Optional.ofNullable(question.getQuestionStatus())
                 .ifPresent(questionStatus -> findQuestion.setQuestionStatus(questionStatus));
 
