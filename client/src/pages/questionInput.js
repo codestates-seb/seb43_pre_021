@@ -194,6 +194,13 @@ const InputDiv = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 5rem;
+
+  @media (max-width: 1000px) {
+    width: 700px;
+  }
+  @media (max-width: 800px) {
+    width: 540px;
+  }
 `;
 
 const PageTitle = styled.span`

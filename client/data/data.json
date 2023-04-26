@@ -27,20 +27,18 @@
   ],
   "QUESTION_DATA": [
     {
-      "id": 5,
-      "title": "1",
-      "content": "1",
+      "id": 1,
+      "title": "질문",
+      "content": "내용",
+      "viewCount": 10,
+      "vote": 10,
+      "createdAt": "2023-04-19 10:30:15",
+      "modifiedAt": "2023-04-19 10:33:20",
       "answer": [
         {
           "author": "aa",
           "id": 1,
-          "content": "kk",
-          "vote": 2
-        },
-        {
-          "author": "bb",
-          "id": 2,
-          "content": "bb",
+          "content": "sdfsdfasfsafsfsa",
           "vote": 0
         }
       ],
@@ -62,14 +60,28 @@
       }
     },
     {
-      "id": 8,
-      "title": "new",
-      "content": "new",
+      "id": 2,
+      "title": "질문2",
+      "content": "내용2",
+      "viewCount": 18,
+      "createdAt": "2023-04-12 10:30:15",
+      "modifiedAt": "2023-04-12 10:33:20",
       "answer": [],
       "userinfo": {
         "displayName": "bb",
         "img": "https://images.unsplash.com/photo-1680903413454-ff0f93efbcc3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2864&q=80",
         "id": 2
+      }
+    },
+    {
+      "id": 3,
+      "title": "12",
+      "content": "12",
+      "answer": [],
+      "userinfo": {
+        "displayName": "aa",
+        "img": "https://images.unsplash.com/photo-1680903413454-ff0f93efbcc3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2864&q=80",
+        "id": 1
       }
     }
   ]
