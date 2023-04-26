@@ -1,3 +1,5 @@
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -43,16 +45,35 @@ const StatsBlock = styled.div`
   padding: 32px;
   border: 1px solid #d9d9d9;
   border-radius: 10px;
-  background: #ece9e9;
+  li {
+    padding: 10px;
+  }
 `;
 
 function ProfileTab({ user, isLoggedIn, userinfo }) {
-  const question = false;
+  // const questionData = 'http://localhost:3001/QUESTION_DATA';
+  const [questions, setQuestions] = useState([]);
+
+  // 실제서버용
+  useEffect(() => {
+    axios.get('/question').then(res => {
+      setQuestions(res.data);
+    });
+  }, []);
+
+  // useEffect(() => {
+  //   axios.get(`${questionData}`).then(res => {
+  //     setQuestions(res.data);
+  //   });
+  // }, []);
+
+  const question = questions.filter(question => question.userinfo.displayName === user.displayName);
+
   return (
     <ProfileSection>
       <StatsView>
         <li>
-          <span>0</span>
+          <span>{questions ? question.length : '0'}</span>
           <h4>Question</h4>
         </li>
         <li>
@@ -75,7 +96,21 @@ function ProfileTab({ user, isLoggedIn, userinfo }) {
         </div>
         <div className="stat">
           <h2>Post</h2>
-          <StatsBlock>{question ? '질문내용' : '질문이 없습니다.'}</StatsBlock>
+          <StatsBlock>
+            <ol>
+              {questions
+                ? questions
+                    .filter(data => data.userinfo.displayName === user.displayName)
+                    .map((question, idx) => {
+                      return (
+                        <li key={idx}>
+                          <Link to={`/questions/${question.id}`}>{question.title}</Link>
+                        </li>
+                      );
+                    })
+                : '질문이 없습니다'}
+            </ol>
+          </StatsBlock>
         </div>
       </Stats>
     </ProfileSection>

@@ -96,44 +96,53 @@ const AnswerItems = () => {
     });
   };
 
-  const handleUp = (answerId, e) => {
+  const handleUp = (answerId, author, e) => {
     e.preventDefault();
-    const clickedAnswer = a.find(q => q.id === answerId);
 
-    const updatedAnswer = {
-      ...clickedAnswer,
-      vote: clickedAnswer.vote + 1,
-    };
+    if (author === userinfo.displayName) {
+      alert('본인의 답글은 투표할 수 없습니다');
+    } else {
+      const clickedAnswer = a.find(q => q.id === answerId);
 
-    const otherAnswers = a.filter(q => q.id !== answerId);
+      const updatedAnswer = {
+        ...clickedAnswer,
+        vote: clickedAnswer.vote + 1,
+      };
 
-    axios
-      .patch(`${questionData}/${id}`, {
-        answer: [...otherAnswers, updatedAnswer],
-      })
-      .then(res => setA(res.data.answer))
-      .catch(err => console.error(err));
+      const otherAnswers = a.filter(q => q.id !== answerId);
+      const newAnswer = [...otherAnswers, updatedAnswer].sort((a, b) => a.id - b.id);
+
+      axios
+        .patch(`${questionData}/${id}`, {
+          answer: newAnswer,
+        })
+        .then(res => setA(res.data.answer))
+        .catch(err => console.error(err));
+    }
   };
 
-  const handleDown = (answerId, e) => {
+  const handleDown = (answerId, author, e) => {
     e.preventDefault();
-    const clickedAnswer = a.find(q => q.id === answerId);
+    if (author === userinfo.displayName) {
+      alert('본인의 답글은 투표할 수 없습니다');
+    } else {
+      const clickedAnswer = a.find(q => q.id === answerId);
 
-    console.log('a', a);
+      const updatedAnswer = {
+        ...clickedAnswer,
+        vote: clickedAnswer.vote - 1,
+      };
 
-    const updatedAnswer = {
-      ...clickedAnswer,
-      vote: clickedAnswer.vote - 1,
-    };
+      const otherAnswers = a.filter(q => q.id !== answerId);
+      const newAnswer = [...otherAnswers, updatedAnswer].sort((a, b) => a.id - b.id);
 
-    const otherAnswers = a.filter(q => q.id !== answerId);
-
-    axios
-      .patch(`${questionData}/${id}`, {
-        answer: [...otherAnswers, updatedAnswer],
-      })
-      .then(res => setA(res.data.answer))
-      .catch(err => console.error(err));
+      axios
+        .patch(`${questionData}/${id}`, {
+          answer: newAnswer,
+        })
+        .then(res => setA(res.data.answer))
+        .catch(err => console.error(err));
+    }
   };
 
   // 실제 서버  연결용
@@ -157,7 +166,7 @@ const AnswerItems = () => {
             <div key={idx}>
               <Container>
                 <div>
-                  {el.author === userinfo.displayName ? null : (
+                  {el.displayName === userinfo.displayName ? null : (
                     <>
                       <VscTriangleUp
                         size={30}
@@ -177,11 +186,11 @@ const AnswerItems = () => {
                   <div>
                     <UserInfo>
                       <UserImg src={userinfo.img} alt="userimg" />
-                      <p>{el.author}</p>
+                      <p>{el.displayName}</p>
                     </UserInfo>
 
                     <IconContainer>
-                      {el.author === userinfo.displayName ? (
+                      {el.displayName === userinfo.displayName ? (
                         <>
                           <BsPencilSquare onClick={handleUpdate} />
                           <BsTrash onClick={e => handleDelete(idx, e)} />
@@ -190,8 +199,13 @@ const AnswerItems = () => {
                     </IconContainer>
                   </div>
                   <Viewer key={idx} initialValue={el.content} />
-                  {update && el.author === userinfo.displayName ? (
-                    <Answer from={update} text={el.content} idx={idx + 1} author={el.author} />
+                  {update && el.displayName === userinfo.displayName ? (
+                    <Answer
+                      from={update}
+                      text={el.content}
+                      idx={idx + 1}
+                      displayName={el.displayName}
+                    />
                   ) : null}
                 </div>
               </Container>

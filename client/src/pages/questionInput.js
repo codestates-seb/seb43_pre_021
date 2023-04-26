@@ -17,7 +17,7 @@ const QuestionInput = () => {
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
   const [isUpdate, setIsUpdate] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -35,43 +35,20 @@ const QuestionInput = () => {
     e.preventDefault();
 
     // 실제 서버 연결용
-    // if (title === '' || content === '') {
-    //   alert('내용을 입력해주세요!');
-    // } else {
-    //   axios
-    //     .post('/question', {
-    //       title: title,
-    //       content: content,
-    //     })
-    //     .then(res => {
-    //       const newId = res.data.questionId;
-    //       document.location.href = `/questions/${newId}`;
-    //     })
-    //     .catch(error => {
-    //       console.error(error);
-    //     });
-    //   setTitle('');
-    //   setContent('');
-    //   editorRef.current.getInstance().setMarkdown('');
-    // }
-
     if (title === '' || content === '') {
       alert('내용을 입력해주세요!');
     } else {
       axios
-        .post(`${questionData}`, {
-          id: data.length === 0 ? 1 : data[data.length - 1].id + 1,
+        .post('/question', {
+          displayName: userinfo.displayName,
+          img: userinfo.img,
           title: title,
           content: content,
           answer: [],
-          userinfo: userinfo,
         })
         .then(res => {
-          console.log(res.data);
-          // 실제 서버 연결용
-          // const newId = res.data.questionId;
-
-          const newId = res.data.id;
+          console.log(res);
+          const newId = res.data.questionId;
           document.location.href = `/questions/${newId}`;
         })
         .catch(error => {
@@ -81,6 +58,33 @@ const QuestionInput = () => {
       setContent('');
       editorRef.current.getInstance().setMarkdown('');
     }
+
+    // if (title === '' || content === '') {
+    //   alert('내용을 입력해주세요!');
+    // } else {
+    //   axios
+    //     .post(`${questionData}`, {
+    //       id: data.length === 0 ? 1 : data[data.length - 1].id + 1,
+    //       title: title,
+    //       content: content,
+    //       answer: [],
+    //       userinfo: userinfo,
+    //     })
+    //     .then(res => {
+    //       console.log(res.data);
+    //       // 실제 서버 연결용
+    //       // const newId = res.data.questionId;
+
+    //       const newId = res.data.id;
+    //       document.location.href = `/questions/${newId}`;
+    //     })
+    //     .catch(error => {
+    //       console.error(error);
+    //     });
+    //   setTitle('');
+    //   setContent('');
+    //   editorRef.current.getInstance().setMarkdown('');
+    // }
   };
 
   const handleUpdateBtn = e => {
@@ -146,13 +150,13 @@ const QuestionInput = () => {
   // }, []);
 
   useEffect(() => {
-    axios.get(`${questionData}`).then(res => setData(res.data));
+    // axios.get(`${questionData}`).then(res => setData(res.data));
 
     if (id) {
       setIsLoading(true);
       setIsUpdate(true);
       axios.get(`${questionData}/${id}`).then(res => {
-        setData(res.data);
+        // setData(res.data);
         setTitle(res.data.title);
         setContent(res.data.content);
         setIsLoading(false);
@@ -194,6 +198,13 @@ const InputDiv = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 5rem;
+
+  @media (max-width: 1000px) {
+    width: 700px;
+  }
+  @media (max-width: 800px) {
+    width: 540px;
+  }
 `;
 
 const PageTitle = styled.span`

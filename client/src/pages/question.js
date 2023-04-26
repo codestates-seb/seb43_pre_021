@@ -18,6 +18,9 @@ const Question = () => {
   const userId = useSelector(state => state.userinfo.user.id);
 
   const [question, setQuestion] = useState('');
+  const [members, setMembers] = useState([]);
+
+  const member = members.filter(el => el.displayName === question.displayName);
 
   const onDelete = () => {
     const confirmDelete = window.confirm('정말로 삭제하시겠습니까?');
@@ -63,6 +66,15 @@ const Question = () => {
     });
   }, [id]);
 
+  useEffect(() => {
+    axios
+      .get('/members')
+      .then(res => {
+        setMembers(res.data);
+      })
+      .catch(err => console.error(err));
+  }, []);
+
   // useEffect(() => {
   //   axios.get(`${questionData}/${id}`).then(res => {
   //     setQuestion(res.data);
@@ -76,12 +88,13 @@ const Question = () => {
           <>
             <PageTitle>
               <div>
+                <Link to={`/users/${question.userinfo.id}`}>
+                  <UserImg src={question.userinfo.img} alt="userimg" />
+                </Link>
                 <span>{question.title}</span>
-                <Response>
-                  <p> 0 votes </p>
-                  <p> 0 answer </p>
-                  <p> 0 views </p>
-                </Response>
+                <CreatedAt>
+                  <p>{question.modifiedAt || question.createdAt}</p>
+                </CreatedAt>
               </div>
               <Info>
                 {isLoggedIn ? (
@@ -97,14 +110,14 @@ const Question = () => {
                     </Button>
                   </Link>
                 )}
-                <Link to={`/users/${question.userinfo.id}`}>
-                  <DisplayName>{question.userinfo.displayName}</DisplayName>
-                </Link>
+                {/* <Link to={`/users/${member.id}`}>
+                  <DisplayName>{question.displayName}</DisplayName>
+                </Link> */}
               </Info>
             </PageTitle>
             <ContentContainer>
               <Viewer initialValue={question.content} />
-              {isLoggedIn && userId === question.userinfo.id ? (
+              {isLoggedIn && userId === member.id ? (
                 <BtnContainer>
                   <Button onClick={onUpdate} background="none" border="#ffffff" color="#888888">
                     수정
@@ -138,11 +151,12 @@ const PageTitle = styled.div`
   display: flex;
   justify-content: space-between;
   span {
-    font-size: 2rem;
+    font-size: 1.6rem;
+    margin-left: 15px;
   }
   p {
     margin: 17px 10px 0 10px;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
 `;
 const QuestionDiv = styled.div`
@@ -164,18 +178,17 @@ const AnswerContainer = styled.div`
   }
 `;
 
+const UserImg = styled.img`
+  width: 37px;
+  height: 36px;
+  margin: 0 10px -8px 10px;
+  border-radius: 5px;
+`;
 const Info = styled.div`
   display: flex;
   flex-direction: column;
   align-items: end;
 `;
-const DisplayName = styled.div`
-  font-size: 1.5rem;
-  color: #e5883e;
-  margin-top: 20px;
-`;
 
-const Response = styled.div`
-  display: flex;
-`;
+const CreatedAt = styled.div``;
 export default Question;

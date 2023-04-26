@@ -1,13 +1,12 @@
 import '@toast-ui/editor/dist/toastui-editor.css';
 import styled from 'styled-components';
 import Button from '../button';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 import { Editor } from '@toast-ui/react-editor';
-import { useEffect } from 'react';
 
 const Title = styled.div`
   font-weight: 500;
@@ -71,11 +70,8 @@ const Answer = (...props) => {
     const content = instance.getMarkdown();
 
     axios
-      .patch(`${questionData}/${id}`, {
-        answer: [
-          ...answer,
-          { author: userinfo.displayName, id: answer.length + 1, content: content, vote: 0 },
-        ],
+      .post(`/answer`, {
+        answer: [...answer, { displayName: userinfo.displayName, content: content, vote: 0 }],
       })
       .then(res => {
         console.log('res', res.data);
@@ -162,8 +158,8 @@ const Answer = (...props) => {
 
           <Button onClick={e => handleEditBtn(props[0].idx, e)}>Edit</Button>
         </>
-      ) : edit === false ? null : answer.filter(el => el.author === userinfo.displayName).length >
-        0 ? null : (
+      ) : edit === false ? null : answer.filter(el => el.displayName === userinfo.displayName)
+          .length > 0 ? null : (
         <>
           <Form>
             <Title>Your Answer</Title>
