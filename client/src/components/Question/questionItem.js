@@ -16,7 +16,7 @@ const QuestionItem = ({ question }) => {
             {/* <Link to={`/questions/${question.id}`}> */}
             <h3>{question.title}</h3>
           </Link>
-          <content>{question.content}</content>
+          <p>{question.content}</p>
         </Question>
       </Item>
     </div>
@@ -40,7 +40,7 @@ const Question = styled.div`
     margin-bottom: 12px;
     color: #4393f7;
   }
-  content {
+  p {
     display: -webkit-box;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
