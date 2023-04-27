@@ -53,7 +53,7 @@ function UserHeader({ user, isLoggedIn, userinfo }) {
         <UserImg background={user.img} />
         <UserInfo>
           <UserName>{user.displayName}</UserName>
-          <p>가입한 날짜표시</p>
+          <p>{String(user.createdAt).slice(0, 10)}</p>
         </UserInfo>
       </UserInfoBlock>
       {isLoggedIn && userinfo === user.memberId ? (

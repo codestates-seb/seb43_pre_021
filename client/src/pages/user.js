@@ -24,18 +24,9 @@ function User() {
   const userinfo = useSelector(state => state.userinfo.user);
   const [user, setUser] = useState([]);
 
-  console.log('user', user);
-
-  // const userData = 'http://localhost:3001/USER_DATA';
-
-  // 실제 서버 연결용
   useEffect(() => {
     axios.get(`/members/${id}`).then(res => setUser(res.data));
   }, []);
-
-  // useEffect(() => {
-  //   axios.get(`${userData}/${id}`).then(res => setUser(res.data));
-  // }, []);
 
   return (
     <Container>

@@ -110,8 +110,6 @@ function Login() {
   const emailInput = useRef(null);
   const pwdInput = useRef(null);
 
-  // const userData = 'http://localhost:3001/USER_DATA';
-
   const dispatch = useDispatch();
 
   const handleEmail = e => {
@@ -125,21 +123,16 @@ function Login() {
   const handleLoginBtn = () => {
     setClickLogin(!clickLogin);
 
-    // 이메일과 비번이 작성되지 않은 상태에서 로그인 버튼을 여러번 눌러도 경고창이 뜨기 위함
-    // 아래 if 로직이 없다면 로그인 버튼을 클릭함에 따라 clickLogin 값이 달라져서 email, pwd가 빈 값임에도 경고창이 없어지는 경우 발생
     if (!email || !pwd) {
       setClickLogin(true);
     }
 
-    // 실제 서버 연결용
     if (email && pwd) {
       axios
         .post('/auth/login', { username: email, password: pwd })
         .then(res => {
-          console.log('res', res);
           if (res.status === 200) {
             const userEmail = members.filter(el => el.email === email);
-            console.log('user', userEmail[0].memberId);
             dispatch(login());
             dispatch(
               loginSuccess({
@@ -156,9 +149,6 @@ function Login() {
           const userEmail = members.filter(el => el.email === email);
           const userPwd = members.filter(el => el.pwd === pwd);
 
-          console.log(userEmail);
-          console.log(userPwd);
-
           if (userEmail.length === 0 && userPwd.length === 0) {
             setEmailErr(true);
             setPwdErr(true);
@@ -171,38 +161,6 @@ function Login() {
           }
         });
     }
-
-    // if (email && pwd) {
-    //   axios.get(`${userData}`, { email, pwd }).then(res => {
-    //     console.log('res', res.data);
-    //     const userEmail = res.data.filter(el => el.email === email);
-    //     const userPwd = res.data.filter(el => el.pwd === pwd);
-
-    //     if (userEmail.length === 0 && userPwd.length === 0) {
-    //       setEmailErr(true);
-    //       setPwdErr(true);
-    //     } else if (userEmail.length === 0) {
-    //       setPwdErr(false);
-    //       setEmailErr(true);
-    //     } else if (userPwd.length === 0) {
-    //       setEmailErr(false);
-    //       setPwdErr(true);
-    //     }
-
-    //     if (userEmail.length > 0 && userPwd.length > 0) {
-    //       dispatch(login());
-    //       dispatch(
-    //         loginSuccess({
-    //           displayName: userEmail[0].displayName,
-    //           img: userEmail[0].img,
-    //           id: userEmail[0].id,
-    //         })
-    //       );
-
-    //       document.location.href = '/';
-    //     }
-    //   });
-    // }
   };
 
   useEffect(() => {

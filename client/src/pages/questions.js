@@ -12,29 +12,23 @@ const Questions = () => {
   const isLoggedIn = useSelector(state => state.login.isLoggedIn);
   const searchTerm = useSelector(state => state.search.searchTerm);
 
+  let [answers, setAnswers] = useState([]);
+
   // 실제 서버 연결용
   useEffect(() => {
     axios
       .get('/question')
       .then(res => {
-        console.log(res.data);
         setQuestions(res.data.content);
       })
       .catch(error => {
         console.error(error);
       });
-  }, []);
 
-  // useEffect(() => {
-  //   axios
-  //     .get('http://localhost:3001/QUESTION_DATA')
-  //     .then(res => {
-  //       setQuestions(res.data);
-  //     })
-  //     .catch(error => {
-  //       console.error(error);
-  //     });
-  // }, []);
+    axios.get(`/answer`).then(res => {
+      setAnswers(res.data);
+    });
+  }, []);
 
   return (
     <Container>
@@ -70,7 +64,7 @@ const Questions = () => {
           <QuestionsContainer>
             {questions.map((question, index) => (
               <ItemDiv key={index}>
-                <QuestionItem question={question} />
+                <QuestionItem question={question} answers={answers} />
               </ItemDiv>
             ))}
           </QuestionsContainer>

@@ -39,28 +39,25 @@ const Answer = (...props) => {
   const editorRef = useRef(null);
 
   const [edit, setEdit] = useState(true);
-  const [answer, setAnswer] = useState([]);
+  let [answer, setAnswer] = useState([]);
+
+  answer = answer.filter(el => el.questionNum === Number(id));
 
   const userinfo = useSelector(state => state.userinfo.user);
 
-  // 실제 서버 연결용
   const handlePostBtn = () => {
     const instance = editorRef.current.getInstance();
     const content = instance.getMarkdown();
     axios
       .post(`/answer`, {
-        questionId: id,
+        questionNum: id,
         displayName: userinfo.displayName,
         content: content,
         vote: 0,
       })
-      .then(res => {
-        console.log(res.data);
-      })
+      .then(() => {})
       .catch(err => console.error(err));
     document.location.href = `/questions/${id}`;
-
-    // dispatch(postAnswer(content));
   };
 
   const handleEditBtn = (answerId, e) => {
@@ -68,19 +65,17 @@ const Answer = (...props) => {
     const instance = editorRef.current.getInstance();
     const content = instance.getMarkdown();
 
-    console.log('content', content);
+    const editedAnswer = answer.find(q => q.answerId === answerId);
 
-    console.log('aa', answer);
-
-    const editedAnswer = answer.find(q => q.id === answerId);
-
-    console.log('edited', editedAnswer);
-
-    axios.patch(`/answer/${editedAnswer.id}`, { content: content }).then(res => {
-      console.log(res.data);
-      setEdit(false);
-      document.location.href = `/questions/${id}`;
-    });
+    axios
+      .patch(`/answer/${editedAnswer.answerId}`, {
+        content: content,
+        displayName: userinfo.displayName,
+      })
+      .then(() => {
+        setEdit(false);
+        document.location.href = `/questions/${id}`;
+      });
   };
 
   useEffect(() => {
@@ -98,11 +93,10 @@ const Answer = (...props) => {
             <StyledEditor
               initialValue={props[0].text}
               ref={editorRef}
-              previewStyle="vertical" // 미리보기 스타일 지정
-              height="300px" // 에디터 창 높이
-              initialEditType="wysiwyg" // 초기 입력모드 설정(디폴트 markdown)
+              previewStyle="vertical"
+              height="300px"
+              initialEditType="wysiwyg"
               toolbarItems={[
-                // 툴바 옵션 설정
                 ['heading', 'bold', 'italic', 'strike'],
                 ['hr', 'quote'],
                 ['ul', 'ol', 'task', 'indent', 'outdent'],
@@ -122,11 +116,10 @@ const Answer = (...props) => {
             <StyledEditor
               placeholder="내용을 입력해주세요."
               ref={editorRef}
-              previewStyle="vertical" // 미리보기 스타일 지정
-              height="300px" // 에디터 창 높이
-              initialEditType="wysiwyg" // 초기 입력모드 설정(디폴트 markdown)
+              previewStyle="vertical"
+              height="300px"
+              initialEditType="wysiwyg"
               toolbarItems={[
-                // 툴바 옵션 설정
                 ['heading', 'bold', 'italic', 'strike'],
                 ['hr', 'quote'],
                 ['ul', 'ol', 'task', 'indent', 'outdent'],

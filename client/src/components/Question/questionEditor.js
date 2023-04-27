@@ -17,8 +17,8 @@ const QuestionEditor = ({ title, content, handleTitleChange, handleContentChange
           initialValue={content}
           value={content}
           onChange={handleContentChange}
-          previewStyle="vertical" // 미리보기 스타일 지정
-          height="300px" // 에디터 창 높이
+          previewStyle="vertical"
+          height="300px"
           toolbarItems={[
             [
               'heading',

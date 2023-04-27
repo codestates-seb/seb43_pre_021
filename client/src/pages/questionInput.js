@@ -12,12 +12,10 @@ const QuestionInput = () => {
   const editorRef = useRef(null);
   const { id } = useParams();
 
-  const questionData = 'http://localhost:3001/QUESTION_DATA';
   const userinfo = useSelector(state => state.userinfo.user);
 
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  // const [data, setData] = useState([]);
   const [isUpdate, setIsUpdate] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -34,20 +32,17 @@ const QuestionInput = () => {
     const content = instance.getMarkdown();
     e.preventDefault();
 
-    // 실제 서버 연결용
     if (title === '' || content === '') {
       alert('내용을 입력해주세요!');
     } else {
       axios
         .post('/question', {
-          displayName: userinfo.displayName,
-          img: userinfo.img,
           title: title,
+          img: userinfo.img,
+          displayName: userinfo.displayName,
           content: content,
-          answer: [],
         })
         .then(res => {
-          console.log(res);
           const newId = res.data.questionId;
           document.location.href = `/questions/${newId}`;
         })
@@ -58,33 +53,6 @@ const QuestionInput = () => {
       setContent('');
       editorRef.current.getInstance().setMarkdown('');
     }
-
-    // if (title === '' || content === '') {
-    //   alert('내용을 입력해주세요!');
-    // } else {
-    //   axios
-    //     .post(`${questionData}`, {
-    //       id: data.length === 0 ? 1 : data[data.length - 1].id + 1,
-    //       title: title,
-    //       content: content,
-    //       answer: [],
-    //       userinfo: userinfo,
-    //     })
-    //     .then(res => {
-    //       console.log(res.data);
-    //       // 실제 서버 연결용
-    //       // const newId = res.data.questionId;
-
-    //       const newId = res.data.id;
-    //       document.location.href = `/questions/${newId}`;
-    //     })
-    //     .catch(error => {
-    //       console.error(error);
-    //     });
-    //   setTitle('');
-    //   setContent('');
-    //   editorRef.current.getInstance().setMarkdown('');
-    // }
   };
 
   const handleUpdateBtn = e => {
@@ -92,40 +60,18 @@ const QuestionInput = () => {
     const content = instance.getMarkdown();
     e.preventDefault();
 
-    // 실제 서버 연결용
-    // if (title === '' || content === '') {
-    //   alert('내용을 입력해주세요!');
-    // } else {
-    //   axios
-    //     .patch(`/question/${id}`, {
-    //       title: title,
-    //       content: content,
-    //     })
-    //     .then(res => {
-    //       const id = res.data.data.questionId;
-    //       document.location.href = `/questions/${id}`;
-    //     })
-    //     .catch(error => {
-    //       console.error(error);
-    //     });
-    //   setTitle('');
-    //   setContent('');
-    //   editorRef.current.getInstance().setMarkdown('');
-    // }
-
     if (title === '' || content === '') {
       alert('내용을 입력해주세요!');
     } else {
       axios
-        .patch(`${questionData}/${id}`, {
+        .patch(`/question/${id}`, {
           title: title,
           content: content,
+          displayName: userinfo.displayName,
+          img: userinfo.img,
         })
         .then(res => {
-          // 실제 서버 연결용
-          // const id = res.data.data.questionId;
-
-          const id = res.data.id;
+          const id = res.data.questionId;
           document.location.href = `/questions/${id}`;
         })
         .catch(error => {
@@ -138,25 +84,11 @@ const QuestionInput = () => {
     }
   };
 
-  // 실제 서버 연결용
-  // useEffect(() => {
-  //   if (id) {
-  //     setIsUpdate(true);
-  //     axios.get(`/question/${id}`).then(res => {
-  //       setTitle(res.data.title);
-  //       setContent(res.data.content);
-  //     });
-  //   }
-  // }, []);
-
   useEffect(() => {
-    // axios.get(`${questionData}`).then(res => setData(res.data));
-
     if (id) {
       setIsLoading(true);
       setIsUpdate(true);
-      axios.get(`${questionData}/${id}`).then(res => {
-        // setData(res.data);
+      axios.get(`/question/${id}`).then(res => {
         setTitle(res.data.title);
         setContent(res.data.content);
         setIsLoading(false);
