@@ -37,8 +37,6 @@ public class AnswerService {
                 .ifPresent(displayName -> findAnswer.setDisplayName(displayName));
         Optional.ofNullable(answer.getContent())
                 .ifPresent(content -> findAnswer.setContent(content));
-        Optional.ofNullable(answer.getQuestionNum())
-                .ifPresent(questionNum -> findAnswer.setQuestionNum(questionNum));
         Optional.ofNullable(answer.getAnswerStatus())
                 .ifPresent(answerStatus -> findAnswer.setAnswerStatus(answerStatus));
 
