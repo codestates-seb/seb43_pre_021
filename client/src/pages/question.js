@@ -86,15 +86,15 @@ const Question = () => {
       <QuestionDiv>
         {question && (
           <>
+            {console.log(members)}
             <PageTitle>
               <div>
-                {console.log(question)}
-                <Link to={`/users/${member.id}`}>
+                <Link to={`/users/${member.memberId}`}>
                   <UserImg src={question.img} alt="userimg" />
                 </Link>
                 <span>{question.title}</span>
                 <CreatedAt>
-                  <p>{question.modifiedAt || question.createdAt}</p>
+                  <p>{question.modifiedAt.slice(0, 10) || question.createdAt.slice(0, 10)}</p>
                 </CreatedAt>
               </div>
               <Info>
