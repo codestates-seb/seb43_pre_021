@@ -18,8 +18,13 @@ const Question = () => {
 
   const [question, setQuestion] = useState('');
   const [members, setMembers] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const member = members.filter(el => el.displayName === question.displayName);
+
+  console.log(members);
+
+  console.log(question);
 
   const onDelete = () => {
     const confirmDelete = window.confirm('정말로 삭제하시겠습니까?');
@@ -44,27 +49,36 @@ const Question = () => {
     axios.get(`${process.env.REACT_APP_API_URL}/question/${id}`).then(res => {
       setQuestion(res.data);
     });
-  }, [id]);
+  }, []);
 
   useEffect(() => {
+    setIsLoading(true);
     axios
       .get(`${process.env.REACT_APP_API_URL}/members`)
       .then(res => {
         setMembers(res.data);
+        setIsLoading(false);
       })
       .catch(err => console.error(err));
-  }, [member]);
+  }, []);
 
   return (
     <Container>
       <QuestionDiv>
-        {question && (
+        {question && !isLoading ? (
           <>
             <PageTitle>
               <div>
-                <Link to={`/users/${member[0].memberId}`}>
-                  <UserImg src={question.img} alt="userimg" />
-                </Link>
+                {console.log('member', member)}
+                {member.length > 0 ? (
+                  <Link to={`/users/${member[0].memberId}`}>
+                    <UserImg src={question.img} alt="userimg" />
+                  </Link>
+                ) : (
+                  <Link to={`/`}>
+                    <UserImg src={question.img} alt="userimg" />
+                  </Link>
+                )}
                 <span>{question.title}</span>
                 <CreatedAt>
                   <p>{question.modifiedAt.slice(0, 10) || question.createdAt.slice(0, 10)}</p>
@@ -105,7 +119,7 @@ const Question = () => {
               )}
             </ContentContainer>
           </>
-        )}
+        ) : null}
         <AnswerContainer>
           <span>답변</span>
 

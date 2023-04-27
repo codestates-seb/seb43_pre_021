@@ -133,6 +133,7 @@ function Login() {
         .then(res => {
           if (res.status === 200) {
             const userEmail = members.filter(el => el.email === email);
+            console.log(userEmail[0]);
             dispatch(login());
             dispatch(
               loginSuccess({
@@ -148,6 +149,10 @@ function Login() {
         .catch(() => {
           const userEmail = members.filter(el => el.email === email);
           const userPwd = members.filter(el => el.pwd === pwd);
+
+          console.log(members);
+
+          console.log(userEmail, userPwd, pwd);
 
           if (userEmail.length === 0 && userPwd.length === 0) {
             setEmailErr(true);
@@ -167,6 +172,7 @@ function Login() {
     axios
       .get(`${process.env.REACT_APP_API_URL}/members`)
       .then(res => {
+        console.log(res.data);
         setMembers(res.data);
       })
       .catch(err => console.error(err));

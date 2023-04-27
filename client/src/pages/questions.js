@@ -18,6 +18,7 @@ const Questions = () => {
     axios
       .get(`${process.env.REACT_APP_API_URL}/question`)
       .then(res => {
+        console.log(res.data);
         setQuestions(res.data.content);
       })
       .catch(error => {
@@ -25,6 +26,7 @@ const Questions = () => {
       });
 
     axios.get(`${process.env.REACT_APP_API_URL}/answer`).then(res => {
+      console.log(res.data);
       setAnswers(res.data);
     });
   }, []);

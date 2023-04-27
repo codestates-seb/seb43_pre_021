@@ -64,7 +64,6 @@ function EditSection({ user }) {
     setEditData({
       ...editData,
       [e.target.name]: e.target.value,
-      password: user.password,
     });
   }
 
@@ -95,12 +94,11 @@ function EditSection({ user }) {
                 Display name
               </label>
               <input
-                required
+                disabled
                 id="displayName"
                 name="displayName"
                 type="text"
                 defaultValue={editData.displayName}
-                onChange={handleChange}
               />
             </div>
             <div className="editBlock">

@@ -108,6 +108,10 @@ const LoginBtn = styled.div`
   padding: 3px 0;
   font-size: 17px;
   font-weight: 450;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Alert = styled.div`
