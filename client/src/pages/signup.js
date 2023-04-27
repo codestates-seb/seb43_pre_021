@@ -129,9 +129,6 @@ function SignUp() {
   const [pwd, setPwd] = useState('');
   const [clikedSignup, setClickedSignup] = useState(false);
 
-  // const userData = 'http://localhost:3001/USER_DATA';
-  // const [userDataa, setUserDataa] = useState([]);
-
   const handleDisplayName = e => {
     setDisplayName(e.target.value);
   };
@@ -151,7 +148,6 @@ function SignUp() {
       setClickedSignup(true);
     }
 
-    // 실제 서버 연결용
     if (displayName && email && pwd) {
       axios
         .post('/members/signup', {

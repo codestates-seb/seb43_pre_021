@@ -14,7 +14,6 @@ const Questions = () => {
 
   let [answers, setAnswers] = useState([]);
 
-  // 실제 서버 연결용
   useEffect(() => {
     axios
       .get('/question')

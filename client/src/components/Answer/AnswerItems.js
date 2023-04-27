@@ -90,8 +90,7 @@ const AnswerItems = () => {
           displayName: clickedAnswer.displayName,
           content: clickedAnswer.content,
         })
-        .then(res => {
-          console.log(res.data);
+        .then(() => {
           axios.get(`/answer`).then(res => setAnswers(res.data));
         });
     }

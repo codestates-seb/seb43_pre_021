@@ -55,7 +55,6 @@ const BtnBlock = styled.div`
 `;
 
 function EditSection({ user }) {
-  // const userData = 'http://localhost:3001/USER_DATA';
   const { id } = useParams();
   const [editData, setEditData] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -70,11 +69,9 @@ function EditSection({ user }) {
   }
 
   function handleSubmit(event) {
-    console.log(editData);
     event.preventDefault();
 
-    axios.patch(`/members/${id}`, editData).then(res => {
-      console.log(res.data);
+    axios.patch(`/members/${id}`, editData).then(() => {
       navigate(`/users/${id}`);
     });
   }

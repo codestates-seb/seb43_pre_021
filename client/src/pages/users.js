@@ -49,10 +49,7 @@ const UserImg = styled.div`
 `;
 
 function Users() {
-  // const [users, setUsers] = useState([]);
   const [members, setMembers] = useState([]);
-
-  // const userData = 'http://localhost:3001/USER_DATA';
 
   useEffect(() => {
     axios
@@ -62,10 +59,6 @@ function Users() {
       })
       .catch(err => console.error(err));
   }, []);
-
-  // useEffect(() => {
-  //   axios.get(`${userData}`).then(res => setUsers(res.data));
-  // }, []);
 
   return (
     <Container>
