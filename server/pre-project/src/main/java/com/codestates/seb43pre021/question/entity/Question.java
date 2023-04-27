@@ -21,12 +21,13 @@ public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long questionId;
+    @Column(nullable = false)
+    private String displayName;
     @Column(nullable = false, length = 100)
     private String title;
     @Column(nullable = false, length = 300)
     private String content;
-    @Column(nullable = false)
-    private String displayName;
+
     @Column(nullable = false, columnDefinition = "integer default 0" )
     private long vote;
     @Column(nullable = false)
