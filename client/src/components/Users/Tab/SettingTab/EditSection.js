@@ -64,7 +64,7 @@ function EditSection({ user }) {
     setEditData({
       ...editData,
       [e.target.name]: e.target.value,
-      password: 'bb',
+      password: user.password,
     });
   }
 
