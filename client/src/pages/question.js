@@ -53,7 +53,7 @@ const Question = () => {
         setMembers(res.data);
       })
       .catch(err => console.error(err));
-  }, []);
+  }, [member]);
 
   return (
     <Container>
