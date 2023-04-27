@@ -133,22 +133,26 @@ function Login() {
 
     // 실제 서버 연결용
     if (email && pwd) {
-      axios.post('/auth/login', { username: email, password: pwd }).then(res => {
-        console.log('res', res);
-        if (res.status === 200) {
-          const userEmail = members.filter(el => el.email === email);
-          console.log('user', userEmail[0].memberId);
-          dispatch(login());
-          dispatch(
-            loginSuccess({
-              displayName: userEmail[0].displayName,
-              img: userEmail[0].img,
-              id: userEmail[0].memberId,
-            })
-          );
+      axios
+        .post('/auth/login', { username: email, password: pwd })
+        .then(res => {
+          console.log('res', res);
+          if (res.status === 200) {
+            const userEmail = members.filter(el => el.email === email);
+            console.log('user', userEmail[0].memberId);
+            dispatch(login());
+            dispatch(
+              loginSuccess({
+                displayName: userEmail[0].displayName,
+                img: userEmail[0].img,
+                id: userEmail[0].memberId,
+              })
+            );
 
-          document.location.href = '/';
-        } else {
+            document.location.href = '/';
+          }
+        })
+        .catch(() => {
           const userEmail = members.filter(el => el.email === email);
           const userPwd = members.filter(el => el.pwd === pwd);
 
@@ -165,8 +169,7 @@ function Login() {
             setEmailErr(false);
             setPwdErr(true);
           }
-        }
-      });
+        });
     }
 
     // if (email && pwd) {
