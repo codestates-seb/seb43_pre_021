@@ -55,132 +55,83 @@ const UserImg = styled.img`
 `;
 
 const AnswerItems = () => {
-  // const answers = useSelector(state => state.answer.answers);
   const userinfo = useSelector(state => state.userinfo.user);
   const [update, setUpdate] = useState(false);
-  const [a, setA] = useState([]);
-
-  const questionData = 'http://localhost:3001/QUESTION_DATA';
+  let [answers, setAnswers] = useState([]);
 
   let { id } = useParams();
+
+  answers = answers.filter(el => el.questionId === id);
 
   const handleUpdate = () => {
     setUpdate(!update);
   };
 
-  // 실제 서버 연결용
-  // const handleDelete = (idx, e) => {
-  //   e.preventDefault();
-  //   axios.get(`${questionData}/${id}`).then(res => {
-  //     const deleteEl = res.data.answer.filter(el => el.id == idx + 1);
-  //     const result = res.data.answer.filter(el => el.id !== deleteEl[0].id);
-  //     console.log(result);
-
-  //     axios.patch(`${questionData}/${id}`, { answer: result }).then(() => {
-  //       const updatedAnswers = a.filter((el, i) => i !== idx);
-  //       setA(updatedAnswers);
-  //     });
-  //   });
-  // };
-
   const handleDelete = (idx, e) => {
     e.preventDefault();
-    axios.get(`${questionData}/${id}`).then(res => {
-      const deleteEl = res.data.answer.filter(el => el.id == idx + 1);
-      const result = res.data.answer.filter(el => el.id !== deleteEl[0].id);
+    axios.get(`/answer`).then(res => {
+      console.log('res.data', res.data);
+      const deleteEl = res.data.filter(el => el.id == idx + 1);
+      console.log(deleteEl);
 
-      axios.patch(`${questionData}/${id}`, { answer: result }).then(() => {
-        const updatedAnswers = a.filter((el, i) => i !== idx);
-        setA(updatedAnswers);
-      });
+      axios
+        .delete(`/answer/${deleteEl[0].id}`)
+        .then(() => axios.get(`http://localhost:3001/ANSWER`).then(res => setAnswers(res.data)));
     });
   };
 
-  const handleUp = (answerId, author, e) => {
-    e.preventDefault();
-
+  const handleUp = (answerId, author) => {
     if (author === userinfo.displayName) {
       alert('본인의 답글은 투표할 수 없습니다');
     } else {
-      const clickedAnswer = a.find(q => q.id === answerId);
-
-      const updatedAnswer = {
-        ...clickedAnswer,
-        vote: clickedAnswer.vote + 1,
-      };
-
-      const otherAnswers = a.filter(q => q.id !== answerId);
-      const newAnswer = [...otherAnswers, updatedAnswer].sort((a, b) => a.id - b.id);
+      const clickedAnswer = answers.find(q => q.id === answerId);
 
       axios
-        .patch(`${questionData}/${id}`, {
-          answer: newAnswer,
+        .patch(`/answer/${clickedAnswer.id}`, {
+          vote: clickedAnswer.vote + 1,
         })
-        .then(res => setA(res.data.answer))
-        .catch(err => console.error(err));
+        .then(() => axios.get(`/answer`).then(res => setAnswers(res.data)));
     }
   };
 
-  const handleDown = (answerId, author, e) => {
-    e.preventDefault();
+  const handleDown = (answerId, author) => {
     if (author === userinfo.displayName) {
       alert('본인의 답글은 투표할 수 없습니다');
     } else {
-      const clickedAnswer = a.find(q => q.id === answerId);
-
-      const updatedAnswer = {
-        ...clickedAnswer,
-        vote: clickedAnswer.vote - 1,
-      };
-
-      const otherAnswers = a.filter(q => q.id !== answerId);
-      const newAnswer = [...otherAnswers, updatedAnswer].sort((a, b) => a.id - b.id);
+      const clickedAnswer = answers.find(q => q.id === answerId);
 
       axios
-        .patch(`${questionData}/${id}`, {
-          answer: newAnswer,
+        .patch(`http://localhost:3001/ANSWER/${clickedAnswer.id}`, {
+          vote: clickedAnswer.vote - 1,
         })
-        .then(res => setA(res.data.answer))
-        .catch(err => console.error(err));
+        .then(() => axios.get(`http://localhost:3001/ANSWER`).then(res => setAnswers(res.data)));
     }
   };
-
-  // 실제 서버  연결용
-  // useEffect(() => {
-  //   axios.get(`/answer`).then(res => {
-  //     console.log(res.data);
-  //     setA(res.data.answer);
-  //   });
-  // }, []);
 
   useEffect(() => {
-    axios.get(`${questionData}/${id}`).then(res => {
-      setA(res.data.answer);
+    axios.get(`/answer`).then(res => {
+      setAnswers(res.data);
     });
   }, []);
 
   return (
     <>
-      {a
-        ? a.map((el, idx) => (
+      {answers
+        ? answers.map((el, idx) => (
             <div key={idx}>
               <Container>
                 <div>
-                  {el.displayName === userinfo.displayName ? null : (
-                    <>
-                      <VscTriangleUp
-                        size={30}
-                        color="rgb(187, 191, 195)"
-                        onClick={e => handleUp(idx + 1, e)}
-                      />
-                      <p>{el.vote}</p>
-                      <VscTriangleDown
-                        size={30}
-                        color="rgb(187, 191, 195)"
-                        onClick={e => handleDown(idx + 1, e)}
-                      />
-                    </>
-                  )}
+                  <VscTriangleUp
+                    size={30}
+                    color="rgb(187, 191, 195)"
+                    onClick={() => handleUp(idx + 1, el.displayName)}
+                  />
+                  <p>{el.vote}</p>
+                  <VscTriangleDown
+                    size={30}
+                    color="rgb(187, 191, 195)"
+                    onClick={() => handleDown(idx + 1, el.displayName)}
+                  />
                 </div>
                 <div>
                   <div>

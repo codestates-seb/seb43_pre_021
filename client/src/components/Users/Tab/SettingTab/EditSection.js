@@ -64,7 +64,7 @@ function EditSection({ user }) {
     setEditData({
       ...editData,
       [e.target.name]: e.target.value,
-      password: 'bb',
+      password: user.password,
     });
   }
 
@@ -74,9 +74,9 @@ function EditSection({ user }) {
     // 실제 서버용
     axios.patch(`/members/${id}`, editData).then(res => {
       console.log(res.data);
-      // navigate(`/users/${id}`)
+      navigate(`/users/${id}`);
     });
-    // axios.patch(`${userData}/${id}`, editData).then(navigate(`/users/${id}`));
+    //axios.patch(`${userData}/${id}`, editData).then(navigate(`/users/${id}`));
   }
 
   return (
@@ -104,7 +104,7 @@ function EditSection({ user }) {
           <textarea
             id="about"
             name="about"
-            value={editData.about}
+            defaultValue={user.about}
             onChange={handleChange}
           ></textarea>
         </div>

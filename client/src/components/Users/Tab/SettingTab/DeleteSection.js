@@ -65,7 +65,7 @@ function DeleteSection({ isLoggedIn, user }) {
   function handleDelete(event) {
     event.preventDefault();
     // 실제 서버용
-    axios.delete(`/members/${user.id}`).then(!isLoggedIn);
+    axios.delete(`/members/${user.memberId}`).then(!isLoggedIn);
     // axios.delete(`${userData}/${user.id}`).then(!isLoggedIn);
     dispatch(logout());
     navigate('/');

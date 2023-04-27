@@ -43,32 +43,10 @@ const Answer = (...props) => {
 
   const userinfo = useSelector(state => state.userinfo.user);
 
-  const questionData = 'http://localhost:3001/QUESTION_DATA';
-
   // 실제 서버 연결용
-  // const handlePostBtn = () => {
-  //   const instance = editorRef.current.getInstance();
-  //   const content = instance.getMarkdown();
-  //   axios
-  //     .post(`/answer`, {
-  //       // author: userinfo.displayName,
-  //       content: content,
-  //     })
-  //     .then(res => {
-  //       console.log('cc', content);
-  //       console.log('aa', res.data);
-  //       navigate(`/questions/${id}`);
-  //     })
-  //     .catch(err => console.error(err));
-  //   // document.location.href = `/questions/${id}`;
-
-  //   // dispatch(postAnswer(content));
-  // };
-
   const handlePostBtn = () => {
     const instance = editorRef.current.getInstance();
     const content = instance.getMarkdown();
-
     axios
       .post(`/answer`, {
         questionId: id,
@@ -77,65 +55,37 @@ const Answer = (...props) => {
         vote: 0,
       })
       .then(res => {
-        console.log('res', res.data);
-        document.location.href = `/questions/${id}`;
+        console.log(res.data);
       })
       .catch(err => console.error(err));
+    document.location.href = `/questions/${id}`;
 
     // dispatch(postAnswer(content));
   };
-
-  //실제 서버 연결용
-  // const handleEditBtn = () => {
-  //   const instance = editorRef.current.getInstance();
-  //   const content = instance.getMarkdown();
-  //   axios
-  //     .patch(`${questionData}/${id}`, {
-  //       answer: [
-  //         {
-  //           author: userinfo.displayName,
-  //           id: id,
-  //           content: content,
-  //         },
-  //       ],
-  //     })
-  //     .then(res => console.log(res.data))
-  //     .catch(err => console.error(err));
-
-  //   setEdit(false);
-  //   document.location.href = `/questions/${id}`;
-  // };
 
   const handleEditBtn = (answerId, e) => {
     e.preventDefault();
     const instance = editorRef.current.getInstance();
     const content = instance.getMarkdown();
 
+    console.log('content', content);
+
     console.log('aa', answer);
 
     const editedAnswer = answer.find(q => q.id === answerId);
-    const updatedAnswer = {
-      ...editedAnswer,
-      content: content,
-    };
 
-    const otherAnswers = answer.filter(q => q.id !== answerId);
+    console.log('edited', editedAnswer);
 
-    axios
-      .patch(`${questionData}/${id}`, {
-        answer: [...otherAnswers, updatedAnswer],
-      })
-      .then(res => console.log('res', res.data))
-      .catch(err => console.error(err));
-
-    setEdit(false);
-    document.location.href = `/questions/${id}`;
+    axios.patch(`/answer/${editedAnswer.id}`, { content: content }).then(res => {
+      console.log(res.data);
+      setEdit(false);
+      document.location.href = `/questions/${id}`;
+    });
   };
 
   useEffect(() => {
-    axios.get(`/question/${id}/answer`).then(res => {
-      console.log('aa', res.data);
-      setAnswer(res.data.answer);
+    axios.get(`/answer`).then(res => {
+      setAnswer(res.data);
     });
   }, []);
 
