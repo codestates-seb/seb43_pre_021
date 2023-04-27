@@ -35,7 +35,8 @@ public class QuestionMapper {
 
     public QuestionResponseDto questionToQuestionResponseDto(Question question) {
         return new QuestionResponseDto(question.getQuestionId(),
-                question.getTitle(), question.getDisplayName(),
+                question.getDisplayName(),
+                question.getTitle(),
                 question.getContent(),
                 question.getViewCount(),
                 question.getVote(),
@@ -46,7 +47,8 @@ public class QuestionMapper {
 
     public QuestionResponseDto mapToQuestionResponseDto(Question question) {
         return new QuestionResponseDto(question.getQuestionId(),
-                question.getTitle(), question.getDisplayName(),
+                question.getDisplayName(),
+                question.getTitle(),
                 question.getContent(),
                 question.getViewCount(),
                 question.getVote(),
