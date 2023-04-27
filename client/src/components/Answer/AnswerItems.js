@@ -69,12 +69,14 @@ const AnswerItems = () => {
 
   const handleDelete = (idx, e) => {
     e.preventDefault();
-    axios.get(`/answer`).then(res => {
+    axios.get(`${process.env.REACT_APP_API_URL}/answer`).then(res => {
       const deleteEl = res.data.filter(el => el.answerId == idx);
 
       axios
         .delete(`/answer/${deleteEl[0].answerId}`)
-        .then(() => axios.get(`/answer`).then(res => setAnswers(res.data)));
+        .then(() =>
+          axios.get(`${process.env.REACT_APP_API_URL}/answer`).then(res => setAnswers(res.data))
+        );
     });
   };
 
@@ -85,13 +87,13 @@ const AnswerItems = () => {
       const clickedAnswer = answers.find(q => q.answerId === answerId);
 
       axios
-        .patch(`/answer/${clickedAnswer.answerId}`, {
+        .patch(`${process.env.REACT_APP_API_URL}/answer/${clickedAnswer.answerId}`, {
           vote: clickedAnswer.vote + 1,
           displayName: clickedAnswer.displayName,
           content: clickedAnswer.content,
         })
         .then(() => {
-          axios.get(`/answer`).then(res => setAnswers(res.data));
+          axios.get(`${process.env.REACT_APP_API_URL}/answer`).then(res => setAnswers(res.data));
         });
     }
   };
@@ -103,17 +105,19 @@ const AnswerItems = () => {
       const clickedAnswer = answers.find(q => q.answerId === answerId);
 
       axios
-        .patch(`/answer/${clickedAnswer.answerId}`, {
+        .patch(`${process.env.REACT_APP_API_URL}/answer/${clickedAnswer.answerId}`, {
           vote: clickedAnswer.vote - 1,
           displayName: clickedAnswer.displayName,
           content: clickedAnswer.content,
         })
-        .then(() => axios.get(`/answer`).then(res => setAnswers(res.data)));
+        .then(() =>
+          axios.get(`${process.env.REACT_APP_API_URL}/answer`).then(res => setAnswers(res.data))
+        );
     }
   };
 
   useEffect(() => {
-    axios.get(`/answer`).then(res => {
+    axios.get(`${process.env.REACT_APP_API_URL}/answer`).then(res => {
       setAnswers(res.data);
     });
   }, []);

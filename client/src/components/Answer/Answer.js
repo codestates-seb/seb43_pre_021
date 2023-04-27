@@ -49,7 +49,7 @@ const Answer = (...props) => {
     const instance = editorRef.current.getInstance();
     const content = instance.getMarkdown();
     axios
-      .post(`/answer`, {
+      .post(`${process.env.REACT_APP_API_URL}/answer`, {
         questionNum: id,
         displayName: userinfo.displayName,
         content: content,
@@ -68,7 +68,7 @@ const Answer = (...props) => {
     const editedAnswer = answer.find(q => q.answerId === answerId);
 
     axios
-      .patch(`/answer/${editedAnswer.answerId}`, {
+      .patch(`${process.env.REACT_APP_API_URL}/answer/${editedAnswer.answerId}`, {
         content: content,
         displayName: userinfo.displayName,
       })
@@ -79,7 +79,7 @@ const Answer = (...props) => {
   };
 
   useEffect(() => {
-    axios.get(`/answer`).then(res => {
+    axios.get(`${process.env.REACT_APP_API_URL}/answer`).then(res => {
       setAnswer(res.data);
     });
   }, []);

@@ -31,7 +31,7 @@ function UserEdit() {
   const [user, setUser] = useState([]);
 
   useEffect(() => {
-    axios.get(`/members/${id}`).then(res => setUser(res.data));
+    axios.get(`${process.env.REACT_APP_API_URL}/members/${id}`).then(res => setUser(res.data));
   }, []);
 
   return (

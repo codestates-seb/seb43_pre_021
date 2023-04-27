@@ -54,7 +54,7 @@ function ProfileTab({ user, isLoggedIn, userinfo }) {
   const [questions, setQuestions] = useState([]);
 
   useEffect(() => {
-    axios.get('/question').then(res => {
+    axios.get(`${process.env.REACT_APP_API_URL}/question`).then(res => {
       setQuestions(res.data.content);
     });
   }, []);

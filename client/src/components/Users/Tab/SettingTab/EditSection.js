@@ -71,7 +71,7 @@ function EditSection({ user }) {
   function handleSubmit(event) {
     event.preventDefault();
 
-    axios.patch(`/members/${id}`, editData).then(() => {
+    axios.patch(`${process.env.REACT_APP_API_URL}/members/${id}`, editData).then(() => {
       navigate(`/users/${id}`);
     });
   }

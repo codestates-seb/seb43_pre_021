@@ -36,7 +36,7 @@ const QuestionInput = () => {
       alert('내용을 입력해주세요!');
     } else {
       axios
-        .post('/question', {
+        .post(`${process.env.REACT_APP_API_URL}/question`, {
           title: title,
           img: userinfo.img,
           displayName: userinfo.displayName,
@@ -64,7 +64,7 @@ const QuestionInput = () => {
       alert('내용을 입력해주세요!');
     } else {
       axios
-        .patch(`/question/${id}`, {
+        .patch(`${process.env.REACT_APP_API_URL}/question/${id}`, {
           title: title,
           content: content,
           displayName: userinfo.displayName,
@@ -88,7 +88,7 @@ const QuestionInput = () => {
     if (id) {
       setIsLoading(true);
       setIsUpdate(true);
-      axios.get(`/question/${id}`).then(res => {
+      axios.get(`${process.env.REACT_APP_API_URL}/question/${id}`).then(res => {
         setTitle(res.data.title);
         setContent(res.data.content);
         setIsLoading(false);

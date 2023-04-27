@@ -26,7 +26,7 @@ const Question = () => {
 
     if (confirmDelete) {
       axios
-        .delete(`/question/${id}`)
+        .delete(`${process.env.REACT_APP_API_URL}/question/${id}`)
         .then(() => {
           document.location.href = '/';
         })
@@ -41,14 +41,14 @@ const Question = () => {
   };
 
   useEffect(() => {
-    axios.get(`/question/${id}`).then(res => {
+    axios.get(`${process.env.REACT_APP_API_URL}/question/${id}`).then(res => {
       setQuestion(res.data);
     });
   }, [id]);
 
   useEffect(() => {
     axios
-      .get('/members')
+      .get(`${process.env.REACT_APP_API_URL}/members`)
       .then(res => {
         setMembers(res.data);
       })

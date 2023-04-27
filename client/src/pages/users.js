@@ -53,7 +53,7 @@ function Users() {
 
   useEffect(() => {
     axios
-      .get('/members')
+      .get(`${process.env.REACT_APP_API_URL}/members`)
       .then(res => {
         setMembers(res.data);
       })

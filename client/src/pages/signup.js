@@ -150,7 +150,7 @@ function SignUp() {
 
     if (displayName && email && pwd) {
       axios
-        .post('/members/signup', {
+        .post(`${process.env.REACT_APP_API_URL}/members/signup`, {
           displayName: displayName,
           email: email,
           password: pwd,

@@ -129,7 +129,7 @@ function Login() {
 
     if (email && pwd) {
       axios
-        .post('/auth/login', { username: email, password: pwd })
+        .post(`${process.env.REACT_APP_API_URL}/auth/login`, { username: email, password: pwd })
         .then(res => {
           if (res.status === 200) {
             const userEmail = members.filter(el => el.email === email);
@@ -165,7 +165,7 @@ function Login() {
 
   useEffect(() => {
     axios
-      .get('/members')
+      .get(`${process.env.REACT_APP_API_URL}/members`)
       .then(res => {
         setMembers(res.data);
       })

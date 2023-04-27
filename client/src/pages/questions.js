@@ -16,7 +16,7 @@ const Questions = () => {
 
   useEffect(() => {
     axios
-      .get('/question')
+      .get(`${process.env.REACT_APP_API_URL}/question`)
       .then(res => {
         setQuestions(res.data.content);
       })
@@ -24,7 +24,7 @@ const Questions = () => {
         console.error(error);
       });
 
-    axios.get(`/answer`).then(res => {
+    axios.get(`${process.env.REACT_APP_API_URL}/answer`).then(res => {
       setAnswers(res.data);
     });
   }, []);

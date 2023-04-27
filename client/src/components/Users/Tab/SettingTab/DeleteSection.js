@@ -64,7 +64,7 @@ function DeleteSection({ isLoggedIn, user }) {
   function handleDelete(event) {
     event.preventDefault();
 
-    axios.delete(`/members/${user.memberId}`).then(!isLoggedIn);
+    axios.delete(`${process.env.REACT_APP_API_URL}/members/${user.memberId}`).then(!isLoggedIn);
     dispatch(logout());
     navigate('/');
   }
