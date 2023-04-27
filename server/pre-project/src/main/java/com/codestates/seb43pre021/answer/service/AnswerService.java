@@ -39,6 +39,8 @@ public class AnswerService {
                 .ifPresent(content -> findAnswer.setContent(content));
         Optional.ofNullable(answer.getAnswerStatus())
                 .ifPresent(answerStatus -> findAnswer.setAnswerStatus(answerStatus));
+        Optional.ofNullable(answer.getVote())
+                        .ifPresent(vote -> findAnswer.setVote(vote));
 
         findAnswer.setModifiedAt(LocalDateTime.now());
 

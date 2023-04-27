@@ -51,6 +51,8 @@ public class QuestionService {
                 .ifPresent(img -> findQuestion.setImg(img));
         Optional.ofNullable(question.getQuestionStatus())
                 .ifPresent(questionStatus -> findQuestion.setQuestionStatus(questionStatus));
+        Optional.ofNullable((question.getVote()))
+                .ifPresent(vote -> findQuestion.setVote(vote));
 
         findQuestion.setModifiedAt(LocalDateTime.now());
 
