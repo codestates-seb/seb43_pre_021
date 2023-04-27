@@ -42,8 +42,8 @@ public class MemberService {
 
         Optional.ofNullable(member.getDisplayName())
                 .ifPresent(displayName -> findMember.setDisplayName(displayName));
-        Optional.ofNullable(member.getPassword())
-                .ifPresent(password -> findMember.setPassword(passwordEncoder.encode(password)));
+        //Optional.ofNullable(member.getPassword())
+        //        .ifPresent(password -> findMember.setPassword(passwordEncoder.encode(password)));
         Optional.ofNullable(member.getImg())
                 .ifPresent(img -> findMember.setImg(img));
         Optional.ofNullable(member.getAbout())
