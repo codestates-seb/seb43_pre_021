@@ -31,7 +31,7 @@
       "title": "질문",
       "content": "내용",
       "viewCount": 10,
-      "vote": 10,
+      "vote": 1,
       "createdAt": "2023-04-19 10:30:15",
       "modifiedAt": "2023-04-19 10:33:20",
       "answer": [],
@@ -86,6 +86,22 @@
         "img": "https://images.unsplash.com/photo-1680903413454-ff0f93efbcc3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2864&q=80",
         "id": 1
       }
+    }
+  ],
+  "ANSWER": [
+    {
+      "questionId": "1",
+      "displayName": "bb",
+      "content": "aa",
+      "vote": 5,
+      "id": 1
+    },
+    {
+      "questionId": "1",
+      "displayName": "bbbb",
+      "content": "kkkk",
+      "vote": 0,
+      "id": 2
     }
   ]
 }
