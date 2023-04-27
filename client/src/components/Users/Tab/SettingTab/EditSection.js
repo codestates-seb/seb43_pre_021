@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Button from '../../../button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -58,6 +58,7 @@ function EditSection({ user }) {
   // const userData = 'http://localhost:3001/USER_DATA';
   const { id } = useParams();
   const [editData, setEditData] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   function handleChange(e) {
@@ -71,50 +72,61 @@ function EditSection({ user }) {
   function handleSubmit(event) {
     console.log(editData);
     event.preventDefault();
-    // 실제 서버용
+
     axios.patch(`/members/${id}`, editData).then(res => {
       console.log(res.data);
       navigate(`/users/${id}`);
     });
-    //axios.patch(`${userData}/${id}`, editData).then(navigate(`/users/${id}`));
   }
+
+  useEffect(() => {
+    setIsLoading(true);
+    setEditData({ displayName: user.displayName, about: user.about });
+    setIsLoading(false);
+  }, [user]);
 
   return (
     <EditSectionBlock>
-      <SectionHeader>
-        <h3>Edit your profile</h3>
-      </SectionHeader>
-      <SectionBlock onSubmit={handleSubmit}>
-        <div className="editBlock">
-          <label htmlFor="displayName" className="label">
-            Display name
-          </label>
-          <input
-            id="displayName"
-            name="displayName"
-            type="text"
-            defaultValue={user.displayName}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="editBlock">
-          <label htmlFor="about" className="label">
-            About me
-          </label>
-          <textarea
-            id="about"
-            name="about"
-            defaultValue={user.about}
-            onChange={handleChange}
-          ></textarea>
-        </div>
-        <BtnBlock className="btns">
-          <Button type="submit">Save profile</Button>
-          <Button color="#4393f7" background="#fff" border="#fff" onClick={() => navigate('')}>
-            cancel
-          </Button>
-        </BtnBlock>
-      </SectionBlock>
+      {isLoading ? null : (
+        <>
+          <SectionHeader>
+            <h3>Edit your profile</h3>
+          </SectionHeader>
+          <SectionBlock onSubmit={handleSubmit}>
+            <div className="editBlock">
+              <label htmlFor="displayName" className="label">
+                Display name
+              </label>
+              <input
+                required
+                id="displayName"
+                name="displayName"
+                type="text"
+                defaultValue={editData.displayName}
+                onChange={handleChange}
+              />
+            </div>
+            <div className="editBlock">
+              <label htmlFor="about" className="label">
+                About me
+              </label>
+              <textarea
+                required
+                id="about"
+                name="about"
+                defaultValue={editData.about}
+                onChange={handleChange}
+              ></textarea>
+            </div>
+            <BtnBlock className="btns">
+              <Button type="submit">Save profile</Button>
+              <Button color="#4393f7" background="#fff" border="#fff" onClick={() => navigate('')}>
+                cancel
+              </Button>
+            </BtnBlock>
+          </SectionBlock>
+        </>
+      )}
     </EditSectionBlock>
   );
 }

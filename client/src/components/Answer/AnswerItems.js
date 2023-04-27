@@ -61,7 +61,7 @@ const AnswerItems = () => {
 
   let { id } = useParams();
 
-  answers = answers.filter(el => el.questionId === id);
+  answers = answers.filter(el => el.questionNum === Number(id));
 
   const handleUpdate = () => {
     setUpdate(!update);
@@ -70,13 +70,11 @@ const AnswerItems = () => {
   const handleDelete = (idx, e) => {
     e.preventDefault();
     axios.get(`/answer`).then(res => {
-      console.log('res.data', res.data);
-      const deleteEl = res.data.filter(el => el.id == idx + 1);
-      console.log(deleteEl);
+      const deleteEl = res.data.filter(el => el.answerId == idx);
 
       axios
-        .delete(`/answer/${deleteEl[0].id}`)
-        .then(() => axios.get(`http://localhost:3001/ANSWER`).then(res => setAnswers(res.data)));
+        .delete(`/answer/${deleteEl[0].answerId}`)
+        .then(() => axios.get(`/answer`).then(res => setAnswers(res.data)));
     });
   };
 
@@ -84,13 +82,18 @@ const AnswerItems = () => {
     if (author === userinfo.displayName) {
       alert('본인의 답글은 투표할 수 없습니다');
     } else {
-      const clickedAnswer = answers.find(q => q.id === answerId);
+      const clickedAnswer = answers.find(q => q.answerId === answerId);
 
       axios
-        .patch(`/answer/${clickedAnswer.id}`, {
+        .patch(`/answer/${clickedAnswer.answerId}`, {
           vote: clickedAnswer.vote + 1,
+          displayName: clickedAnswer.displayName,
+          content: clickedAnswer.content,
         })
-        .then(() => axios.get(`/answer`).then(res => setAnswers(res.data)));
+        .then(res => {
+          console.log(res.data);
+          axios.get(`/answer`).then(res => setAnswers(res.data));
+        });
     }
   };
 
@@ -98,13 +101,15 @@ const AnswerItems = () => {
     if (author === userinfo.displayName) {
       alert('본인의 답글은 투표할 수 없습니다');
     } else {
-      const clickedAnswer = answers.find(q => q.id === answerId);
+      const clickedAnswer = answers.find(q => q.answerId === answerId);
 
       axios
-        .patch(`http://localhost:3001/ANSWER/${clickedAnswer.id}`, {
+        .patch(`/answer/${clickedAnswer.answerId}`, {
           vote: clickedAnswer.vote - 1,
+          displayName: clickedAnswer.displayName,
+          content: clickedAnswer.content,
         })
-        .then(() => axios.get(`http://localhost:3001/ANSWER`).then(res => setAnswers(res.data)));
+        .then(() => axios.get(`/answer`).then(res => setAnswers(res.data)));
     }
   };
 
@@ -124,13 +129,13 @@ const AnswerItems = () => {
                   <VscTriangleUp
                     size={30}
                     color="rgb(187, 191, 195)"
-                    onClick={() => handleUp(idx + 1, el.displayName)}
+                    onClick={() => handleUp(el.answerId, el.displayName)}
                   />
                   <p>{el.vote}</p>
                   <VscTriangleDown
                     size={30}
                     color="rgb(187, 191, 195)"
-                    onClick={() => handleDown(idx + 1, el.displayName)}
+                    onClick={() => handleDown(el.answerId, el.displayName)}
                   />
                 </div>
                 <div>
@@ -144,7 +149,7 @@ const AnswerItems = () => {
                       {el.displayName === userinfo.displayName ? (
                         <>
                           <BsPencilSquare onClick={handleUpdate} />
-                          <BsTrash onClick={e => handleDelete(idx, e)} />
+                          <BsTrash onClick={e => handleDelete(el.answerId, e)} />
                         </>
                       ) : null}
                     </IconContainer>
@@ -154,7 +159,7 @@ const AnswerItems = () => {
                     <Answer
                       from={update}
                       text={el.content}
-                      idx={idx + 1}
+                      idx={el.answerId}
                       displayName={el.displayName}
                     />
                   ) : null}

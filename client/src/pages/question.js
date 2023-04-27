@@ -13,7 +13,6 @@ import { Viewer } from '@toast-ui/react-editor';
 const Question = () => {
   let { id } = useParams();
 
-  // const questionData = 'http://localhost:3001/QUESTION_DATA';
   const isLoggedIn = useSelector(state => state.login.isLoggedIn);
   const userId = useSelector(state => state.userinfo.user.id);
 
@@ -25,41 +24,22 @@ const Question = () => {
   const onDelete = () => {
     const confirmDelete = window.confirm('정말로 삭제하시겠습니까?');
 
-    // 실제 서버 연결용
     if (confirmDelete) {
       axios
         .delete(`/question/${id}`)
-        .then(res => {
-          console.log(res.data);
-        })
         .then(() => {
-          document.location.href = '/questions';
+          document.location.href = '/';
         })
         .catch(error => {
           console.error(error);
         });
     }
-
-    // if (confirmDelete) {
-    //   axios
-    //     .delete(`${questionData}/${id}`)
-    //     .then(res => {
-    //       console.log(res.data);
-    //     })
-    //     .then(() => {
-    //       document.location.href = '/questions';
-    //     })
-    //     .catch(error => {
-    //       console.error(error);
-    //     });
-    // }
   };
 
   const onUpdate = () => {
     document.location.href = `/questions/ask/${id}`;
   };
 
-  // 실제 서버 연결용
   useEffect(() => {
     axios.get(`/question/${id}`).then(res => {
       setQuestion(res.data);
@@ -75,21 +55,14 @@ const Question = () => {
       .catch(err => console.error(err));
   }, []);
 
-  // useEffect(() => {
-  //   axios.get(`${questionData}/${id}`).then(res => {
-  //     setQuestion(res.data);
-  //   });
-  // }, [id]);
-
   return (
     <Container>
       <QuestionDiv>
         {question && (
           <>
-            {console.log(members)}
             <PageTitle>
               <div>
-                <Link to={`/users/${member.memberId}`}>
+                <Link to={`/users/${member[0].memberId}`}>
                   <UserImg src={question.img} alt="userimg" />
                 </Link>
                 <span>{question.title}</span>
@@ -118,7 +91,7 @@ const Question = () => {
             </PageTitle>
             <ContentContainer>
               <Viewer initialValue={question.content} />
-              {isLoggedIn && userId === member.id ? (
+              {isLoggedIn && userId === member[0].memberId ? (
                 <BtnContainer>
                   <Button onClick={onUpdate} background="none" border="#ffffff" color="#888888">
                     수정

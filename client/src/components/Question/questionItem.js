@@ -1,13 +1,15 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-const QuestionItem = ({ question }) => {
+const QuestionItem = ({ question, answers }) => {
+  answers = answers.filter(el => el.questionNum === question.questionId);
+
   return (
     <div>
       <Item>
         <Response>
           <p>{question.vote || 0} votes</p>
-          <p>{question.answers.length} answer</p>
+          <p>{answers.length} answer</p>
           <p>{question.viewCount || 0} views</p>
         </Response>
         <Question>

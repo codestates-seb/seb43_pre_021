@@ -51,23 +51,13 @@ const StatsBlock = styled.div`
 `;
 
 function ProfileTab({ user, isLoggedIn, userinfo }) {
-  // const questionData = 'http://localhost:3001/QUESTION_DATA';
   const [questions, setQuestions] = useState([]);
 
-  // 실제서버용
   useEffect(() => {
     axios.get('/question').then(res => {
       setQuestions(res.data.content);
     });
   }, []);
-
-  // useEffect(() => {
-  //   axios.get(`${questionData}`).then(res => {
-  //     setQuestions(res.data);
-  //   });
-  // }, []);
-
-  console.log('user', user);
 
   const question = questions.filter(question => question.displayName === user.displayName);
 
