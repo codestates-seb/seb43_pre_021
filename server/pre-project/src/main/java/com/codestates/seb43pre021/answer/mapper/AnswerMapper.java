@@ -25,6 +25,7 @@ public class AnswerMapper {
             answer.setDisplayName(answerPatchDto.getDisplayName());
             answer.setContent(answerPatchDto.getContent());
             answer.setQuestionNum(answerPatchDto.getQuestionNum());
+            answer.setVote(answerPatchDto.getVote());
 
             return answer;
         }

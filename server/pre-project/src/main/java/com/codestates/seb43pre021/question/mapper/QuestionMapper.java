@@ -30,6 +30,7 @@ public class QuestionMapper {
         question.setTitle(questionPatchDto.getTitle());
         question.setContent(questionPatchDto.getContent());
         question.setImg(questionPatchDto.getImg());
+        question.setVote(questionPatchDto.getVote());
         return question;
     }
 
